@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Sign out error:', error);
     return NextResponse.json({ 
-      error: 'Failed to sign out',
+      error: '退出登录失败',
       details: error.message 
     }, { status: 500 });
   }

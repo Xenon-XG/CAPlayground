@@ -68,7 +68,7 @@ export async function unpackDualCAZip(file: Blob): Promise<DualCABundle> {
   const floatingDir = findDir('Floating.ca');
   const backgroundDir = findDir('Background.ca');
   if (!floatingDir || !backgroundDir) {
-    throw new Error('UNSUPPORTED_ZIP_STRUCTURE: Expected Background.ca and Floating.ca');
+    throw new Error('UNSUPPORTED_ZIP_STRUCTURE: 压缩包应包含 Background.ca 和 Floating.ca');
   }
 
   const readDoc = async (baseDir: string) => {
@@ -91,7 +91,7 @@ export async function unpackDualCAZip(file: Blob): Promise<DualCABundle> {
       const candidate = paths.find((p) => p.toLowerCase().startsWith(baseDir.toLowerCase()) && (p.split('/').pop() || '') === base);
       if (candidate) camlEntry = zip.file(candidate);
     }
-    if (!camlEntry) throw new Error(`Missing CAML in ${baseDir}`);
+    if (!camlEntry) throw new Error(`${baseDir} 中缺少 CAML`);
     const camlStrOriginal = await camlEntry.async('string');
     const { xml: camlStr, assets: inlineAssets } = await extractInlineAssetsToFiles(camlStrOriginal);
     const root = parseCAML(camlStr);
@@ -355,12 +355,12 @@ export async function unpackCA(file: Blob): Promise<CAProjectBundle> {
     if (anyCaml) camlFile = zip.file(anyCaml);
   }
   const camlStrOriginal = camlFile ? await camlFile.async('string') : null;
-  if (!camlStrOriginal) throw new Error('CAML scene not found in package');
+  if (!camlStrOriginal) throw new Error('压缩包中未找到 CAML 场景');
 
   const { xml: camlStr, assets: inlineAssets } = await extractInlineAssetsToFiles(camlStrOriginal);
 
   const root = parseCAML(camlStr);
-  if (!root) throw new Error('Failed to parse CAML');
+  if (!root) throw new Error('解析 CAML 失败');
   const states = parseStates(camlStr);
   const stateOverrides = parseStateOverrides(camlStr);
   const stateTransitions = parseStateTransitions(camlStr);
@@ -448,7 +448,7 @@ export async function unpackTendies(file: Blob): Promise<TendiesBundle> {
   );
 
   if (hasMercuryPoster) {
-    throw new Error('MERCURY_POSTER_NOT_SUPPORTED: Mercury Poster wallpapers cannot be imported as their assets are stored in system files and cannot be modified.');
+    throw new Error('MERCURY_POSTER_NOT_SUPPORTED: 无法导入 Mercury Poster 壁纸，其资源存储在系统文件中，无法修改。');
   }
 
   let floatingPath: string | null = null;
@@ -555,7 +555,7 @@ export async function unpackTendies(file: Blob): Promise<TendiesBundle> {
   if (!wallpaperPath) wallpaperPath = findCAPath('wallpaper.ca');
 
   if (!floatingPath && !backgroundPath && !wallpaperPath) {
-    throw new Error('TENDIES_MISSING_CA_FILES: No floating.ca, background.ca, or wallpaper.ca found');
+    throw new Error('TENDIES_MISSING_CA_FILES: 未找到 floating.ca、background.ca 或 wallpaper.ca');
   }
 
   const readCADir = async (baseDir: string): Promise<Omit<CAProjectBundle, 'project'>> => {
@@ -578,12 +578,12 @@ export async function unpackTendies(file: Blob): Promise<TendiesBundle> {
       const candidate = paths.find((p) => p.toLowerCase().startsWith(baseDir.toLowerCase()) && (p.split('/').pop() || '') === base);
       if (candidate) camlEntry = zip.file(candidate);
     }
-    if (!camlEntry) throw new Error(`Missing CAML in ${baseDir}`);
+    if (!camlEntry) throw new Error(`${baseDir} 中缺少 CAML`);
 
     const camlStrOriginal = await camlEntry.async('string');
     const { xml: camlStr, assets: inlineAssets } = await extractInlineAssetsToFiles(camlStrOriginal);
     const root = parseCAML(camlStr);
-    if (!root) throw new Error(`Failed to parse CAML in ${baseDir}`);
+    if (!root) throw new Error(`解析 ${baseDir} 中的 CAML 失败`);
     const states = parseStates(camlStr);
     const stateOverrides = parseStateOverrides(camlStr);
     const stateTransitions = parseStateTransitions(camlStr);

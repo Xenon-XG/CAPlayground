@@ -39,145 +39,128 @@ export default function TermsPage() {
       <div className="mx-auto max-w-3xl">
         <div className="mb-6 sm:mb-8">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">服务条款</h1>
-          <p className="mt-2 text-sm text-muted-foreground">Last Updated: 9th December 2025</p>
+          <p className="mt-2 text-sm text-muted-foreground">上次更新：2025 年 12 月 9 日</p>
         </div>
         {/* Paper container */}
         <div className="rounded-2xl bg-card text-card-foreground shadow-lg ring-1 ring-black/5 border border-border p-6 sm:p-10 text-base sm:text-lg">
           <p className="mt-0 leading-7">
-            These Terms of Service ("Terms") govern your access to and use of CAPlayground. By using the Service, you agree to
-            these Terms.
+            本服务条款（以下简称“条款”）适用于你访问和使用 CAPlayground 的行为。使用本服务即表示你同意本条款。
           </p>
 
-          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">1. Definitions</h2>
+          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">1. 定义</h2>
           <ul className="mt-4 list-disc pl-6 space-y-2">
-          <li><strong>Service</strong>: The CAPlayground application and website.</li>
-          <li><strong>Local Projects</strong>: Projects created and stored locally in your browser/device.</li>
-          <li><strong>云端项目</strong>: Projects created and stored in your Google account's Google Drive.</li>
-          <li><strong>账户</strong>: A Supabase-backed account enabling authentication and account features.</li>
-          <li><strong>User Content</strong>: Content you create or upload while using the Service.</li>
+          <li><strong>服务</strong>：CAPlayground 应用及网站。</li>
+          <li><strong>本机项目</strong>：在浏览器或设备本地创建并存储的项目。</li>
+          <li><strong>云端项目</strong>：在你的 Google 账户的 Google Drive 中创建并存储的项目。</li>
+          <li><strong>账户</strong>：由 Supabase 支持、用于身份验证及账户功能的账户。</li>
+          <li><strong>用户内容</strong>：你在使用服务时创建或上传的内容。</li>
           </ul>
 
-          <h2 className="mt-12 text-3xl md:text-4xl font-semibold">2. Scope & Applicability</h2>
+          <h2 className="mt-12 text-3xl md:text-4xl font-semibold">2. 范围与适用情况</h2>
           <p className="mt-6 leading-8">
-          Some sections apply to everyone who uses the Service (General Terms). Other sections apply only to users who create or
-          use an Account (Account Terms).
+          部分条款适用于所有服务使用者（一般条款）；其他条款仅适用于创建或使用账户的用户（账户条款）。
           </p>
 
-          <h2 className="mt-12 text-3xl md:text-4xl font-semibold">3. General Terms (apply to all users)</h2>
+          <h2 className="mt-12 text-3xl md:text-4xl font-semibold">3. 一般条款（适用于所有用户）</h2>
           <ul className="mt-6 list-disc pl-6 space-y-3">
           <li>
-            <strong>Acceptable Use</strong>: Do not misuse the Service or interfere with others’ use. Do not attempt to access
-            non-public areas or disrupt the Service.
+            <strong>合理使用</strong>：不得滥用服务或干扰他人使用；不得试图访问非公开区域或破坏服务。
           </li>
           <li>
-            <strong>Intellectual Property</strong>: We retain all rights to the Service. You retain rights to your User Content.
+            <strong>知识产权</strong>：我们保留对服务的所有权利；你保留对自己用户内容的权利。
           </li>
           <li>
-            <strong>Content Sharing & Attribution</strong>: If you share wallpapers or content created with CAPlayground on social media platforms (including but not limited to TikTok, Instagram, YouTube, Twitter/X), you must provide clear attribution to CAPlayground. Acceptable attribution includes: (a) linking to caplayground.vercel.app in your post description, bio, or pinned comment, or (b) visibly crediting "CAPlayground" in your content. You may not mislead viewers about the source of the wallpapers or direct them to fraudulent instructions, scam websites, or deceptive practices instead of proper attribution.
+            <strong>内容分享与署名</strong>：如果你在社交平台（包括但不限于 TikTok、Instagram、YouTube、Twitter/X）分享使用 CAPlayground 创作的壁纸或内容，必须明确注明 CAPlayground。可接受的方式包括：(a) 在帖子说明、个人简介或置顶评论中添加 caplayground.vercel.app 的链接；或 (b) 在内容中清晰标注“CAPlayground”。不得误导观众对壁纸来源的认识，也不得以欺诈性说明、诈骗网站或误导性做法取代正确署名。
           </li>
           <li>
-            <strong>Prohibited Conduct</strong>: You may not use content created with CAPlayground to: (a) deceive or defraud users, (b) promote scams or misleading instructions, (c) falsely claim creation of the Service or its features, or (d) engage in any activity that damages CAPlayground's reputation or misleads the public about the Service.
+            <strong>禁止行为</strong>：不得将使用 CAPlayground 创作的内容用于：(a) 欺骗或诈骗用户；(b) 宣传骗局或误导性说明；(c) 谎称自己创建了本服务或其功能；或 (d) 损害 CAPlayground 声誉或误导公众认识本服务的任何活动。
           </li>
           <li>
-            <strong>项目</strong>: By default, projects are stored locally on your device (using browser IndexedDB or OPFS). We do not receive your Local Projects.
-            You can optionally use Cloud Projects, which require signing in to your CAPlayground account and then connecting your Google Drive. This enables secure cloud storage and syncing of your projects across devices.
-            CAPlayground does not receive or store your Cloud Projects; access and storage are managed according to Google Drive's policies.
+            <strong>项目</strong>：默认情况下，项目使用浏览器 IndexedDB 或 OPFS 存储在你的设备本地；我们不会接收你的本机项目。你也可以登录 CAPlayground 账户并连接 Google Drive，选择使用云端项目，以便跨设备安全存储和同步。CAPlayground 不会接收或存储你的云端项目；访问和存储遵循 Google Drive 的政策。
           </li>
           <li>
-            <strong>云端项目</strong>: Cloud storage via Google Drive allows you to sync your projects across devices. We provide no guarantees of data availability or reliability for Cloud Projects. You are responsible for maintaining backups of important projects. You must comply with Google's Terms of Service when using Cloud Projects.
+            <strong>云端项目</strong>：通过 Google Drive 云存储，你可以跨设备同步项目。我们不保证云端项目的数据可用性或可靠性；你有责任备份重要项目。使用云端项目时须遵守 Google 服务条款。
           </li>
           <li>
-            <strong>Google Drive Integration</strong>: When you sign in to Google Drive, you authorize CAPlayground to access files created by CAPlayground in your Drive. We use browser cookies to maintain your Drive session. You can revoke this access at any time through your Google account settings or by signing out from Google Drive in the dashboard.
+            <strong>Google Drive 集成</strong>：登录 Google Drive 即表示你授权 CAPlayground 访问其在你 Drive 中创建的文件。我们使用浏览器 Cookie 维持 Drive 会话。你可以随时通过 Google 账户设置或在控制台退出 Google Drive 来撤销访问权限。
           </li>
           <li>
-            <strong>No Warranty</strong>: The Service is provided “as is” and “as available.” We disclaim warranties to the extent
-            permitted by law.
+            <strong>不提供保证</strong>：服务按“现状”和“可用情况”提供。在法律允许的范围内，我们不作任何保证。
           </li>
           <li>
-            <strong>Limitation of Liability</strong>: To the extent permitted by law, we are not liable for indirect, incidental, or
-            consequential damages.
+            <strong>责任限制</strong>：在法律允许的范围内，我们不对间接、附带或后果性损害承担责任。
           </li>
           <li>
-            <strong>Changes to the Service</strong>: We may change or discontinue features at any time.
+            <strong>服务变更</strong>：我们可以随时更改或停止提供功能。
           </li>
           </ul>
 
-          <h2 className="mt-12 text-3xl md:text-4xl font-semibold">4. Account Terms (apply if you sign in)</h2>
+          <h2 className="mt-12 text-3xl md:text-4xl font-semibold">4. 账户条款（适用于登录用户）</h2>
           <ul className="mt-6 list-disc pl-6 space-y-3">
           <li>
-            <strong>Eligibility</strong>: You must be at least 13 years old to use the Service, or the minimum age of digital
-            consent in your country.
+            <strong>使用资格</strong>：你必须年满 13 周岁，或达到所在国家或地区的最低数字服务同意年龄。
           </li>
           <li>
-            <strong>账户信息</strong>: Accounts are provided via Supabase. We may collect and process your email,
-            username (if set), and sign-in activity for security and account operation.
+            <strong>账户信息</strong>：账户由 Supabase 提供。为保障安全和运行账户功能，我们可能收集和处理你的邮箱、用户名（如果设置）及登录活动。
           </li>
           <li>
-            <strong>Security</strong>: Keep your credentials secure. You are responsible for activity under your account.
+            <strong>安全</strong>：请妥善保管登录凭据。你应对账户下的活动负责。
           </li>
           <li>
-            <strong>Termination</strong>: You may delete your account at any time. We may suspend or terminate accounts that
-            violate these Terms. Note: Deleting your CAPlayground account does not automatically delete your Cloud Projects from Google Drive. You must manually delete them from Drive or use the "Delete All" feature in the dashboard before deleting your account.
+            <strong>账户终止</strong>：你可以随时删除账户。对于违反本条款的账户，我们可能暂停或终止其使用。请注意：删除 CAPlayground 账户不会自动删除 Google Drive 中的云端项目。删除账户前，你必须在 Drive 中手动删除，或使用控制台的“全部删除”功能。
           </li>
           </ul>
 
-          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">5. Privacy & Data</h2>
+          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">5. 隐私与数据</h2>
           <ul className="mt-4 list-disc pl-6 space-y-2">
           <li>
-            <strong>Local Processing</strong>: Local Projects remain on your device unless you explicitly upload/share them.
+            <strong>本地处理</strong>：除非你明确上传或分享，本机项目始终保留在你的设备上。
           </li>
           <li>
-            <strong>Account Data</strong>: If you create an Account, we process minimal data needed for authentication and profile
-            features (email, optional username) using Supabase.
+            <strong>账户数据</strong>：如果你创建账户，我们通过 Supabase 处理身份验证和个人资料功能所需的最少数据（邮箱、可选用户名）。
           </li>
           <li>
-            <strong>Operational Logs</strong>: Supabase, as our backend provider, maintains operational logs (e.g., auth events,
-            edge/network, API, and database logs) to operate and secure the platform. See Supabase docs for details.
+            <strong>运行日志</strong>：后端服务提供方 Supabase 会保存身份验证事件、边缘网络、API 和数据库等运行日志，以运营并保护平台。详情请参阅 Supabase 文档。
           </li>
           <li>
-            <strong>Aggregate-only Analytics</strong>: We record aggregate counts of certain in-product events (e.g., when a project
-            is created) to understand usage. These counters do not include user identifiers and are not used for advertising.
+            <strong>仅汇总的分析数据</strong>：我们汇总统计某些产品事件（例如创建项目）以了解使用情况。这些计数不包含用户标识，也不用于广告。
           </li>
           <li>
-            <strong>Analytics (PostHog)</strong>: We use a privacy focused analytics tool to measure page views (URL, title,
-            referrer, timestamp, session ID), sessions (duration, start/end times, page count, basic bounce), and performance
-            metrics (page load, DOM content loaded, first paint/first contentful paint, resource timing). Analytics data is proxied through our own domain.
+            <strong>数据分析（PostHog）</strong>：我们使用注重隐私的分析工具统计页面访问（URL、标题、来源页面、时间戳、会话 ID）、会话（时长、开始和结束时间、访问页面数、基本跳出情况）和性能指标（页面加载、DOM 内容加载、首次绘制和首次内容绘制、资源加载耗时）。分析数据经由我们自己的域名代理。
           </li>
           <li>
-            <strong>Cloud Projects Data</strong>: When you use Cloud Projects, your project files are stored in YOUR Google Drive account, not on CAPlayground servers. We do not receive, store, or have access to your Cloud Projects. All data is transmitted directly between your browser and Google Drive.
+            <strong>云端项目数据</strong>：使用云端项目时，项目文件存储在你自己的 Google Drive 账户中，而非 CAPlayground 服务器。我们不会接收、存储或访问云端项目；所有数据均在你的浏览器与 Google Drive 之间直接传输。
           </li>
           <li>
-            <strong>Google Drive Cookies</strong>: When you sign in to Google Drive, we store authentication tokens in browser cookies (httpOnly, secure) to maintain your session. These cookies are used solely to authenticate API requests to Google Drive on your behalf.
+            <strong>Google Drive Cookie</strong>：登录 Google Drive 后，我们将身份验证令牌存储在浏览器 Cookie（httpOnly、安全）中，以维持会话。这些 Cookie 仅用于代表你验证发送至 Google Drive 的 API 请求。
           </li>
           </ul>
 
-          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">6. Third-Party Services</h2>
+          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">6. 第三方服务</h2>
           <p className="mt-3 leading-7">
-          We use Supabase for authentication and backend infrastructure. Your use of those features may be subject to Supabase’s
-          policies.
+          我们使用 Supabase 提供身份验证和后端基础设施。你使用相关功能时可能还须遵守 Supabase 的政策。
           </p>
           <p className="mt-3 leading-7">
-          If you use Cloud Projects, we integrate with Google Drive to store your project files in YOUR Google Drive account. Your use of Google Drive is subject to Google's Terms of Service and Privacy Policy. CAPlayground accesses only files it creates in a "CAPlayground" folder in your Drive. You are responsible for your Google Drive storage limits and compliance with Google's terms.
-          </p>
-
-          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">7. Enforcement & Violations</h2>
-          <p className="mt-3 leading-7">
-          We reserve the right to investigate violations of these Terms, including misuse of content created with CAPlayground. If we determine that you have violated the Content Sharing & Attribution or Prohibited Conduct provisions, we may: (a) suspend or terminate your account, (b) request removal of infringing content from social media platforms, (c) pursue legal remedies where applicable, or (d) publicly identify accounts engaged in fraudulent or deceptive practices. We may also report scams and fraudulent activity to relevant platforms and authorities.
+          如果你使用云端项目，我们会通过 Google Drive 将项目文件存储在你自己的 Google Drive 账户中。你使用 Google Drive 时须遵守 Google 服务条款和隐私政策。CAPlayground 仅访问其在你的 Drive 中“CAPlayground”文件夹内创建的文件。你需要自行承担 Google Drive 存储容量限制并遵守 Google 的条款。
           </p>
 
-          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">8. Changes to These Terms</h2>
+          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">7. 违规处理</h2>
           <p className="mt-3 leading-7">
-          We may update these Terms from time to time. We will update the "Last Updated" date above. Material changes will be
-          communicated reasonably.
+          我们保留调查违反本条款行为的权利，包括滥用通过 CAPlayground 创作的内容。如果我们认定你违反“内容分享与署名”或“禁止行为”条款，我们可能：(a) 暂停或终止你的账户；(b) 要求社交平台移除侵权内容；(c) 在适用情况下寻求法律救济；或 (d) 公开指出参与欺诈或误导行为的账户。我们也可能向相关平台和主管机关举报诈骗及欺诈活动。
           </p>
 
-          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">9. Contact</h2>
+          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">8. 条款变更</h2>
           <p className="mt-3 leading-7">
-            Questions? Contact us at <a className="underline" href="mailto:support@enkei64.xyz">support@enkei64.xyz</a>.
+          我们可能不时更新本条款，届时将更新上方的“上次更新”日期，并以合理方式告知重大变更。
+          </p>
+
+          <h2 className="mt-10 text-2xl md:text-3xl font-semibold">9. 联系我们</h2>
+          <p className="mt-3 leading-7">
+            如有疑问，请通过以下邮箱联系我们：<a className="underline" href="mailto:support@enkei64.xyz">support@enkei64.xyz</a>.
           </p>
 
           <p className="mt-10 text-sm text-muted-foreground">
-            Also see our {" "}
+            另请参阅我们的{" "}
             <Link href="/privacy" className="underline">隐私政策</Link>.
           </p>
         </div>

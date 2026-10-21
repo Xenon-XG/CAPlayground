@@ -29,20 +29,20 @@ export default function ResetPasswordPage() {
     setError(null)
     setMsg(null)
     if (password.length < 8) {
-      setError("Password must be at least 8 characters")
+      setError("密码至少需要 8 个字符")
       return
     }
     if (password !== confirm) {
-      setError("Passwords do not match")
+      setError("两次输入的密码不一致")
       return
     }
     setLoading(true)
     try {
       const { error } = await supabase.auth.updateUser({ password })
       if (error) throw error
-      setMsg("Password updated. You can now continue to the app.")
+      setMsg("密码已更新，现在可以继续使用应用。")
     } catch (e: any) {
-      setError(e.message ?? "Failed to update password")
+      setError(e.message ?? "更新密码失败")
     } finally {
       setLoading(false)
     }
@@ -101,7 +101,7 @@ export default function ResetPasswordPage() {
                   {msg && <p className="text-sm text-green-600">{msg}</p>}
 
                   <Button disabled={loading} onClick={handleUpdate} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
-                    {loading ? "Updating..." : "Update password"}
+                    {loading ? "正在更新…" : "更新密码"}
                   </Button>
 
                   <p className="text-center text-sm text-muted-foreground">

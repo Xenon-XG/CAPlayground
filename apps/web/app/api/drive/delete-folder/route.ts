@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     listUrl.searchParams.set('fields', 'files(id, name)');
     listUrl.searchParams.set('spaces', 'drive');
     const searchRes = await fetch(listUrl.toString(), { headers: { Authorization: `Bearer ${accessToken}` } });
-    if (!searchRes.ok) return NextResponse.json({ error: 'Failed to query folder', details: await searchRes.text() }, { status: 500 });
+    if (!searchRes.ok) return NextResponse.json({ error: '查询文件夹失败', details: await searchRes.text() }, { status: 500 });
     const searchJson = await searchRes.json() as { files?: Array<{ id: string }> };
 
     if (searchJson.files && searchJson.files.length > 0) {
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${accessToken}` }
       });
-      if (!delRes.ok) return NextResponse.json({ error: 'Failed to delete folder', details: await delRes.text() }, { status: 500 });
+      if (!delRes.ok) return NextResponse.json({ error: '删除文件夹失败', details: await delRes.text() }, { status: 500 });
       const response = NextResponse.json({ success: true, deleted: true });
       if (newAccessToken) {
         response.cookies.set('google_drive_access_token', newAccessToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', maxAge: 3600, path: '/' });
@@ -35,13 +35,13 @@ export async function POST(request: NextRequest) {
       }
       return response;
     } else {
-      return NextResponse.json({ success: true, deleted: false, message: 'Folder not found' });
+      return NextResponse.json({ success: true, deleted: false, message: '未找到文件夹' });
     }
 
   } catch (error: any) {
     console.error('Drive delete-folder error:', error);
     return NextResponse.json({ 
-      error: 'Failed to delete folder from Drive',
+      error: '从 Google Drive 删除文件夹失败',
       details: error.message 
     }, { status: 500 });
   }

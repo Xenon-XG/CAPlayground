@@ -31,7 +31,7 @@ async function getContributors(): Promise<GitHubContributor[]> {
     )
 
     if (!response.ok) {
-      throw new Error(`GitHub API error: ${response.status}`)
+      throw new Error(`GitHub API 错误：${response.status}`)
     }
 
     const contributors = await response.json()
@@ -117,7 +117,7 @@ export default async function ContributorsPage() {
                   className="inline-flex items-center space-x-2 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6 py-3 rounded-lg transition-colors"
                 >
                   <Github className="w-5 h-5" />
-                  <span>View on GitHub</span>
+                  <span>在 GitHub 上查看</span>
                 </Link>
               </div>
             )}
@@ -181,7 +181,7 @@ export default async function ContributorsPage() {
                 className="inline-flex items-center space-x-2 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6 py-3 rounded-lg transition-colors"
               >
                 <Github className="w-5 h-5" />
-                <span>View on GitHub</span>
+                <span>在 GitHub 上查看</span>
               </Link>
             </div>
           </div>

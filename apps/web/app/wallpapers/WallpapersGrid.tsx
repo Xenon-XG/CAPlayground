@@ -89,14 +89,14 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
       const fileUrl = `${data.base_url}${item.file}`
 
       const response = await fetch(fileUrl)
-      if (!response.ok) throw new Error('Failed to download wallpaper')
+      if (!response.ok) throw new Error('下载壁纸失败')
       const blob = await response.blob()
 
       const { unpackTendies } = await import('@/lib/ca/ca-file')
       const tendies = await unpackTendies(blob)
 
       const id = Date.now().toString()
-      const name = await ensureUniqueProjectName(item.name || "Imported Wallpaper")
+      const name = await ensureUniqueProjectName(item.name || "导入的壁纸")
       const width = Math.round(tendies.project.width)
       const height = Math.round(tendies.project.height)
       await createProject({
@@ -200,7 +200,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
       router.push(`/editor/${id}`)
     } catch (err) {
       console.error('Failed to open wallpaper in editor', err)
-      alert(`Failed to open wallpaper in editor: ${err instanceof Error ? err.message : 'Unknown error'}`)
+      alert(`在编辑器中打开壁纸失败：${err instanceof Error ? err.message : '未知错误'}`)
     } finally {
       setImportingWallpaper(null)
     }
@@ -448,7 +448,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                     className="w-full"
                   >
                     <Edit className="h-4 w-4 mr-2" />
-                    {importingWallpaper === item.name ? 'Opening...' : 'Open in Editor'}
+                    {importingWallpaper === item.name ? '正在打开…' : '在编辑器中打开'}
                   </Button>
                   <Button
                     variant="outline"
@@ -573,7 +573,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                       className="w-full"
                     >
                       <Edit className="h-4 w-4 mr-2" />
-                      {importingWallpaper === expandedWallpaper.name ? 'Opening...' : 'Open in Editor'}
+                      {importingWallpaper === expandedWallpaper.name ? '正在打开…' : '在编辑器中打开'}
                     </Button>
                     <Button
                       variant="outline"

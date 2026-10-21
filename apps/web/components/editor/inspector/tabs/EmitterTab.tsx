@@ -253,7 +253,7 @@ export function EmitterTab({
                 <div className="grid grid-cols-6 gap-y-3 gap-x-1.5 items-end" key={i}>
                   <SliderInput
                     className="col-span-3"
-                    label="Contents Scale"
+                    label="内容缩放"
                     value={cell.contentsScale}
                     bufferKey={'emitterCells[' + i + '].contentsScale'}
                     getBuf={getBuf}
@@ -477,7 +477,7 @@ export function EmitterTab({
                   />
                   <SliderInput
                     className="col-span-3"
-                    label="Scale Range"
+                    label="缩放范围"
                     value={cell.scaleRange}
                     bufferKey={'emitterCells[' + i + '].scaleRange'}
                     getBuf={getBuf}
@@ -497,7 +497,7 @@ export function EmitterTab({
                   />
                   <SliderInput
                     className="col-span-3"
-                    label="Scale Speed"
+                    label="缩放速度"
                     value={cell.scaleSpeed}
                     bufferKey={'emitterCells[' + i + '].scaleSpeed'}
                     getBuf={getBuf}
@@ -540,7 +540,7 @@ export function EmitterTab({
                   />
                   <SliderInput
                     className="col-span-3"
-                    label="Alpha Range"
+                    label="透明度范围"
                     value={cell.alphaRange}
                     bufferKey={'emitterCells[' + i + '].alphaRange'}
                     getBuf={getBuf}
@@ -564,7 +564,7 @@ export function EmitterTab({
                   />
                   <SliderInput
                     className="col-span-3"
-                    label="Alpha Speed"
+                    label="透明度变化速度"
                     value={cell.alphaSpeed}
                     bufferKey={'emitterCells[' + i + '].alphaSpeed'}
                     getBuf={getBuf}
@@ -666,7 +666,7 @@ export function EmitterTab({
                           </div>
                           <SliderInput
                             className="col-span-3"
-                            label="Red Range"
+                            label="红色范围"
                             value={cell.redRange}
                             bufferKey={'emitterCells[' + i + '].redRange'}
                             getBuf={getBuf}
@@ -714,7 +714,7 @@ export function EmitterTab({
                           />
                           <SliderInput
                             className="col-span-3"
-                            label="Green Range"
+                            label="绿色范围"
                             value={cell.greenRange}
                             bufferKey={'emitterCells[' + i + '].greenRange'}
                             getBuf={getBuf}
@@ -762,7 +762,7 @@ export function EmitterTab({
                           />
                           <SliderInput
                             className="col-span-3"
-                            label="Blue Range"
+                            label="蓝色范围"
                             value={cell.blueRange}
                             bufferKey={'emitterCells[' + i + '].blueRange'}
                             getBuf={getBuf}

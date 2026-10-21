@@ -70,7 +70,7 @@ function DashboardContent() {
 
     if (driveConnected === 'true') {
       setMessageDialogTitle('Success');
-      setMessageDialogContent('Signed in to Google Drive successfully! You can now sync projects to the cloud.');
+      setMessageDialogContent('已登录 Google Drive，现在可以将项目同步到云端。');
       setMessageDialogVariant('success');
       setMessageDialogOpen(true);
       setDriveConnected(true);
@@ -78,7 +78,7 @@ function DashboardContent() {
       window.history.replaceState({}, '', '/dashboard');
     } else if (error) {
       setMessageDialogTitle('Error');
-      setMessageDialogContent(`Failed to sign in to Google Drive: ${error}`);
+      setMessageDialogContent(`登录 Google Drive 失败：${error}`);
       setMessageDialogVariant('error');
       setMessageDialogOpen(true);
       window.history.replaceState({}, '', '/dashboard');
@@ -252,20 +252,20 @@ function DashboardContent() {
 
       if (!response.ok) {
         const data = await response.json()
-        throw new Error(data.error || 'Failed to delete cloud projects')
+        throw new Error(data.error || '删除云端项目失败')
       }
 
       localStorage.removeItem('caplayground-sync')
 
       setDeleteAllOpen(false)
       setMessageDialogTitle('Success');
-      setMessageDialogContent('All cloud projects deleted successfully!');
+      setMessageDialogContent('已删除所有云端项目。');
       setMessageDialogVariant('success');
       setMessageDialogOpen(true);
 
     } catch (error: any) {
       setMessageDialogTitle('Error');
-      setMessageDialogContent(`Failed to delete: ${error.message}`);
+      setMessageDialogContent(`删除失败：${error.message}`);
       setMessageDialogVariant('error');
       setMessageDialogOpen(true);
     } finally {
@@ -392,7 +392,7 @@ function DashboardContent() {
                     <div className="flex items-center justify-between">
                       <h3 className="text-sm font-semibold">已发布</h3>
                       <span className="text-xs text-muted-foreground">
-                        {approvedSubmissions.length === 0 ? 'None yet' : `${approvedSubmissions.length} published`}
+                        {approvedSubmissions.length === 0 ? '暂无' : `已发布 ${approvedSubmissions.length} 个`}
                       </span>
                     </div>
                     <p className="text-xs text-muted-foreground">
@@ -484,7 +484,7 @@ function DashboardContent() {
                           await fetch('/api/auth/signout', { method: 'POST' });
                           setDriveConnected(false);
                           setMessageDialogTitle('Success');
-                          setMessageDialogContent('Signed out from Google Drive successfully.');
+                          setMessageDialogContent('已退出 Google Drive。');
                           setMessageDialogVariant('success');
                           setMessageDialogOpen(true);
                         } catch (error) {
@@ -565,7 +565,7 @@ function DashboardContent() {
                   <Button variant="default">管理账户</Button>
                 </Link>
                 <Button onClick={handleSignOut} disabled={loading} variant="outline">
-                  {loading ? "Signing out..." : "Sign Out"}
+                  {loading ? "正在退出…" : "退出登录"}
                 </Button>
               </div>
             </CardContent>
@@ -580,7 +580,7 @@ function DashboardContent() {
         isSignedIn={true}
       />
 
-      {/* Delete All Cloud Projects Dialog */}
+      {/* 全部删除 Cloud Projects Dialog */}
       <Dialog open={deleteAllOpen} onOpenChange={setDeleteAllOpen}>
         <DialogContent>
           <DialogHeader>
@@ -605,7 +605,7 @@ function DashboardContent() {
               onClick={handleDeleteAllCloudProjects}
               disabled={deleting}
             >
-              {deleting ? 'Deleting...' : 'Delete All'}
+              {deleting ? '正在删除…' : '全部删除'}
             </Button>
           </DialogFooter>
         </DialogContent>

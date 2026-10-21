@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
   } catch (error: any) {
     console.error('Drive list error:', error);
     return NextResponse.json({ 
-      error: 'Failed to list Drive files',
+      error: '列出 Google Drive 文件失败',
       details: error.message 
     }, { status: 500 });
   }

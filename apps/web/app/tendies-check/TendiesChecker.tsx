@@ -317,7 +317,7 @@ export default function TendiesChecker() {
       if (xmlByDoc.wallpaper) docs.push(analyseCaml(xmlByDoc.wallpaper, "wallpaper"))
 
       if (docs.length === 0) {
-        throw new Error("No CAML documents found in tendies file")
+        throw new Error(".tendies 文件中未找到 CAML 文档")
       }
 
       const analysis = computeEffortScore(docs)
@@ -326,7 +326,7 @@ export default function TendiesChecker() {
       setResult(analysis)
     } catch (e: any) {
       console.error("Tendies analysis failed", e)
-      setError(e?.message || "Failed to analyse tendies file")
+      setError(e?.message || "分析 .tendies 文件失败")
     } finally {
       setIsAnalysing(false)
     }
@@ -509,7 +509,7 @@ export default function TendiesChecker() {
                     >
                       {result.isRemixed ? "Yes" : "No"}
                     </span>
-                    <span className="text-xs text-muted-foreground">Detected via &quot;Imported from CAPlayground Gallery&quot;.</span>
+                    <span className="text-xs text-muted-foreground">通过 &quot;Imported from CAPlayground Gallery&quot; 标记识别。</span>
                   </div>
                 </div>
               </div>

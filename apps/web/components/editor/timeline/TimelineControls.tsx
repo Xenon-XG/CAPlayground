@@ -38,7 +38,7 @@ export default function TimelineControls() {
               <ArrowComponent className="h-4 w-4" />
             </div>
           </TooltipTrigger>
-          <TooltipContent>{showTimeline ? 'Hide Timeline' : 'Show Timeline'}</TooltipContent>
+          <TooltipContent>{showTimeline ? '隐藏时间轴' : '显示时间轴'}</TooltipContent>
         </Tooltip>
       </div>
     </>

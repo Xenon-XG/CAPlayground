@@ -188,7 +188,7 @@ export function LayersPanel() {
               <button
                 className={`shrink-0 h-4 w-4 rounded-full border ${isChecked ? 'bg-accent border-accent' : 'border-muted-foreground/50'} mr-1`}
                 onClick={(e) => { e.stopPropagation(); toggleMultiSelect(l.id); }}
-                aria-label={isChecked ? 'Deselect layer' : 'Select layer'}
+                aria-label={isChecked ? '取消选择图层' : '选择图层'}
                 title={isChecked ? 'Deselect' : 'Select'}
               />
             ) : (
@@ -264,8 +264,8 @@ export function LayersPanel() {
                 e.stopPropagation();
                 toggleLayerVisibility(l.id);
               }}
-              aria-label={isHidden ? 'Show layer' : 'Hide layer'}
-              title={isHidden ? 'Show layer' : 'Hide layer'}
+              aria-label={isHidden ? '显示图层' : '隐藏图层'}
+              title={isHidden ? '显示图层' : '隐藏图层'}
             >
               {isHidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </Button>
@@ -400,7 +400,7 @@ export function LayersPanel() {
               setTimeout(() => setUploadStatus(null), 2000);
             }
             const imageFiles = files.filter(f => !(/image\/gif/i.test(f.type) || /\.gif$/i.test(f.name || '')));
-            if (imageFiles.length) setUploadStatus(imageFiles.length > 1 ? `Uploading ${imageFiles.length} images...` : 'Uploading image...');
+            if (imageFiles.length) setUploadStatus(imageFiles.length > 1 ? `正在上传 ${imageFiles.length} 张图像…` : '正在上传图像…');
             try {
               for (const file of imageFiles) {
                 try { await addImageLayerFromFile(file); } catch { }

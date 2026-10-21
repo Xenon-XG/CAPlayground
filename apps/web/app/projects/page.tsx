@@ -971,7 +971,7 @@ function ProjectsContent() {
       const { data: { session } } = await supabase.auth.getSession();
 
       if (!session) {
-        setSyncResultMessage('Please sign in to sync to Google Drive');
+        setSyncResultMessage('请登录后再同步到 Google Drive');
         setSyncResultOpen(true);
         return;
       }
@@ -1024,12 +1024,12 @@ function ProjectsContent() {
       }
 
       if (projectsData.length === 0) {
-        setSyncResultMessage('No projects could be prepared for sync');
+        setSyncResultMessage('没有可同步的项目');
         setSyncResultOpen(true);
         return;
       }
 
-      setSyncProgress({ current: projectIds.length, total: projectIds.length, projectName: 'Uploading...' });
+      setSyncProgress({ current: projectIds.length, total: projectIds.length, projectName: '正在上传…' });
 
       const response = await fetch('/api/drive/upload', {
         method: 'POST',
@@ -1043,7 +1043,7 @@ function ProjectsContent() {
       const data = await response.json();
 
       if (!response.ok) {
-        const errorMsg = data.error || 'Upload failed';
+        const errorMsg = data.error || '上传失败';
         throw new Error(errorMsg);
       }
 
@@ -1074,18 +1074,18 @@ function ProjectsContent() {
 
         let message = '';
         if (updatedCount > 0 && createdCount > 0) {
-          message = `Updated ${updatedCount} and uploaded ${createdCount} new project${createdCount > 1 ? 's' : ''} to Google Drive!`;
+          message = `已在 Google Drive 更新 ${updatedCount} 个项目，并上传 ${createdCount} 个新项目！`;
         } else if (updatedCount > 0) {
-          message = `Updated ${updatedCount} project${updatedCount > 1 ? 's' : ''} in Google Drive!`;
+          message = `已在 Google Drive 更新 ${updatedCount} 个项目！`;
         } else if (createdCount > 0) {
-          message = `Uploaded ${createdCount} new project${createdCount > 1 ? 's' : ''} to Google Drive!`;
+          message = `已将 ${createdCount} 个新项目上传到 Google Drive！`;
         } else {
-          message = `Successfully synced ${data.uploaded} of ${data.total} project${data.total > 1 ? 's' : ''} to Google Drive!`;
+          message = `已将 ${data.total} 个项目中的 ${data.uploaded} 个同步到 Google Drive！`;
         }
 
         setSyncResultMessage(message);
       } else {
-        setSyncResultMessage(`Successfully synced ${data.uploaded} of ${data.total} project${data.total > 1 ? 's' : ''} to Google Drive!`);
+        setSyncResultMessage(`已将 ${data.total} 个项目中的 ${data.uploaded} 个同步到 Google Drive！`);
       }
 
       setSyncResultOpen(true);
@@ -1095,7 +1095,7 @@ function ProjectsContent() {
 
     } catch (error: any) {
       console.error('Upload error:', error);
-      setSyncResultMessage(`Failed to sync: ${error.message}`);
+      setSyncResultMessage(`同步失败：${error.message}`);
       setSyncResultOpen(true);
     } finally {
       setIsSyncing(false);
@@ -1121,13 +1121,13 @@ function ProjectsContent() {
         const { data: { session } } = await supabase.auth.getSession();
 
         if (!session) {
-          setSyncResultMessage('Please sign in to access cloud projects');
+          setSyncResultMessage('请登录后再访问云端项目');
           setSyncResultOpen(true);
           return;
         }
 
         setIsSyncing(true);
-        setSyncProgress({ current: 0, total: 1, projectName: 'Downloading...' });
+        setSyncProgress({ current: 0, total: 1, projectName: '正在下载…' });
 
         const response = await fetch('/api/drive/download', {
           method: 'POST',
@@ -1147,7 +1147,7 @@ function ProjectsContent() {
         const zipBuffer = Uint8Array.from(atob(data.zipData), c => c.charCodeAt(0));
         const zip = await JSZip.loadAsync(zipBuffer);
         const metadataFile = zip.file('metadata.json');
-        if (!metadataFile) throw new Error('Invalid project file');
+        if (!metadataFile) throw new Error('项目文件无效');
 
         const metadataText = await metadataFile.async('text');
         const metadata = JSON.parse(metadataText);
@@ -1189,7 +1189,7 @@ function ProjectsContent() {
         router.push(`/editor/${metadata.id}`);
       } catch (error: any) {
         setIsSyncing(false);
-        setSyncResultMessage(`Failed to download: ${error.message}`);
+        setSyncResultMessage(`下载失败：${error.message}`);
         setSyncResultOpen(true);
       }
     } else {
@@ -1213,23 +1213,23 @@ function ProjectsContent() {
 
   const importTendiesFromUrl = async (sourceUrl: string, suggestedName?: string, suggestedCreator?: string) => {
     const cleaned = (sourceUrl || '').trim();
-    if (!cleaned) throw new Error('Missing URL');
+    if (!cleaned) throw new Error('缺少链接');
     let parsed: URL;
     try {
       parsed = new URL(cleaned);
     } catch {
-      throw new Error('Invalid URL');
+      throw new Error('链接无效');
     }
 
     const response = await fetch(parsed.toString());
-    if (!response.ok) throw new Error('Failed to download wallpaper');
+    if (!response.ok) throw new Error('下载壁纸失败');
     const blob = await response.blob();
 
     const { unpackTendies } = await import('@/lib/ca/ca-file');
     const tendies = await unpackTendies(blob);
 
     const id = Date.now().toString();
-    const baseName = (suggestedName || '').trim() || 'Imported Wallpaper';
+    const baseName = (suggestedName || '').trim() || '导入的壁纸';
     const name = await ensureUniqueProjectName(baseName);
     const width = Math.round(tendies.project.width);
     const height = Math.round(tendies.project.height);
@@ -1346,8 +1346,8 @@ function ProjectsContent() {
             bundle = await unpackCA(file);
           } catch (fallbackErr) {
             if (msg.startsWith('UNSUPPORTED_ZIP_STRUCTURE')) {
-              setMessageDialogTitle('Import Error');
-              setMessageDialogContent('Zip not supported: expected both Background.ca and Floating.ca, and failed to read as a single .ca package.');
+              setMessageDialogTitle('导入失败');
+              setMessageDialogContent('不支持此 zip：应同时包含 Background.ca 和 Floating.ca，且无法将其作为单个 .ca 包读取。');
               setMessageDialogOpen(true);
               return;
             }
@@ -1359,7 +1359,7 @@ function ProjectsContent() {
         bundle = await unpackCA(file);
       }
       const id = Date.now().toString();
-      const base = (bundle?.project?.name) || "Imported Project";
+      const base = (bundle?.project?.name) || "导入的项目";
       const name = await ensureUniqueProjectName(base);
       const width = Math.round((dual?.project.width) ?? (bundle?.project.width || (bundle?.root?.size?.w ?? 0)));
       const height = Math.round((dual?.project.height) ?? (bundle?.project.height || (bundle?.root?.size?.h ?? 0)));
@@ -1581,14 +1581,14 @@ function ProjectsContent() {
       router.push(`/editor/${id}`);
     } catch (err) {
       console.error('Tendies import failed', err);
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      const errorMessage = err instanceof Error ? err.message : '未知错误';
 
       if (errorMessage.includes('MERCURY_POSTER_NOT_SUPPORTED')) {
         setMessageDialogTitle('Mercury Poster Not Supported'); // mercury wallpapers are stored in system files, so they can't be imported into CAP
-        setMessageDialogContent('Mercury Poster wallpapers cannot be imported into CAPlayground. These wallpapers store their assets in system files that cannot be modified or extracted.');
+        setMessageDialogContent('无法将 Mercury Poster 壁纸导入 CAPlayground。这类壁纸的资源存储在系统文件中，无法修改或提取。');
       } else {
-        setMessageDialogTitle('Import Error');
-        setMessageDialogContent(`Failed to import tendies file: ${errorMessage}`);
+        setMessageDialogTitle('导入失败');
+        setMessageDialogContent(`导入 .tendies 文件失败：${errorMessage}`);
       }
       setMessageDialogOpen(true);
     } finally {
@@ -2084,7 +2084,7 @@ function ProjectsContent() {
                                   <Cloud className="h-3 w-3 text-muted-foreground" />
                                 </div>
                                 <span className="text-xs text-muted-foreground">
-                                  {project.needsSync ? 'Out of sync' : 'Saved to Device and Cloud'}
+                                  {project.needsSync ? '未同步' : '已保存到本机和云端'}
                                 </span>
                               </>
                             ) : project.storageLocation === 'Cloud' ? (
@@ -2212,7 +2212,7 @@ function ProjectsContent() {
                                     <Cloud className="h-3 w-3 text-muted-foreground" />
                                   </div>
                                   <span className="text-xs text-muted-foreground">
-                                    {project.needsSync ? 'Out of sync' : 'Saved to Device and Cloud'}
+                                    {project.needsSync ? '未同步' : '已保存到本机和云端'}
                                   </span>
                                 </>
                               ) : project.storageLocation === 'Cloud' ? (
@@ -2422,8 +2422,8 @@ function ProjectsContent() {
                     await importTendiesFromUrl(importLinkUrl, importLinkName, importLinkCreator);
                     setIsImportLinkDialogOpen(false);
                   } catch (err: any) {
-                    setMessageDialogTitle('Import Error');
-                    setMessageDialogContent(err?.message ? String(err.message) : 'Failed to import');
+                    setMessageDialogTitle('导入失败');
+                    setMessageDialogContent(err?.message ? String(err.message) : '导入失败');
                     setMessageDialogOpen(true);
                   } finally {
                     setImportLinkBusy(false);

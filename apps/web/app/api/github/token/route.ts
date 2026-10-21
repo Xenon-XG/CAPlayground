@@ -9,7 +9,7 @@ export async function GET() {
     const installationId = process.env.GITHUB_INSTALLATION_ID
 
     if (!appId || !privateKey || !installationId) {
-        return NextResponse.json({ error: "Missing GitHub App configuration" }, { status: 500 })
+        return NextResponse.json({ error: "缺少 GitHub App 配置" }, { status: 500 })
     }
 
     try {
@@ -23,8 +23,8 @@ export async function GET() {
 
         return NextResponse.json({ token: auth.token })
     } catch (error: any) {
-        console.error("Failed to generate token:", error)
-        return NextResponse.json({ error: "Failed to generate token" }, { status: 500 })
+        console.error("生成令牌失败:", error)
+        return NextResponse.json({ error: "生成令牌失败" }, { status: 500 })
     }
 }
 

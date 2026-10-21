@@ -18,16 +18,16 @@ export function getSupabaseBrowserClient(): SupabaseClient {
           return { data: { subscription: { unsubscribe() {} } } }
         },
         async signInWithPassword() {
-          return { data: null, error: new Error("Authentication is disabled in this environment.") }
+          return { data: null, error: new Error("当前环境未启用身份验证。") }
         },
         async signUp() {
-          return { data: null, error: new Error("Authentication is disabled in this environment.") }
+          return { data: null, error: new Error("当前环境未启用身份验证。") }
         },
         async signOut() {
           return { error: null }
         },
         async signInWithOAuth() {
-          return { data: null, error: new Error("Authentication is disabled in this environment.") }
+          return { data: null, error: new Error("当前环境未启用身份验证。") }
         },
         async getUser() {
           return { data: { user: null }, error: null }
@@ -45,7 +45,7 @@ let adminClient: SupabaseClient | undefined
 export function getSupabaseAdminClient(): SupabaseClient {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const service = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!url || !service) throw new Error("Account admin features disabled. Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY.")
+  if (!url || !service) throw new Error("账户管理功能不可用：缺少 NEXT_PUBLIC_SUPABASE_URL 或 SUPABASE_SERVICE_ROLE_KEY。")
   if (!adminClient) {
     adminClient = createClient(url, service, { auth: { persistSession: false } })
   }
@@ -55,7 +55,7 @@ export function getSupabaseAdminClient(): SupabaseClient {
 export function getSupabaseServerClientWithAuth(token: string): SupabaseClient {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  if (!url || !anon) throw new Error("Server auth disabled. Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY.")
+  if (!url || !anon) throw new Error("服务器身份验证不可用：缺少 NEXT_PUBLIC_SUPABASE_URL 或 NEXT_PUBLIC_SUPABASE_ANON_KEY。")
   return createClient(url, anon, {
     global: { headers: { Authorization: `Bearer ${token}` } },
     auth: { persistSession: false },

@@ -186,7 +186,7 @@ export function GyroTab({
                   id={`gyro-min-${index}`}
                   type="number"
                   step="0.01"
-                  placeholder="e.g., -50"
+                  placeholder="例如 -50"
                   value={dict.mapMinTo}
                   onChange={(e) => updateDictionary(index, { mapMinTo: Number(e.target.value) })}
                 />
@@ -201,7 +201,7 @@ export function GyroTab({
                   id={`gyro-max-${index}`}
                   type="number"
                   step="0.01"
-                  placeholder="e.g., 50"
+                  placeholder="例如 50"
                   value={dict.mapMaxTo}
                   onChange={(e) => updateDictionary(index, { mapMaxTo: Number(e.target.value) })}
                 />

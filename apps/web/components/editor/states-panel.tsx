@@ -10,6 +10,13 @@ import { useEditor } from "./editor-context";
 import { useState, useMemo } from "react";
 import { AnyLayer } from "@/lib/ca/types";
 
+const stateLabels: Record<string, string> = {
+  'Base State': '基础状态',
+  Locked: '已锁定', Unlock: '解锁', Sleep: '休眠',
+  'Locked Light': '已锁定（浅色）', 'Unlock Light': '解锁（浅色）', 'Sleep Light': '休眠（浅色）',
+  'Locked Dark': '已锁定（深色）', 'Unlock Dark': '解锁（深色）', 'Sleep Dark': '休眠（深色）',
+};
+
 export function StatesPanel() {
   const { doc, setDoc, setActiveState } = useEditor();
   const gyroEnabled = doc?.meta.gyroEnabled ?? false;
@@ -47,7 +54,7 @@ export function StatesPanel() {
   const findLayerName = (layerId: string): string => {
     const findInLayers = (layers: AnyLayer[]): string | null => {
       for (const layer of layers) {
-        if (layer.id === layerId) return layer.name || 'Unnamed Layer';
+        if (layer.id === layerId) return layer.name || '未命名图层';
         if (layer.children?.length) {
           const found = findInLayers(layer.children);
           if (found) return found;
@@ -55,7 +62,7 @@ export function StatesPanel() {
       }
       return null;
     };
-    return findInLayers(current?.layers || []) || 'Unknown Layer';
+    return findInLayers(current?.layers || []) || '未知图层';
   };
 
   const split = current?.appearanceSplit ?? false;
@@ -130,7 +137,7 @@ export function StatesPanel() {
                 <div className="flex flex-wrap gap-2">
                   {allStates.map(state => (
                     <Badge key={state} variant={state === active ? "default" : "secondary"}>
-                      {state}
+                      {stateLabels[state] ?? state}
                     </Badge>
                   ))}
                 </div>
@@ -147,7 +154,7 @@ export function StatesPanel() {
                         <div className="space-y-2">
                           {Object.entries(stateData).map(([stateName, overrides]) => (
                             <div key={stateName} className="text-xs">
-                              <Badge variant="outline" className="mb-1">{stateName}</Badge>
+                              <Badge variant="outline" className="mb-1">{stateLabels[stateName] ?? stateName}</Badge>
                               <div className="ml-2 space-y-1">
                                 {overrides.map((override, idx) => (
                                   <div key={idx} className="flex items-center gap-2 text-muted-foreground">
@@ -218,7 +225,7 @@ export function StatesPanel() {
                 className={`w-full text-left px-2 py-2 flex items-center justify-between ${active === s ? 'bg-accent/30' : 'hover:bg-muted/50'}`}
                 onClick={() => setActiveState(s as any)}
               >
-                <div className="truncate flex-1">{s}</div>
+                <div className="truncate flex-1">{stateLabels[s] ?? s}</div>
               </button>
             ))}
           </div>

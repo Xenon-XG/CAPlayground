@@ -75,7 +75,7 @@ export function MenuBar({ projectId, showLeft = true, showRight = true, toggleLe
         const resp = await fetch('https://api.github.com/repos/CAPlayground/CAPlayground/tags?per_page=100', {
           headers: { 'Accept': 'application/vnd.github+json' },
         });
-        if (!resp.ok) throw new Error(`Failed to fetch tags: ${resp.status}`);
+        if (!resp.ok) throw new Error(`获取标签失败：${resp.status}`);
         const data: Array<{ name: string }> = await resp.json();
         const normalize = (n: string) => (n.startsWith('v') ? n.slice(1) : n);
         const isSemverish = (n: string) => /^\d+(?:\.\d+){0,2}(?:-.+)?$/.test(n);
@@ -215,7 +215,7 @@ export function MenuBar({ projectId, showLeft = true, showRight = true, toggleLe
               <div
                 className="flex items-center gap-1.5"
                 aria-live="polite"
-                title={`${savingStatus === 'saving' ? 'Saving…' : savingStatus === 'saved' ? 'Saved' : 'Idle'}${lastSavedAt ? ` - Last saved ${new Date(lastSavedAt).toLocaleTimeString()}` : ''}`}
+                title={`${savingStatus === 'saving' ? '正在保存…' : savingStatus === 'saved' ? '已保存' : '空闲'}${lastSavedAt ? ` · 上次保存于 ${new Date(lastSavedAt).toLocaleTimeString('zh-CN')}` : ''}`}
               >
                 <div
                   className={`w-2 h-2 rounded-full ${savingStatus === 'saving'
@@ -233,7 +233,7 @@ export function MenuBar({ projectId, showLeft = true, showRight = true, toggleLe
                         : 'text-muted-foreground'
                     }`}
                 >
-                  {savingStatus === 'saving' ? 'Saving…' : savingStatus === 'saved' ? 'Saved' : 'Idle'}
+                  {savingStatus === 'saving' ? '正在保存…' : savingStatus === 'saved' ? '已保存' : '空闲'}
                 </span>
               </div>
             </div>
@@ -258,11 +258,11 @@ export function MenuBar({ projectId, showLeft = true, showRight = true, toggleLe
                   <Button
                     variant="ghost"
                     className="h-8 px-2 gap-2"
-                    aria-label={`Active CA: ${activeCA === 'floating' ? 'Floating' : 'Background'}`}
+                    aria-label={`Active CA: ${activeCA === 'floating' ? '悬浮' : '背景'}`}
                     aria-expanded={false}
                     role="button"
                   >
-                    <span className="text-sm">{activeCA === 'floating' ? 'Floating' : 'Background'}</span>
+                    <span className="text-sm">{activeCA === 'floating' ? '悬浮' : '背景'}</span>
                     <ArrowUpDown className="h-4 w-4 opacity-70" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -326,8 +326,8 @@ export function MenuBar({ projectId, showLeft = true, showRight = true, toggleLe
             variant="ghost"
             size="icon"
             className="h-8 w-8 p-0"
-            title={showLeft ? "Hide left panel" : "Show left panel"}
-            aria-label={showLeft ? "Hide left panel" : "Show left panel"}
+            title={showLeft ? "隐藏左侧面板" : "显示左侧面板"}
+            aria-label={showLeft ? "隐藏左侧面板" : "显示左侧面板"}
             onClick={() => toggleLeft?.()}
           >
             <PanelLeft className={`h-4 w-4 ${showLeft ? '' : 'opacity-50'}`} />
@@ -336,8 +336,8 @@ export function MenuBar({ projectId, showLeft = true, showRight = true, toggleLe
             variant="ghost"
             size="icon"
             className="h-8 w-8 p-0"
-            title={showRight ? "Hide right panel" : "Show right panel"}
-            aria-label={showRight ? "Hide right panel" : "Show right panel"}
+            title={showRight ? "隐藏右侧面板" : "显示右侧面板"}
+            aria-label={showRight ? "隐藏右侧面板" : "显示右侧面板"}
             onClick={() => toggleRight?.()}
           >
             <PanelRight className={`h-4 w-4 ${showRight ? '' : 'opacity-50'}`} />

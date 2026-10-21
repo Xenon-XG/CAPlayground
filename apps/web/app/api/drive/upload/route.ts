@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     const { projects } = body as { projects: Array<{ id: string; name: string; zipData: string }> };
 
     if (!projects || !Array.isArray(projects) || projects.length === 0) {
-      return NextResponse.json({ error: 'No projects specified' }, { status: 400 });
+      return NextResponse.json({ error: '未指定项目' }, { status: 400 });
     }
 
     const providerToken = request.cookies.get('google_drive_access_token')?.value;
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
     if (!providerToken) {
       return NextResponse.json({ 
-        error: 'Google Drive not connected. Please sign in to your Google Drive account first.',
+        error: '尚未连接 Google Drive，请先登录账户。',
         needsConnection: true
       }, { status: 403 });
     }
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     if (tokenExpiry && Date.now() >= tokenExpiry) {
       if (!refreshToken) {
         return NextResponse.json({ 
-          error: 'Token expired and no refresh token available. Please sign in again to Google Drive.',
+          error: '令牌已过期且无法刷新，请重新登录 Google Drive。',
           needsConnection: true
         }, { status: 403 });
       }
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
 
         if (!refreshRes.ok) {
           const t = await refreshRes.text();
-          throw new Error(`Refresh failed: ${t}`);
+          throw new Error(`刷新令牌失败：${t}`);
         }
 
         const refreshed = await refreshRes.json() as { access_token: string; expires_in?: number };
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
       } catch (refreshError: any) {
         console.error('Token refresh failed:', refreshError);
         return NextResponse.json({ 
-          error: 'Failed to refresh token. Please sign in again to Google Drive.',
+          error: '刷新令牌失败，请重新登录 Google Drive。',
           needsConnection: true
         }, { status: 403 });
       }
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
       const res = await fetch(url.toString(), {
         headers: { Authorization: `Bearer ${accessToken}` }
       });
-      if (!res.ok) throw new Error(`Drive list failed: ${await res.text()}`);
+      if (!res.ok) throw new Error(`列出 Google Drive 文件失败：${await res.text()}`);
       return res.json();
     };
 
@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
           mimeType: 'application/vnd.google-apps.folder'
         })
       });
-      if (!createFolderRes.ok) throw new Error(`Create folder failed: ${await createFolderRes.text()}`);
+      if (!createFolderRes.ok) throw new Error(`创建文件夹失败：${await createFolderRes.text()}`);
       const folder = await createFolderRes.json();
       folderId = folder.id as string;
     }
@@ -126,9 +126,9 @@ export async function POST(request: NextRequest) {
         },
         body: JSON.stringify(metadata)
       });
-      if (!res.ok) throw new Error(`Start resumable upload failed: ${await res.text()}`);
+      if (!res.ok) throw new Error(`启动断点续传失败：${await res.text()}`);
       const sessionUrl = res.headers.get('location');
-      if (!sessionUrl) throw new Error('No resumable session URL returned by Drive');
+      if (!sessionUrl) throw new Error('Google Drive 未返回断点续传会话链接');
       return sessionUrl;
     };
 
@@ -141,7 +141,7 @@ export async function POST(request: NextRequest) {
         },
         body: bytes
       });
-      if (!res.ok) throw new Error(`Upload failed: ${await res.text()}`);
+      if (!res.ok) throw new Error(`上传失败：${await res.text()}`);
       return res.json();
     };
 
@@ -211,7 +211,7 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Drive upload error:', error);
     return NextResponse.json({ 
-      error: 'Failed to upload to Drive',
+      error: '上传到 Google Drive 失败',
       details: error.message 
     }, { status: 500 });
   }

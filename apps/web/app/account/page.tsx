@@ -124,31 +124,31 @@ export default function AccountPage() {
       })
       if (error) throw error
     } catch (e: any) {
-      setError(e.message ?? `Failed to link ${provider} account`)
+      setError(e.message ?? `关联 ${provider} 账户失败`)
       setLinkingProvider(null)
     }
   }
 
   async function unlinkProvider(identity: any) {
     const providerName = identity.provider
-    const confirmed = window.confirm(`Are you sure you want to unlink your ${providerName} account?`)
+    const confirmed = window.confirm(`确定要解除 ${providerName} 账户的关联吗？`)
     if (!confirmed) return
     
     setMessage(null)
     setError(null)
     
     if (linkedIdentities.length <= 1) {
-      setError("You cannot unlink your only authentication method. Please link another provider first.")
+      setError("不能解除唯一登录方式的关联。请先关联其他登录方式。")
       return
     }
     
     try {
       const { error } = await supabase.auth.unlinkIdentity(identity)
       if (error) throw error
-      setMessage(`Successfully unlinked ${providerName} account`)
+      setMessage(`已解除 ${providerName} 账户关联`)
       await loadIdentities()
     } catch (e: any) {
-      setError(e.message ?? `Failed to unlink ${providerName} account`)
+      setError(e.message ?? `解除 ${providerName} 账户关联失败`)
     }
   }
 
@@ -156,7 +156,7 @@ export default function AccountPage() {
     const params = new URLSearchParams(window.location.search)
     const linked = params.get('linked')
     if (linked) {
-      setMessage(`Successfully linked ${linked} account!`)
+      setMessage(`已关联 ${linked} 账户！`)
       loadIdentities()
       window.history.replaceState({}, '', '/account')
     }
@@ -169,9 +169,9 @@ export default function AccountPage() {
     try {
       const { error } = await supabase.from("profiles").upsert({ id: userId, username })
       if (error) throw error
-      setMessage("Username saved")
+      setMessage("用户名已保存")
     } catch (e: any) {
-      setError(e.message ?? "Failed to save username. Ensure a 'profiles' table exists with columns: id uuid primary key, username text.")
+      setError(e.message ?? "保存用户名失败。请确认已创建 profiles 表，包含 id（uuid 主键）和 username（text）字段。")
     }
   }
 
@@ -179,23 +179,23 @@ export default function AccountPage() {
     setMessage(null)
     setError(null)
     if (!canChangeEmail) {
-      setError("Email is managed by your Google account. To change it, update your Google Account email.")
+      setError("邮箱由 Google 账户管理。请在 Google 账户中修改邮箱。")
       return
     }
     const next = newEmail.trim()
     if (!next || !next.includes("@")) {
-      setError("Please enter a valid email")
+      setError("请输入有效的邮箱地址")
       return
     }
     try {
       const { error } = await supabase.auth.updateUser({ email: next })
       if (error) throw error
-      setMessage("Verification email sent to update your email. You'll be signed out now; please sign back in after verifying.")
+      setMessage("验证邮件已发送。你将退出登录；验证完成后请重新登录。")
       await fetch('/api/auth/signout', { method: 'POST' })
       await supabase.auth.signOut()
       window.location.href = "/signin"
     } catch (e: any) {
-      setError(e.message ?? "Failed to update email")
+      setError(e.message ?? "更新邮箱失败")
     }
   }
 
@@ -206,9 +206,9 @@ export default function AccountPage() {
       const origin = window.location.origin
       const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${origin}/reset-password` })
       if (error) throw error
-      setMessage("Password reset email sent (if the email exists)")
+      setMessage("如果该邮箱存在，密码重置邮件已发送")
     } catch (e: any) {
-      setError(e.message ?? "Failed to send reset email")
+      setError(e.message ?? "发送重置邮件失败")
     }
   }
 
@@ -219,14 +219,14 @@ export default function AccountPage() {
   }
 
   async function deleteAccount() {
-    const confirmed = window.confirm("This will delete your account permanently. Continue?")
+    const confirmed = window.confirm("这将永久删除你的账户。确定继续吗？")
     if (!confirmed) return
     setMessage(null)
     setError(null)
     try {
       const { data: sessionData } = await supabase.auth.getSession()
       const token = sessionData.session?.access_token
-      if (!token) throw new Error("No session token. Please sign in again.")
+      if (!token) throw new Error("会话令牌不存在，请重新登录。")
 
       const res = await fetch("/api/account/delete", {
         method: "POST",
@@ -236,13 +236,13 @@ export default function AccountPage() {
       })
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
-        throw new Error(body.error || `Delete failed with status ${res.status}`)
+        throw new Error(body.error || `删除失败（状态码 ${res.status}）`)
       }
       await fetch('/api/auth/signout', { method: 'POST' })
       await supabase.auth.signOut()
       window.location.href = "/"
     } catch (e: any) {
-      setError(e.message ?? "Failed to delete account (ensure server is configured with SUPABASE_SERVICE_ROLE_KEY)")
+      setError(e.message ?? "删除账户失败（请确认服务器已设置 SUPABASE_SERVICE_ROLE_KEY）")
     }
   }
 
@@ -328,7 +328,7 @@ export default function AccountPage() {
                             <div>
                               <p className="text-sm font-medium capitalize">{identity.provider}</p>
                               <p className="text-xs text-muted-foreground">
-                                {identity.identity_data?.email || 'No email'}
+                                {identity.identity_data?.email || '无邮箱'}
                               </p>
                             </div>
                           </div>
@@ -361,7 +361,7 @@ export default function AccountPage() {
                         className="justify-start"
                       >
                         <LinkIcon className="h-4 w-4 mr-2" />
-                        {linkingProvider === 'google' ? 'Linking...' : 'Link Google Account'}
+                        {linkingProvider === 'google' ? '正在关联…' : '关联 Google 账户'}
                       </Button>
                     )}
                     {!linkedIdentities.some(i => i.provider === 'github') && (
@@ -372,7 +372,7 @@ export default function AccountPage() {
                         className="justify-start"
                       >
                         <LinkIcon className="h-4 w-4 mr-2" />
-                        {linkingProvider === 'github' ? 'Linking...' : 'Link GitHub Account'}
+                        {linkingProvider === 'github' ? '正在关联…' : '关联 GitHub 账户'}
                       </Button>
                     )}
                     {!linkedIdentities.some(i => i.provider === 'discord') && (
@@ -383,7 +383,7 @@ export default function AccountPage() {
                         className="justify-start"
                       >
                         <LinkIcon className="h-4 w-4 mr-2" />
-                        {linkingProvider === 'discord' ? 'Linking...' : 'Link Discord Account'}
+                        {linkingProvider === 'discord' ? '正在关联…' : '关联 Discord 账户'}
                       </Button>
                     )}
                   </div>
