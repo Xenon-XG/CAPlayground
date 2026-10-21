@@ -407,7 +407,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                   <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3">
                     <Download className="h-3.5 w-3.5" />
                     <span>{downloadStats[String(item.id)]}</span>
-                    <span>{downloadStats[String(item.id)] === 1 ? 'Download' : 'Downloads'}</span>
+                    <span>次下载</span>
                   </div>
                 )}
                 <p className="text-sm text-muted-foreground line-clamp-3 mb-4">{item.description}</p>
@@ -471,7 +471,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
       <SubmitWallpaperDialog
         open={isSubmitDialogOpen}
         onOpenChange={setIsSubmitDialogOpen}
-        username={username || displayName || "Anonymous"}
+        username={username || displayName || "匿名用户"}
         isSignedIn={isSignedIn}
       />
 
@@ -533,7 +533,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Download className="h-4 w-4" />
                       <span>{downloadStats[String(expandedWallpaper.id)]}</span>
-                      <span>{downloadStats[String(expandedWallpaper.id)] === 1 ? 'Download' : 'Downloads'}</span>
+                      <span>次下载</span>
                     </div>
                   )}
 

@@ -375,7 +375,7 @@ export default function TendiesChecker() {
     if (!result) return null
     const { hasCapRootLayer, hasCapBanner } = result
     if (hasCapRootLayer && hasCapBanner) return { label: "是", color: "text-emerald-600" }
-    if (!hasCapRootLayer && !hasCapBanner) return { label: "No", color: "text-red-600" }
+    if (!hasCapRootLayer && !hasCapBanner) return { label: "否", color: "text-red-600" }
     return { label: "可能", color: "text-amber-600" }
   }, [result])
 
@@ -495,7 +495,7 @@ export default function TendiesChecker() {
                       </span>
                     )}
                     <span className="text-xs text-muted-foreground">
-                      Requires both CA root layer and banner to be considered &quot;Yes&quot;.
+                      同时包含 CA 根图层和标记时，才会判定为“是”。
                     </span>
                   </div>
                 </div>
@@ -507,7 +507,7 @@ export default function TendiesChecker() {
                         result.isRemixed ? "text-emerald-600" : "text-red-600"
                       }`}
                     >
-                      {result.isRemixed ? "Yes" : "No"}
+                      {result.isRemixed ? "是" : "否"}
                     </span>
                     <span className="text-xs text-muted-foreground">通过 &quot;Imported from CAPlayground Gallery&quot; 标记识别。</span>
                   </div>

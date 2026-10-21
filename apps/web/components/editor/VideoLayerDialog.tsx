@@ -392,7 +392,7 @@ export default function VideoLayerDialog({
           <AlertDescription>
             {isGif
               ? "GIF 的帧率会自动设为 15 fps，以获得更好的性能。"
-              : "Note: 30 fps is recommended for optimal performance. Higher frame rates (60 fps) are better for videos synced with state transitions but will increase file size."
+              : "建议使用 30 fps 以获得更好的性能。60 fps 更适合与状态切换同步的视频，但会增大文件体积。"
             }
           </AlertDescription>
         </Alert>

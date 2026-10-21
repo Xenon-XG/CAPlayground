@@ -576,7 +576,7 @@ function DashboardContent() {
       <SubmitWallpaperDialog
         open={isSubmitDialogOpen}
         onOpenChange={setIsSubmitDialogOpen}
-        username={username || displayName || "Anonymous"}
+        username={username || displayName || "匿名用户"}
         isSignedIn={true}
       />
 

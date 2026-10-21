@@ -167,15 +167,15 @@ export function GyroTab({
                     <SelectValue placeholder="选择属性" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="position.x">position.x</SelectItem>
-                    <SelectItem value="position.y">position.y</SelectItem>
-                    <SelectItem value="transform.translation.x">transform.translation.x</SelectItem>
-                    <SelectItem value="transform.translation.y">transform.translation.y</SelectItem>
-                    <SelectItem value="transform.rotation.x">transform.rotation.x</SelectItem>
-                    <SelectItem value="transform.rotation.y">transform.rotation.y</SelectItem>
-                    <SelectItem value="transform.rotation.z">transform.rotation.z</SelectItem>
-                    <SelectItem value="anchorPoint.x">anchorPoint.x</SelectItem>
-                    <SelectItem value="anchorPoint.y">anchorPoint.y</SelectItem>
+                    <SelectItem value="position.x">位置 X</SelectItem>
+                    <SelectItem value="position.y">位置 Y</SelectItem>
+                    <SelectItem value="transform.translation.x">平移 X</SelectItem>
+                    <SelectItem value="transform.translation.y">平移 Y</SelectItem>
+                    <SelectItem value="transform.rotation.x">旋转 X</SelectItem>
+                    <SelectItem value="transform.rotation.y">旋转 Y</SelectItem>
+                    <SelectItem value="transform.rotation.z">旋转 Z</SelectItem>
+                    <SelectItem value="anchorPoint.x">锚点 X</SelectItem>
+                    <SelectItem value="anchorPoint.y">锚点 Y</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

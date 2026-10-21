@@ -1840,7 +1840,7 @@ function ProjectsContent() {
           </div>
           <div className="w-full md:w-auto flex gap-2">
             <Button variant={isSelectMode ? "secondary" : "outline"} onClick={toggleSelectMode}>
-              {isSelectMode ? "Done" : "Select"}
+              {isSelectMode ? "完成" : "选择"}
             </Button>
             <input
               ref={importInputRef}

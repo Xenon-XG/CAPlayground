@@ -189,7 +189,7 @@ export function LayersPanel() {
                 className={`shrink-0 h-4 w-4 rounded-full border ${isChecked ? 'bg-accent border-accent' : 'border-muted-foreground/50'} mr-1`}
                 onClick={(e) => { e.stopPropagation(); toggleMultiSelect(l.id); }}
                 aria-label={isChecked ? '取消选择图层' : '选择图层'}
-                title={isChecked ? 'Deselect' : 'Select'}
+                title={isChecked ? '取消选择' : '选择'}
               />
             ) : (
               hasChildren ? (

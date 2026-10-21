@@ -21,7 +21,7 @@ export default function TimelineControls() {
           variant="secondary"
           onClick={() => isPlaying ? pause() : play()}
         >
-          {isPlaying ? 'Pause' : 'Play'}
+          {isPlaying ? '暂停' : '播放'}
         </Button>
         <Button
           type="button"

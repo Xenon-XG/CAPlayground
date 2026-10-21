@@ -157,7 +157,7 @@ export function MenuBar({ projectId, showLeft = true, showRight = true, toggleLe
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 px-2">
                 <ArrowLeft className="h-4 w-4" />
-                <span className="hidden sm:inline ml-2">{doc?.meta.name ?? "Project"}</span>
+                <span className="hidden sm:inline ml-2">{doc?.meta.name ?? "项目"}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-52">
