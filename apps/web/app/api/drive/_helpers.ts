@@ -17,7 +17,7 @@ export async function getAndRefreshToken(request: NextRequest): Promise<TokenRef
 
   if (!providerToken) {
     return {
-      error: 'Google Drive not connected. Please sign in to your Google Drive first.',
+      error: '尚未连接 Google Drive，请先登录。',
       needsConnection: true
     };
   }
@@ -29,7 +29,7 @@ export async function getAndRefreshToken(request: NextRequest): Promise<TokenRef
   if (tokenExpiry && Date.now() >= tokenExpiry) {
     if (!refreshToken) {
       return {
-        error: 'Token expired and no refresh token available. Please sign in again to Google Drive.',
+        error: '令牌已过期且无法刷新，请重新登录 Google Drive。',
         needsConnection: true
       };
     }
@@ -48,7 +48,7 @@ export async function getAndRefreshToken(request: NextRequest): Promise<TokenRef
 
       if (!refreshRes.ok) {
         const t = await refreshRes.text();
-        throw new Error(`Refresh failed: ${t}`);
+        throw new Error(`刷新令牌失败：${t}`);
       }
 
       const refreshed = await refreshRes.json() as { access_token: string; expires_in?: number };
@@ -58,7 +58,7 @@ export async function getAndRefreshToken(request: NextRequest): Promise<TokenRef
     } catch (refreshError: any) {
       console.error('Token refresh failed:', refreshError);
       return {
-        error: 'Failed to refresh token. Please sign in again to Google Drive.',
+        error: '刷新令牌失败，请重新登录 Google Drive。',
         needsConnection: true
       };
     }

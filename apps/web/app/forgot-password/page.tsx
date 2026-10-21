@@ -28,9 +28,9 @@ export default function ForgotPasswordPage() {
         redirectTo: `${origin}/reset-password`,
       })
       if (error) throw error
-      setMsg("If the email exists, a reset link has been sent.")
+      setMsg("如果该邮箱存在，重置链接已发送。")
     } catch (e: any) {
-      setError(e.message ?? "Failed to send reset link")
+      setError(e.message ?? "发送重置链接失败")
     } finally {
       setLoading(false)
     }
@@ -74,7 +74,7 @@ export default function ForgotPasswordPage() {
               {error && <p className="text-sm text-red-500">{error}</p>}
               {msg && <p className="text-sm text-green-600">{msg}</p>}
               <Button disabled={loading || !AUTH_ENABLED} onClick={handleSend} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
-                {loading ? "Sending..." : "Send reset link"}
+                {loading ? "正在发送…" : "发送重置链接"}
               </Button>
 
               <p className="text-center text-sm text-muted-foreground">

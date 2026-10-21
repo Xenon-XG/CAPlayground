@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     const { fileId } = body;
 
     if (!fileId) {
-      return NextResponse.json({ error: 'File ID is required' }, { status: 400 });
+      return NextResponse.json({ error: '缺少文件 ID' }, { status: 400 });
     }
 
     const tokenResult = await getAndRefreshToken(request);
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
     if (!delRes.ok) {
-      return NextResponse.json({ error: 'Failed to delete from Drive', details: await delRes.text() }, { status: 500 });
+      return NextResponse.json({ error: '从 Google Drive 删除失败', details: await delRes.text() }, { status: 500 });
     }
 
     const response = NextResponse.json({ success: true });
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Drive delete error:', error);
     return NextResponse.json({ 
-      error: 'Failed to delete from Drive',
+      error: '从 Google Drive 删除失败',
       details: error.message 
     }, { status: 500 });
   }

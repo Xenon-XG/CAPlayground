@@ -15,7 +15,7 @@ import { Separator } from '@/components/ui/separator';
 import { Checkbox } from '@/components/ui/checkbox';
 import { AnyLayer } from '@/lib/ca/types';
 import { SupportedFilterTypes, Filter } from '@/lib/filters';
-import { supportedFilters } from '@/lib/filters';
+import { supportedFilters, filterLabels } from '@/lib/filters';
 import { RotationKnob } from '@/components/ui/rotation-knob';
 
 export function FiltersTab({
@@ -47,7 +47,7 @@ export function FiltersTab({
         <SelectContent>
           {Object.keys(supportedFilters).map((filter) => (
             <SelectItem key={filter} value={filter}>
-              {supportedFilters[filter as SupportedFilterTypes].name}
+              {filterLabels[filter as SupportedFilterTypes]}
             </SelectItem>
           ))}
         </SelectContent>
@@ -100,7 +100,7 @@ const FilterItem = ({ filter, selected }: { filter: Filter; selected: AnyLayer }
           title="启用滤镜"
         />
         <Label htmlFor="blur" className="text-xs">
-          {filter.name}
+          {filter.name.replace(supportedFilters[filter.type]?.name ?? '', filterLabels[filter.type] ?? '')}
         </Label>
         <Button
           className="h-6 w-6 ml-auto"

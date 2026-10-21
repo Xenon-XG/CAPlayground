@@ -280,7 +280,7 @@ export default async function HomePage() {
                         <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3">
                           <Download className="h-3.5 w-3.5" />
                           <span>{mostDownloaded.downloads}</span>
-                          <span>{mostDownloaded.downloads === 1 ? "Download" : "Downloads"}</span>
+                          <span>次下载</span>
                         </div>
                       )}
                       <p className="text-sm text-muted-foreground line-clamp-3">

@@ -62,7 +62,7 @@ export default function VideoLayerDialog({
   const [quality, setQuality] = useState<number>(0.85);
   const isGif = /image\/gif/i.test(videoFile?.type || '') || /\.gif$/i.test(videoFile?.name || '');
   const frameExtension = '.webp';
-  const rawName = videoFile?.name && typeof videoFile.name === 'string' ? videoFile.name : 'Video Layer';
+  const rawName = videoFile?.name && typeof videoFile.name === 'string' ? videoFile.name : '视频图层';
   const nameSansExt = rawName.replace(/\.[a-z0-9]+$/i, '');
   const safeName = sanitizeFilename(nameSansExt) || 'Video_Layer';
   const framePrefix = `${safeName}_`;
@@ -163,7 +163,7 @@ export default function VideoLayerDialog({
     const newFrameAssets: Array<{ dataURL: string; filename: string }> = [];
 
     if (!window.ImageDecoder) {
-      throw new Error('Importing GIFs as video requires a browser with ImageDecoder (WebCodecs) support.');
+      throw new Error('将 GIF 导入为视频需要支持 ImageDecoder（WebCodecs）的浏览器。');
     }
     const buf = await file.arrayBuffer();
     const decoder: any = new window.ImageDecoder({ data: new Uint8Array(buf), type: 'image/gif' });
@@ -186,7 +186,7 @@ export default function VideoLayerDialog({
     canvas.width = width;
     canvas.height = height;
     const ctx = canvas.getContext('2d');
-    if (!ctx) throw new Error('Failed to get canvas context');
+    if (!ctx) throw new Error('无法获取画布上下文');
     const assumedFps = 15;
     const maxFrames = Math.min(gifFrameCount || 300, Math.floor(maxDuration * assumedFps));
     setFrameCount(maxFrames);
@@ -247,7 +247,7 @@ export default function VideoLayerDialog({
 
     if (videoWidth === 0 || videoHeight === 0) {
       URL.revokeObjectURL(videoURL);
-      throw new Error('Failed to get video dimensions');
+      throw new Error('无法获取视频尺寸');
     }
 
     if (resizeVideo) {
@@ -268,7 +268,7 @@ export default function VideoLayerDialog({
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       URL.revokeObjectURL(videoURL);
-      throw new Error('Failed to get canvas context');
+      throw new Error('无法获取画布上下文');
     }
     setFrameCount(frameCount);
     setCurrentFrame(0);
@@ -377,7 +377,7 @@ export default function VideoLayerDialog({
         <Label>时长： {duration.toFixed(2)}s </Label>
         <div className="space-y-2">
           <Label>
-            图层大小： {isLoading ? `Generating frames... (${currentFrame}/${frameCount})` : frameAssetsSize > 0 ? formatBytes(frameAssetsSize) : '0 Bytes'}
+            图层大小： {isLoading ? `正在生成帧…（${currentFrame}/${frameCount}）` : frameAssetsSize > 0 ? formatBytes(frameAssetsSize) : '0 Bytes'}
           </Label>
           {!isLoading && frameAssetsSize > 30 * 1024 * 1024 && (
             <Alert variant="destructive">
@@ -391,8 +391,8 @@ export default function VideoLayerDialog({
         <Alert>
           <AlertDescription>
             {isGif
-              ? "For GIFs, the frame rate is automatically set to 15 fps for optimal performance."
-              : "Note: 30 fps is recommended for optimal performance. Higher frame rates (60 fps) are better for videos synced with state transitions but will increase file size."
+              ? "GIF 的帧率会自动设为 15 fps，以获得更好的性能。"
+              : "建议使用 30 fps 以获得更好的性能。60 fps 更适合与状态切换同步的视频，但会增大文件体积。"
             }
           </AlertDescription>
         </Alert>

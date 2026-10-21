@@ -60,11 +60,11 @@ export function ExportDialog() {
 
   const starMessage = useMemo(() => {
     const messages = [
-      "Star this repo, make my day,\nIt helps the app in every way! 🌟",
+      "给仓库点个 Star，\n让这个项目更有动力！🌟",
       "A single star can light the way,\nSupport the code I've built today! 🚀",
-      "Drop a star, don't walk away,\nIt keeps this project here to stay! 💪",
-      "Give a star, don't delay,\nYou'll make my coder's day! 💫",
-      "Star the repo, join the crew,\nIt means a lot, from me to you! 🤝",
+      "点亮 Star 支持一下，\n项目持续更新靠大家！💪",
+      "喜欢的话点个 Star，\n你的支持让我很开心！💫",
+      "给仓库点个 Star，\n一起支持这个项目！🤝",
     ];
     return messages[Math.floor(Math.random() * messages.length)];
   }, [exportView]);
@@ -236,14 +236,14 @@ export function ExportDialog() {
 
       if (!templateResponse.ok) {
         throw new Error(
-          `Failed to fetch tendies template: ${templateResponse.status} ${templateResponse.statusText}`,
+          `获取 .tendies 模板失败：${templateResponse.status} ${templateResponse.statusText}`,
         );
       }
 
       const templateArrayBuffer = await templateResponse.arrayBuffer();
 
       if (templateArrayBuffer.byteLength === 0) {
-        throw new Error("Error with length of tendies file");
+        throw new Error(".tendies 文件长度无效");
       }
 
       const templateZip = new JSZip();
@@ -339,7 +339,7 @@ export function ExportDialog() {
 
       toast({
         title: "导出成功",
-        description: `Tendies file "${nameSafe}.tendies" has been downloaded.`,
+        description: `已下载 .tendies 文件“${nameSafe}.tendies”。`,
       });
       return true;
     } catch (e) {
@@ -450,8 +450,8 @@ export function ExportDialog() {
                     </ToggleGroup>
                     <p className="text-xs text-muted-foreground mt-1">
                       {exportFormat === "ca"
-                        ? "Download a .zip containing your Background.ca and Floating.ca files."
-                        : "Create a .tendies wallpaper file compatible with Nugget and Pocket Poster."}
+                        ? "下载包含 Background.ca 和 Floating.ca 文件的 .zip 压缩包。"
+                        : "创建兼容 Nugget 和 Pocket Poster 的 .tendies 壁纸文件。"}
                     </p>
                   </div>
                   <div className="space-y-1">
@@ -474,13 +474,13 @@ export function ExportDialog() {
                     </Select>
                     <p className="text-xs text-muted-foreground mt-1">
                       {exportLicense === "none" &&
-                        "No license text is included. You retain all rights; sharing terms are not specified."}
+                        "不附带许可文本。你保留所有权利，分享条款未指定。"}
                       {exportLicense === "cc-by-4.0" &&
-                        "Requires attribution. Allows sharing and adaptation, including commercial use. Not recommended to allow commercial use."}
+                        "需要署名，允许分享和改编，包括商业用途。不建议选择允许商业使用的许可。"}
                       {exportLicense === "cc-by-sa-4.0" &&
-                        "Requires attribution and share-alike. Adaptations must use the same license. Not recommended to allow commercial use."}
+                        "需要署名且以相同许可分享；改编作品必须使用相同许可。不建议选择允许商业使用的许可。"}
                       {exportLicense === "cc-by-nc-4.0" &&
-                        "Requires attribution. Non-commercial use only; adaptations are allowed with the same terms. This license is recommended to prevent work from being sold."}
+                        "需要署名，仅限非商业用途；允许以相同条款改编。推荐选择此许可，以防作品被出售。"}
                     </p>
                   </div>
                   <div className="space-y-2 pt-2">
@@ -528,10 +528,10 @@ export function ExportDialog() {
                       }}
                     >
                       {exportFormat === "ca"
-                        ? "Export .ca"
+                        ? "导出 .ca"
                         : exportingTendies
-                          ? "Exporting tendies…"
-                          : "Export tendies"}
+                          ? "正在导出 .tendies…"
+                          : "导出 .tendies"}
                     </Button>
                   </div>
                 </div>
@@ -613,7 +613,7 @@ export function ExportDialog() {
       <SubmitWallpaperDialog
         open={isSubmitDialogOpen}
         onOpenChange={setIsSubmitDialogOpen}
-        username={username || displayName || "Anonymous"}
+        username={username || displayName || "匿名用户"}
         isSignedIn={isSignedIn}
       />
     </div>

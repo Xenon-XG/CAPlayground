@@ -207,7 +207,7 @@ export function EditorOnboarding({ showLeft, showRight }: { showLeft: boolean; s
                 文档
               </Button>
             )}
-            <Button size="sm" onClick={isLast ? finish : goNext}>{isLast ? 'Done' : 'Next'}</Button>
+            <Button size="sm" onClick={isLast ? finish : goNext}>{isLast ? '完成' : '下一步'}</Button>
           </div>
         </div>
       </div>

@@ -154,7 +154,7 @@ export default function AuthSuccessPage() {
       <Card className="border-border/80 shadow-none w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className={status === "ready" ? "text-2xl md:text-3xl" : undefined}>
-            {status === "need_username" ? "Choose a username" : status === "ready" ? "You're signed in" : "Sign-in failed or expired"}
+            {status === "need_username" ? "选择用户名" : status === "ready" ? "已登录" : "登录失败或已过期"}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -172,26 +172,26 @@ export default function AuthSuccessPage() {
                   onClick={async () => {
                     setError(null)
                     if (!isValidUsername(username)) {
-                      setError("Username must be 3-20 chars and only letters, numbers, and ! - _ .")
+                      setError("用户名须为 3–20 个字符，仅可使用字母、数字和 ! - _ .")
                       return
                     }
                     setSaving(true)
                     try {
                       const { data: userRes } = await supabase.auth.getUser()
                       const uid = userRes.user?.id
-                      if (!uid) throw new Error("No user session")
+                      if (!uid) throw new Error("用户会话不存在")
                       const { error } = await supabase.from("profiles").upsert({ id: uid, username })
                       if (error) throw error
                       setProfileUsername(username)
                       setStatus("ready")
                     } catch (e: any) {
-                      setError(e.message ?? "Failed to save username")
+                      setError(e.message ?? "保存用户名失败")
                     } finally {
                       setSaving(false)
                     }
                   }}
                 >
-                  {saving ? "Saving…" : "Save username"}
+                  {saving ? "正在保存…" : "保存用户名"}
                 </Button>
               </div>
             </div>
@@ -204,8 +204,8 @@ export default function AuthSuccessPage() {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <p className="text-base md:text-lg font-semibold leading-tight">{profileUsername || "(no username)"}</p>
-                  <p className="text-sm text-muted-foreground break-all">{accountEmail || "(no email)"}</p>
+                  <p className="text-base md:text-lg font-semibold leading-tight">{profileUsername || "（未设置用户名）"}</p>
+                  <p className="text-sm text-muted-foreground break-all">{accountEmail || "（无邮箱）"}</p>
                 </div>
               </div>
               <div className="flex flex-col gap-2">

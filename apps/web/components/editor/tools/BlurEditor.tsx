@@ -79,7 +79,7 @@ export function BlurEditor({
         canvas.toBlob(
           (blob) => {
             if (!blob) {
-              reject(new Error("Failed to create blurred image"));
+              reject(new Error("生成模糊图像失败"));
               return;
             }
             const name = filename || "blurred-image.png";
@@ -151,7 +151,7 @@ export function BlurEditor({
               取消
             </Button>
             <Button type="button" onClick={handleApply} disabled={applying}>
-              {applying ? "Applying..." : "Apply Blur"}
+              {applying ? "正在应用…" : "应用模糊"}
             </Button>
           </div>
         </div>

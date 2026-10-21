@@ -110,11 +110,11 @@ export function MobileBottomBar({ mobileView, setMobileView }: MobileBottomBarPr
           <DropdownMenuTrigger asChild>
             <button
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border bg-background shadow-sm hover:bg-accent transition-colors touch-manipulation"
-              aria-label={`Active CA: ${activeCA === 'floating' ? 'Floating' : 'Background'}`}
+              aria-label={`Active CA: ${activeCA === 'floating' ? '悬浮' : '背景'}`}
               aria-expanded={false}
               role="button"
             >
-              <span className="text-sm">{activeCA === 'floating' ? 'Floating' : 'Background'}</span>
+              <span className="text-sm">{activeCA === 'floating' ? '悬浮' : '背景'}</span>
               <ArrowUpDown className="h-4 w-4 opacity-70" />
             </button>
           </DropdownMenuTrigger>

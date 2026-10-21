@@ -272,7 +272,7 @@ export function SettingsPanel({
               <div className="flex items-center justify-between"><span>缩小</span><span className="font-mono text-muted-foreground text-xs">{typeof navigator !== 'undefined' && navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + -</span></div>
               <div className="flex items-center justify-between"><span>重置缩放</span><span className="font-mono text-muted-foreground text-xs">{typeof navigator !== 'undefined' && navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + 0</span></div>
               <div className="flex items-center justify-between"><span>导出</span><span className="font-mono text-muted-foreground text-xs">{typeof navigator !== 'undefined' && navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + E</span></div>
-              <div className="flex items-center justify-between"><span>平移</span><span className="font-mono text-muted-foreground text-xs">Shift + Drag or Middle Click</span></div>
+              <div className="flex items-center justify-between"><span>平移</span><span className="font-mono text-muted-foreground text-xs">Shift + 拖动或鼠标中键</span></div>
               <div className="flex items-center justify-between"><span>切换左侧面板</span><span className="font-mono text-muted-foreground text-xs">{typeof navigator !== 'undefined' && navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + Shift + L</span></div>
               <div className="flex items-center justify-between"><span>切换右侧面板</span><span className="font-mono text-muted-foreground text-xs">{typeof navigator !== 'undefined' && navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + Shift + I</span></div>
               <div className="flex items-center justify-between"><span>前移一层</span><span className="font-mono text-muted-foreground text-xs">{typeof navigator !== 'undefined' && navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + ]</span></div>
@@ -280,8 +280,8 @@ export function SettingsPanel({
               <div className="flex items-center justify-between"><span>置于最前</span><span className="font-mono text-muted-foreground text-xs">{typeof navigator !== 'undefined' && navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + Shift + ]</span></div>
               <div className="flex items-center justify-between"><span>置于最后</span><span className="font-mono text-muted-foreground text-xs">{typeof navigator !== 'undefined' && navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'} + Shift + [</span></div>
               <div className="flex items-center justify-between"><span>删除图层</span><span className="font-mono text-muted-foreground text-xs">删除</span></div>
-              <div className="flex items-center justify-between"><span>从中心调整尺寸</span><span className="font-mono text-muted-foreground text-xs">Alt + Drag Handle</span></div>
-              <div className="flex items-center justify-between"><span>保持宽高比</span><span className="font-mono text-muted-foreground text-xs">Shift + Drag Handle</span></div>
+              <div className="flex items-center justify-between"><span>从中心调整尺寸</span><span className="font-mono text-muted-foreground text-xs">Alt + 拖动控制点</span></div>
+              <div className="flex items-center justify-between"><span>保持宽高比</span><span className="font-mono text-muted-foreground text-xs">Shift + 拖动控制点</span></div>
             </div>
           </div>
 

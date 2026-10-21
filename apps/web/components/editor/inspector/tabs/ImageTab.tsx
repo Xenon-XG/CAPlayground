@@ -49,7 +49,7 @@ export function ImageTab({
           <div className="flex justify-center rounded-md border bg-secondary/20 p-2">
             <img
               src={imageSrc}
-              alt={selected.name || "Image layer"}
+              alt={selected.name || "图像图层"}
               className="max-h-[200px] max-w-full object-contain"
             />
           </div>
@@ -351,7 +351,7 @@ function ImageCropDialog({
         canvas.toBlob(
           (blob) => {
             if (!blob) {
-              reject(new Error("Failed to create cropped image"));
+              reject(new Error("生成裁剪后的图像失败"));
               return;
             }
             const name = filename || "cropped-image.png";
@@ -457,7 +457,7 @@ function ImageCropDialog({
               onClick={handleApply}
               disabled={!naturalSize || applying}
             >
-              {applying ? "Cropping..." : "Apply crop"}
+              {applying ? "正在裁剪…" : "应用裁剪"}
             </Button>
           </div>
         </div>

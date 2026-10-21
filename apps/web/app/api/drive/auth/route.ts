@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
   } catch (error: any) {
     console.error('Drive auth check error:', error);
     return NextResponse.json({ 
-      error: 'Failed to check Drive connection',
+      error: '检查 Google Drive 连接失败',
       details: error.message 
     }, { status: 500 });
   }

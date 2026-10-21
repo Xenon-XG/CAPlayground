@@ -80,13 +80,12 @@ export default function AuthPage() {
             <CardContent>
               <div className="space-y-5">
                 <p className="text-sm text-muted-foreground">
-                  Authentication is disabled in this environment because
-                  required environment variables are not set.
+                  当前环境未设置必要的环境变量，因此登录功能不可用。
                 </p>
                 <p className="text-sm text-muted-foreground">
                   网站其他功能仍可使用。如需启用账户，请设置{" "}
-                  <code>NEXT_PUBLIC_SUPABASE_URL</code> and{" "}
-                  <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code>.
+                  <code>NEXT_PUBLIC_SUPABASE_URL</code> 和{" "}
+                  <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code>。
                 </p>
                 <div className="flex gap-3">
                   <Link href="/">
@@ -117,7 +116,7 @@ export default function AuthPage() {
       if (error) throw error;
       window.location.href = "/";
     } catch (e: any) {
-      setError(e.message ?? "Failed to sign in");
+      setError(e.message ?? "登录失败");
     } finally {
       setLoading(false);
     }
@@ -134,7 +133,7 @@ export default function AuthPage() {
     try {
       if (!isValidUsername(signupUsername)) {
         throw new Error(
-          "Username must be 3-20 chars and only letters, numbers, and ! - _ ."
+          "用户名须为 3–20 个字符，仅可使用字母、数字和 ! - _ ."
         );
       }
       const { error } = await supabase.auth.signUp({
@@ -145,10 +144,10 @@ export default function AuthPage() {
         },
       });
       if (error) throw error;
-      alert("Check your email for a confirmation link.");
+      alert("请查收确认邮件并点击其中的链接。");
       setMode("signin");
     } catch (e: any) {
-      setError(e.message ?? "Failed to sign up");
+      setError(e.message ?? "注册失败");
     } finally {
       setLoading(false);
     }
@@ -165,7 +164,7 @@ export default function AuthPage() {
       });
       if (error) throw error;
     } catch (e: any) {
-      setError(e.message ?? "Google sign-in failed");
+      setError(e.message ?? "Google 登录失败");
       setLoading(false);
     }
   }
@@ -181,7 +180,7 @@ export default function AuthPage() {
       });
       if (error) throw error;
     } catch (e: any) {
-      setError(e.message ?? "Github sign-in failed");
+      setError(e.message ?? "GitHub 登录失败");
       setLoading(false);
     }
   }
@@ -197,7 +196,7 @@ export default function AuthPage() {
       });
       if (error) throw error;
     } catch (e: any) {
-      setError(e.message ?? "Discord sign-in failed");
+      setError(e.message ?? "Discord 登录失败");
       setLoading(false);
     }
   }
@@ -234,7 +233,7 @@ export default function AuthPage() {
         <Card className="border-border/80 shadow-none">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl md:text-4xl font-bold">
-              {mode === "signin" ? "Welcome Back" : "Create an Account"}
+              {mode === "signin" ? "欢迎回来" : "创建账户"}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -284,7 +283,7 @@ export default function AuthPage() {
                   onClick={handleSignIn}
                   className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
                 >
-                  {loading ? "Signing In..." : "Sign In"}
+                  {loading ? "正在登录…" : "登录"}
                 </Button>
 
                 <div className="flex items-center gap-3">
@@ -389,19 +388,18 @@ export default function AuthPage() {
                   <Link href="/tos" className="underline">
                     服务条款
                   </Link>{" "}
-                  and{" "}
+                  和{" "}
                   <Link href="/privacy" className="underline">
                     隐私政策
                   </Link>
-                  . You must be at least 13 years old, or the minimum age of
-                  digital consent in your country.
+                  。你必须年满 13 周岁，或达到所在国家或地区的最低数字服务同意年龄。
                 </p>
                 <Button
                   disabled={loading}
                   onClick={handleSignUp}
                   className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
                 >
-                  {loading ? "Signing Up..." : "Sign Up"}
+                  {loading ? "正在注册…" : "注册"}
                 </Button>
 
                 <div className="flex items-center gap-3">

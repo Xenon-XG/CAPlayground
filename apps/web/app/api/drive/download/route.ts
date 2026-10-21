@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     const { fileId } = body as { fileId: string };
 
     if (!fileId) {
-      return NextResponse.json({ error: 'File ID required' }, { status: 400 });
+      return NextResponse.json({ error: '缺少文件 ID' }, { status: 400 });
     }
 
     const tokenResult = await getAndRefreshToken(request);
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
     if (!fileRes.ok) {
-      return NextResponse.json({ error: 'Failed to download from Drive', details: await fileRes.text() }, { status: 500 });
+      return NextResponse.json({ error: '从 Google Drive 下载失败', details: await fileRes.text() }, { status: 500 });
     }
     const arrayBuffer = await fileRes.arrayBuffer();
     const bytes = new Uint8Array(arrayBuffer);
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     console.error('Drive download error:', error);
     return NextResponse.json({ 
-      error: 'Failed to download from Drive',
+      error: '从 Google Drive 下载失败',
       details: error.message 
     }, { status: 500 });
   }

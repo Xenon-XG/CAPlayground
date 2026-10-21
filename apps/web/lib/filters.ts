@@ -14,20 +14,20 @@ export const supportedFilters: Record<SupportedFilterTypes, Filter> = {
     type: 'gaussianBlur',
     enabled: true,
     value: 10,
-    valueLabel: 'Radius',
+    valueLabel: '半径',
   },
   colorContrast: {
     name: 'Contrast',
     type: 'colorContrast',
     value: 1,
-    valueLabel: 'Amount',
+    valueLabel: '强度',
     enabled: true,
   },
   colorHueRotate: {
     name: 'Hue Rotate',
     type: 'colorHueRotate',
     value: 0,
-    valueLabel: 'Angle',
+    valueLabel: '角度',
     enabled: true,
   },
   colorInvert: {
@@ -40,14 +40,24 @@ export const supportedFilters: Record<SupportedFilterTypes, Filter> = {
     name: 'Saturate',
     type: 'colorSaturate',
     value: 0,
-    valueLabel: 'Amount',
+    valueLabel: '强度',
     enabled: true,
   },
   CISepiaTone: {
     name: 'Sepia',
     type: 'CISepiaTone',
     value: 1,
-    valueLabel: 'Intensity',
+    valueLabel: '强度',
     enabled: true,
   },
+};
+
+// Saved filter names and CAML identifiers remain in their original form.
+export const filterLabels: Record<SupportedFilterTypes, string> = {
+  gaussianBlur: '高斯模糊',
+  colorContrast: '对比度',
+  colorHueRotate: '色相旋转',
+  colorInvert: '反色',
+  colorSaturate: '饱和度',
+  CISepiaTone: '复古棕褐色',
 };

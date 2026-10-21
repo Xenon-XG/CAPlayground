@@ -53,11 +53,11 @@ export function BulkAnimationInput({ keyPath, currentValues, onValuesChange, dis
         if (keyPath === 'position' || keyPath === 'bounds') {
           const parts = trimmed.split(',').map(p => p.trim());
           if (parts.length !== 2) {
-            throw new Error(`Invalid format for ${keyPath}. Expected "x, y" or "w, h" format.`);
+            throw new Error(`${keyPath} 的格式无效，应为“x, y”或“w, h”。`);
           }
           const [first, second] = parts.map(Number);
           if (!Number.isFinite(first) || !Number.isFinite(second)) {
-            throw new Error(`Invalid numbers in line: ${trimmed}`);
+            throw new Error(`该行数字无效：${trimmed}`);
           }
           if (keyPath === 'position') {
             values.push({ x: Math.round(first), y: Math.round(second) });
@@ -67,7 +67,7 @@ export function BulkAnimationInput({ keyPath, currentValues, onValuesChange, dis
         } else {
           const num = Number(trimmed);
           if (!Number.isFinite(num)) {
-            throw new Error(`Invalid number: ${trimmed}`);
+            throw new Error(`无效数字：${trimmed}`);
           }
           if (keyPath === 'opacity') {
             const percentage = Math.max(0, Math.min(100, Math.round(num)));
@@ -78,7 +78,7 @@ export function BulkAnimationInput({ keyPath, currentValues, onValuesChange, dis
         }
       }
     } catch (e) {
-      error = e instanceof Error ? e.message : 'Invalid format';
+      error = e instanceof Error ? e.message : '格式无效';
     }
 
     return { values, error };
@@ -185,7 +185,7 @@ export function BulkAnimationInput({ keyPath, currentValues, onValuesChange, dis
                 选择文件
               </Button>
               <span className="text-xs text-muted-foreground truncate">
-                {fileName || "No file chosen"}
+                {fileName || "未选择文件"}
               </span>
             </div>
           </div>

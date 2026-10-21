@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { useEditor } from "@/components/editor/editor-context";
 import { ANIMATION_COLORS } from "./constants";
 import { hasLayerAnimations } from "@/lib/editor/layer-utils";
+import { keyPathLabel } from "@/lib/ca/keypath-labels";
 
 interface TimelineLayerRowProps {
   layer: AnyLayer;
@@ -236,7 +237,7 @@ function AnimationRow({
         >
           <span className={`w-2 h-2 shrink-0 rounded-sm ${colorClass}`} />
           <span className="text-[10px] truncate min-w-0" title={animation.keyPath}>
-            {animation.keyPath}
+            {keyPathLabel(animation.keyPath)}
           </span>
         </div>
       </div>
@@ -254,7 +255,7 @@ function AnimationRow({
               className={`absolute top-0.5 bottom-0.5 rounded-sm ${colorClass} opacity-70 hover:opacity-100 transition-opacity ${isFirst ? 'group touch-none' : ''
                 }`}
               style={{ left: startX, width: Math.max(cycleWidthPx, 2) }}
-              title={`${animation.keyPath}: ${durationText}${speed !== 1 ? ` (${effectiveDuration.toFixed(1)}s)` : ''}${isAutoreverse ? ' (autoreverse)' : ''}${isInfinite ? ' (∞)' : repeatDurationSec ? ` × ${repeatCount}` : ''}`}
+              title={`${keyPathLabel(animation.keyPath)}: ${durationText}${speed !== 1 ? ` (${effectiveDuration.toFixed(1)}s)` : ''}${isAutoreverse ? '（自动反向）' : ''}${isInfinite ? '（∞）' : repeatDurationSec ? ` × ${repeatCount}` : ''}`}
             >
               {isFirst && (
                 <span className="absolute inset-0 flex items-center px-1 text-[10px] text-white font-medium select-none pointer-events-none overflow-hidden">

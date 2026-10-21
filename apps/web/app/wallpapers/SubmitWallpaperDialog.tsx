@@ -136,7 +136,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
       const { data: { session } } = await supabase.auth.getSession()
 
       if (!session?.user) {
-        throw new Error("You must be signed in to submit.")
+        throw new Error("请登录后再投稿。")
       }
 
       setSubmissionStatus({ message: "正在检查现有投稿…" })
@@ -149,14 +149,14 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
       if (awaitingError) {
         console.warn('Failed to check existing submissions limit:', awaitingError)
       } else if (typeof awaitingCount === 'number' && awaitingCount >= 5) {
-        throw new Error('You already have 5 wallpapers awaiting review. Please wait until one is approved or rejected before submitting more.')
+        throw new Error('你已有 5 个壁纸待审核。请等待其中一个通过或被拒绝后再投稿。')
       }
 
       setSubmissionStatus({ message: "正在验证身份…" })
 
       const tokenResponse = await fetch('/api/github/token')
       if (!tokenResponse.ok) {
-        throw new Error("Failed to authenticate with GitHub service")
+        throw new Error("GitHub 服务身份验证失败")
       }
       const { token } = await tokenResponse.json()
 
@@ -188,7 +188,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
           hint: dbError.hint,
           code: dbError.code
         })
-        throw new Error(`Failed to save submission to database: ${dbError.message}`)
+        throw new Error(`保存投稿到数据库失败：${dbError.message}`)
       }
 
       console.log("Submission saved to database!:", dbData)
@@ -315,7 +315,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
     } catch (error: any) {
       console.error("GitHub submission error:", error)
       setStep("preview")
-      setSubmitError(error.message || "Failed to submit to GitHub")
+      setSubmitError(error.message || "提交到 GitHub 失败")
     }
   }
 
@@ -403,7 +403,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
                     className="w-full"
                   >
                     <Upload className="h-4 w-4 mr-2" />
-                    {tendiesFile ? tendiesFile.name : "Choose .tendies file"}
+                    {tendiesFile ? tendiesFile.name : "选择 .tendies 文件"}
                   </Button>
                 </div>
               </div>
@@ -427,7 +427,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
                     className="w-full"
                   >
                     <Upload className="h-4 w-4 mr-2" />
-                    {videoFile ? videoFile.name : "Choose video file"}
+                    {videoFile ? videoFile.name : "选择视频文件"}
                   </Button>
                 </div>
                 {videoPreviewUrl && videoPreviewUrl.startsWith('blob:') && (

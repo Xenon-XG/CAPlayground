@@ -15,6 +15,7 @@ import { BulkAnimationInput } from "./BulkAnimationInput";
 import { useEditor } from "../../editor-context";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
+import { keyPathLabel } from "@/lib/ca/keypath-labels";
 
 const supportedAnimations = [
   "position",
@@ -72,7 +73,7 @@ export function AnimationsTab({
             .filter((kp) => !selectedBase?.animations?.some((a) => a.keyPath === kp))
             .map((kp) => (
               <SelectItem key={kp} value={kp}>
-                {kp}
+                {keyPathLabel(kp)}
               </SelectItem>
             ))}
         </SelectContent>
@@ -152,7 +153,7 @@ const AnimationItem = ({
           title="启用动画"
         />
         <AccordionTrigger className="w-full">
-          {keyPath}
+          {keyPathLabel(keyPath)}
         </AccordionTrigger>
       </div>
       <AccordionContent>
@@ -400,7 +401,7 @@ const AnimationItem = ({
                       }
                       return (
                         <th className="px-2 py-1.5 text-left font-medium text-muted-foreground">
-                          {keyPath === 'position.x' ? 'X' : keyPath === 'position.y' ? 'Y' : isOpacity ? 'Opacity' : isBackgroundColor ? 'Color' : 'Deg'}
+                          {keyPath === 'position.x' ? 'X' : keyPath === 'position.y' ? 'Y' : isOpacity ? '不透明度' : isBackgroundColor ? '颜色' : '角度'}
                         </th>
                       );
                     })()}

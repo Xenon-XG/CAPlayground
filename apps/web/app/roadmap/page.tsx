@@ -45,9 +45,9 @@ export default function RoadmapPage() {
         </header>
 
         {/* Status Badges
-          <Badge className="align-middle mr-1">Done</Badge>
-          <Badge variant="secondary" className="align-middle mx-1">In Progress</Badge>
-          <Badge variant="outline" className="align-middle mx-1">Not Started</Badge>
+          <Badge className="align-middle mr-1">已完成</Badge>
+          <Badge variant="secondary" className="align-middle mx-1">进行中</Badge>
+          <Badge variant="outline" className="align-middle mx-1">未开始</Badge>
         */}
 
         {selectedMonth === 1 && (
@@ -144,7 +144,7 @@ function RoadmapItem({
           </span>
           <h2 className="font-heading text-xl md:text-2xl font-semibold">{title}</h2>
         </div>
-        <div aria-label="status" className="mt-2 md:mt-0 md:shrink-0">
+        <div aria-label="状态" className="mt-2 md:mt-0 md:shrink-0">
           {status}
         </div>
       </div>

@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     try {
         const { submission_id } = await request.json()
         if (!submission_id) {
-            return NextResponse.json({ error: "Missing submission_id" }, { status: 400 })
+            return NextResponse.json({ error: "缺少 submission_id" }, { status: 400 })
         }
 
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
         if (!supabaseServiceKey) {
             console.error("Missing SUPABASE_SERVICE_ROLE_KEY")
-            return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
+            return NextResponse.json({ error: "服务器配置错误" }, { status: 500 })
         }
 
         const supabase = createClient(supabaseUrl, supabaseServiceKey)
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
             .single()
 
         if (fetchError || !submission) {
-            return NextResponse.json({ error: "Submission not found" }, { status: 404 })
+            return NextResponse.json({ error: "未找到投稿" }, { status: 404 })
         }
 
         if (['approved', 'rejected'].includes(submission.status)) {
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         const installationId = process.env.GITHUB_INSTALLATION_ID
 
         if (!appId || !privateKey || !installationId) {
-            return NextResponse.json({ error: "GitHub config missing" }, { status: 500 })
+            return NextResponse.json({ error: "缺少 GitHub 配置" }, { status: 500 })
         }
 
         const app = new App({
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
         }
 
         if (!pr) {
-            return NextResponse.json({ status: submission.status, message: "PR not found" })
+            return NextResponse.json({ status: submission.status, message: "未找到 Pull Request" })
         }
 
         let newStatus = submission.status

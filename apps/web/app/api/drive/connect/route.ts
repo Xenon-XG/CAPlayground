@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
   } catch (error: any) {
     console.error('Drive connect error:', error);
     return NextResponse.json({ 
-      error: 'Failed to generate auth URL',
+      error: '生成授权链接失败',
       details: error.message 
     }, { status: 500 });
   }
