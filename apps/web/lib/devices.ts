@@ -1,5 +1,8 @@
-// iOS device resolutions data
+// iOS device logical resolutions in portrait orientation (points, not physical pixels).
 // Source: https://iosref.com/res
+// Recent iPhone models: https://developer.apple.com/design/human-interface-guidelines/layout
+// https://www.apple.com/iphone-18-pro/specs/
+// https://www.apple.com/iphone-17e/specs/
 
 export interface DeviceSpec {
   name: string;
@@ -10,10 +13,18 @@ export interface DeviceSpec {
 
 export const devices: DeviceSpec[] = [
   // iPhone
+  { name: 'iPhone 18 Pro Max', width: 440, height: 956, category: 'iPhone' },
+  { name: 'iPhone 18 Pro', width: 402, height: 874, category: 'iPhone' },
+  { name: 'iPhone 17 Pro Max', width: 440, height: 956, category: 'iPhone' },
+  { name: 'iPhone 17 Pro', width: 402, height: 874, category: 'iPhone' },
+  { name: 'iPhone 17', width: 402, height: 874, category: 'iPhone' },
+  { name: 'iPhone Air', width: 420, height: 912, category: 'iPhone' },
+  { name: 'iPhone 17e', width: 390, height: 844, category: 'iPhone' },
   { name: 'iPhone 16 Pro Max', width: 440, height: 956, category: 'iPhone' },
   { name: 'iPhone 16 Pro', width: 402, height: 874, category: 'iPhone' },
   { name: 'iPhone 16 Plus', width: 430, height: 932, category: 'iPhone' },
   { name: 'iPhone 16', width: 393, height: 852, category: 'iPhone' },
+  { name: 'iPhone 16e', width: 390, height: 844, category: 'iPhone' },
   { name: 'iPhone 15 Pro Max', width: 430, height: 932, category: 'iPhone' },
   { name: 'iPhone 15 Pro', width: 393, height: 852, category: 'iPhone' },
   { name: 'iPhone 15 Plus', width: 430, height: 932, category: 'iPhone' },
