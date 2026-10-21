@@ -31,13 +31,13 @@ export function CompositingTab({
   return (
     <div className="grid grid-cols-2 gap-x-1.5 gap-y-3">
       <div className="space-y-1 col-span-2">
-        <Label htmlFor="blendMode">Blending</Label>
+        <Label htmlFor="blendMode">混合</Label>
         <Select
           value={selected.blendMode}
           onValueChange={(v) => updateLayer(selected.id, { blendMode: v as any } as any)}
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select blending mode" />
+            <SelectValue placeholder="选择混合模式" />
           </SelectTrigger>
           <SelectContent>
             {Object.values(blendModes).map((mode) => (
@@ -49,7 +49,7 @@ export function CompositingTab({
         </Select>
       </div>
       <div className="space-y-1 col-span-2">
-        <Label htmlFor="opacity">Opacity</Label>
+        <Label htmlFor="opacity">不透明度</Label>
         <div className="flex items-center gap-2 w-full">
           <Slider
             id="opacity"
@@ -105,13 +105,13 @@ export function CompositingTab({
               className="underline underline-offset-2 hover:text-foreground"
               onClick={() => setActiveTab('content')}
             >
-              Content → Background opacity
+              内容 → 背景不透明度
             </button>.
           </p>
         </div>
       </div>
       <div className="space-y-1">
-        <Label htmlFor="radius">Corner Radius</Label>
+        <Label htmlFor="radius">圆角半径</Label>
         <Input
           id="radius"
           type="number"
@@ -135,7 +135,7 @@ export function CompositingTab({
       </div>
 
       <div className="space-y-1 col-span-2">
-        <Label>Clip contents</Label>
+        <Label>裁剪内容</Label>
         <div className="flex items-center gap-2 h-8">
           <Tooltip>
             <TooltipTrigger asChild>
@@ -150,10 +150,10 @@ export function CompositingTab({
               </div>
             </TooltipTrigger>
             {inState && (
-              <TooltipContent sideOffset={6}>Not supported for state transitions</TooltipContent>
+              <TooltipContent sideOffset={6}>不支持状态切换</TooltipContent>
             )}
           </Tooltip>
-          <span className="text-xs text-muted-foreground">Masks this layer's sublayers to its bounds.</span>
+          <span className="text-xs text-muted-foreground">将子图层裁剪到此图层的边界内。</span>
         </div>
       </div>
     </div>

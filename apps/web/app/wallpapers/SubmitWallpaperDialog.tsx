@@ -139,7 +139,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
         throw new Error("You must be signed in to submit.")
       }
 
-      setSubmissionStatus({ message: "Checking existing submissions..." })
+      setSubmissionStatus({ message: "正在检查现有投稿…" })
       const { count: awaitingCount, error: awaitingError } = await supabase
         .from('wallpaper_submissions')
         .select('id', { count: 'exact', head: true })
@@ -152,7 +152,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
         throw new Error('You already have 5 wallpapers awaiting review. Please wait until one is approved or rejected before submitting more.')
       }
 
-      setSubmissionStatus({ message: "Authenticating..." })
+      setSubmissionStatus({ message: "正在验证身份…" })
 
       const tokenResponse = await fetch('/api/github/token')
       if (!tokenResponse.ok) {
@@ -167,7 +167,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
       const wallpaperId = Math.floor(Math.random() * 9000000) + 1000000
       const idString = wallpaperId.toString()
 
-      setSubmissionStatus({ message: "Registering submission..." })
+      setSubmissionStatus({ message: "正在登记投稿…" })
       const { data: dbData, error: dbError } = await supabase
         .from('wallpaper_submissions')
         .insert({
@@ -193,7 +193,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
 
       console.log("Submission saved to database!:", dbData)
 
-      setSubmissionStatus({ message: "Preparing repository..." })
+      setSubmissionStatus({ message: "正在准备仓库…" })
 
       const { data: refData } = await octokit.rest.git.getRef({
         owner: upstreamOwner,
@@ -208,7 +208,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
       })
       const treeSha = commitData.tree.sha
 
-      setSubmissionStatus({ message: "Uploading files..." })
+      setSubmissionStatus({ message: "正在上传文件…" })
 
       const tendiesContent = arrayBufferToBase64(await tendiesFile.arrayBuffer())
       const { data: tendiesBlob } = await octokit.rest.git.createBlob({
@@ -297,7 +297,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
         sha: newCommit.sha,
       })
 
-      setSubmissionStatus({ message: "Creating Pull Request..." })
+      setSubmissionStatus({ message: "正在创建 Pull Request…" })
       const tendiesUrl = `https://raw.githubusercontent.com/${upstreamOwner}/${upstreamRepo}/${encodeURIComponent(branchName)}/${tendiesPath}`
       const importUrl = `https://caplayground.vercel.app/projects?importUrl=${encodeURIComponent(tendiesUrl)}&name=${encodeURIComponent(name)}&creator=${encodeURIComponent(username)}`
       const { data: pr } = await octokit.rest.pulls.create({
@@ -327,52 +327,52 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
         {!isSignedIn ? (
           <>
             <DialogHeader>
-              <DialogTitle>Sign In Required</DialogTitle>
+              <DialogTitle>需要登录</DialogTitle>
               <DialogDescription>
-                You need to be signed in to submit wallpapers
+                登录后才能投稿壁纸
               </DialogDescription>
             </DialogHeader>
 
             <div className="py-6 text-center space-y-4">
               <p className="text-muted-foreground">
-                Please sign in to your account to submit wallpapers to the gallery.
+                请登录账户后再向壁纸库投稿。
               </p>
               <Link href="/signin">
-                <Button className="w-full sm:w-auto">Sign In</Button>
+                <Button className="w-full sm:w-auto">登录</Button>
               </Link>
             </div>
           </>
         ) : step === "form" ? (
           <>
             <DialogHeader>
-              <DialogTitle>Submit Wallpaper</DialogTitle>
+              <DialogTitle>投稿壁纸</DialogTitle>
               <DialogDescription>
-                Share your wallpaper with the CAPlayground community
+                与 CAPlayground 社区分享你的壁纸
               </DialogDescription>
             </DialogHeader>
 
             <div className="space-y-6 py-4">
               {/* Wallpaper Name */}
               <div className="space-y-2">
-                <Label htmlFor="name">Wallpaper Name *</Label>
+                <Label htmlFor="name">壁纸名称 *</Label>
                 <Input
                   id="name"
-                  placeholder="Enter wallpaper name"
+                  placeholder="输入壁纸名称"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   maxLength={42}
                 />
                 <p className="text-xs text-muted-foreground">
-                  {name.length}/42 characters
+                  {name.length}/42 字符
                 </p>
               </div>
 
               {/* Description */}
               <div className="space-y-2">
-                <Label htmlFor="description">Description *</Label>
+                <Label htmlFor="description">简介 *</Label>
                 <Textarea
                   id="description"
-                  placeholder="Describe your wallpaper..."
+                  placeholder="描述你的壁纸…"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={4}
@@ -380,13 +380,13 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
                   className="resize-none whitespace-pre-wrap break-words"
                 />
                 <p className="text-xs text-muted-foreground">
-                  {description.length}/60 characters
+                  {description.length}/60 字符
                 </p>
               </div>
 
               {/* Tendies file upload */}
               <div className="space-y-2">
-                <Label htmlFor="tendies-file">.tendies File *</Label>
+                <Label htmlFor="tendies-file">.tendies 文件 *</Label>
                 <div className="flex items-center gap-2">
                   <Input
                     id="tendies-file"
@@ -410,7 +410,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
 
               {/* Video file upload */}
               <div className="space-y-2">
-                <Label htmlFor="video-file">Preview Video *</Label>
+                <Label htmlFor="video-file">预览视频 *</Label>
                 <div className="flex items-center gap-2">
                   <Input
                     id="video-file"
@@ -446,22 +446,22 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
 
               {/* Author (username) */}
               <div className="space-y-2">
-                <Label>Author</Label>
+                <Label>作者</Label>
                 <div className="text-sm text-muted-foreground bg-muted px-3 py-2 rounded-md">
                   {username}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Your username will be displayed as the wallpaper creator
+                  将以你的用户名显示壁纸作者
                 </p>
               </div>
             </div>
 
             <DialogFooter className="gap-2">
               <Button variant="outline" onClick={handleCancel}>
-                Cancel
+                取消
               </Button>
               <Button onClick={handleContinue} disabled={!isFormValid}>
-                Continue
+                继续
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </DialogFooter>
@@ -469,9 +469,9 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
         ) : step === "preview" ? (
           <>
             <DialogHeader>
-              <DialogTitle>Preview Submission</DialogTitle>
+              <DialogTitle>预览投稿</DialogTitle>
               <DialogDescription>
-                This is how your wallpaper will appear in the gallery
+                壁纸将在壁纸库中这样显示
               </DialogDescription>
             </DialogHeader>
 
@@ -498,7 +498,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
                 <CardHeader>
                   <CardTitle className="line-clamp-1">{name}</CardTitle>
                   <CardDescription className="line-clamp-2">
-                    by {username} (submitted on website)
+                    作者： {username} （通过网站投稿）
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -509,12 +509,12 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
                         <TooltipTrigger asChild>
                           <div>
                             <Button className="w-full bg-accent hover:bg-accent/90 text-white" disabled>
-                              Download .tendies
+                              下载 .tendies
                             </Button>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p>Download not available in preview</p>
+                          <p>预览中无法下载</p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -533,10 +533,10 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
             <DialogFooter className="gap-2">
               <Button variant="outline" onClick={handleBack}>
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
+                返回
               </Button>
               <Button onClick={() => setStep("rules")}>
-                Looks Good
+                确认无误
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </DialogFooter>
@@ -544,19 +544,19 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
         ) : step === "rules" ? (
           <>
             <DialogHeader>
-              <DialogTitle>Submission Rules & Guidelines</DialogTitle>
+              <DialogTitle>投稿规则与指南</DialogTitle>
               <DialogDescription>
-                Please review and agree to the rules before submitting your wallpaper
+                投稿前请阅读并同意以下规则
               </DialogDescription>
             </DialogHeader>
 
             <div className="py-6 space-y-6">
               <div className="space-y-4">
                 <ul className="text-sm space-y-3 list-decimal list-inside text-muted-foreground bg-muted/50 p-4 rounded-lg">
-                  <li>No NSFW or adult-only content.</li>
-                  <li>Wallpapers must not consist of a single video layer. They should demonstrate creative use of CAPlayground's features.</li>
-                  <li>No political, inappropriate, or offensive content (including but not limited to discrimination based on sex, race, or religion).</li>
-                  <li>Ensure you have the rights to all assets used in your submission.</li>
+                  <li>不得包含色情或仅限成人的内容。</li>
+                  <li>壁纸不能只包含单个视频图层，应体现对 CAPlayground 功能的创意运用。</li>
+                  <li>不得包含政治、不当或冒犯性内容，包括但不限于基于性别、种族或宗教的歧视。</li>
+                  <li>请确保你拥有投稿中所有素材的使用权。</li>
                 </ul>
               </div>
 
@@ -569,7 +569,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
                     className="mt-1"
                   />
                   <Label htmlFor="rules" className="text-sm leading-tight font-medium cursor-pointer">
-                    I confirm that this submission is original and does not contain NSFW, political, or offensive content.
+                    我确认此投稿为原创，且不含色情、政治或冒犯性内容。
                   </Label>
                 </div>
                 <div className="flex items-start space-x-3">
@@ -580,7 +580,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
                     className="mt-1"
                   />
                   <Label htmlFor="quality" className="text-sm leading-tight font-medium cursor-pointer">
-                    I confirm that this wallpaper is more than just a single video layer.
+                    我确认这张壁纸不只是单个视频图层。
                   </Label>
                 </div>
               </div>
@@ -589,11 +589,11 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
             <DialogFooter className="gap-2">
               <Button variant="outline" onClick={handleBack}>
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
+                返回
               </Button>
               <Button onClick={handleSubmit} disabled={!agreedToRules || !agreedToQuality}>
                 <Github className="h-4 w-4 mr-2" />
-                Submit Wallpaper
+                投稿壁纸
               </Button>
             </DialogFooter>
           </>
@@ -601,7 +601,7 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
           <div className="py-12 flex flex-col items-center justify-center text-center space-y-4">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
             <div className="space-y-1">
-              <h3 className="font-semibold text-lg">Submitting Wallpaper</h3>
+              <h3 className="font-semibold text-lg">正在投稿壁纸</h3>
               <p className="text-muted-foreground">{submissionStatus.message}</p>
             </div>
           </div>
@@ -611,9 +611,9 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
               <CheckCircle2 className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
             <div className="space-y-2">
-              <h3 className="font-semibold text-xl">Submission Successful!</h3>
+              <h3 className="font-semibold text-xl">投稿成功！</h3>
               <p className="text-muted-foreground max-w-sm mx-auto">
-                Your wallpaper has been submitted as a Pull Request. Once approved, it will appear in the gallery.
+                壁纸已通过 Pull Request 提交，审核通过后将出现在壁纸库中。
               </p>
             </div>
 
@@ -625,12 +625,12 @@ export function SubmitWallpaperDialog({ open, onOpenChange, username = "Anonymou
                 className="inline-flex items-center gap-2 text-primary hover:underline"
               >
                 <Github className="h-4 w-4" />
-                View Pull Request
+                查看 Pull Request
               </a>
             )}
 
             <Button onClick={handleCancel} className="w-full sm:w-auto min-w-[120px]">
-              Done
+              完成
             </Button>
           </div>
         )}

@@ -91,7 +91,7 @@ export function EmitterTab({
         />
       </div>
       <div className="space-y-1">
-        <Label htmlFor="emitterSize-w" className="text-xs">Width</Label>
+        <Label htmlFor="emitterSize-w" className="text-xs">宽度</Label>
         <Input
           id="emitterSize-w"
           type="number"
@@ -114,7 +114,7 @@ export function EmitterTab({
         />
       </div>
       <div className="space-y-1">
-        <Label htmlFor="emitterSize-h" className="text-xs">Height</Label>
+        <Label htmlFor="emitterSize-h" className="text-xs">高度</Label>
         <Input
           id="emitterSize-h"
           type="number"
@@ -137,7 +137,7 @@ export function EmitterTab({
         />
       </div>
       <div className="space-y-1 col-span-2">
-        <Label>Render Mode</Label>
+        <Label>渲染模式</Label>
         <Select
           value={((selected as any)?.renderMode ?? 'unordered') as any}
           onValueChange={(v) => {
@@ -148,16 +148,16 @@ export function EmitterTab({
           }}
         >
           <SelectTrigger className="h-8 text-xs w-full">
-            <SelectValue placeholder="Select render mode" />
+            <SelectValue placeholder="选择渲染模式" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="unordered">unordered</SelectItem>
-            <SelectItem value="additive">additive</SelectItem>
+            <SelectItem value="unordered">无序</SelectItem>
+            <SelectItem value="additive">叠加</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div className="space-y-1">
-        <Label>Shape</Label>
+        <Label>形状</Label>
         <Select
           value={((selected as any)?.emitterShape ?? 'point') as any}
           onValueChange={(v) => {
@@ -168,17 +168,17 @@ export function EmitterTab({
           }}
         >
           <SelectTrigger className="h-8 text-xs w-full">
-            <SelectValue placeholder="Select emitter shape" />
+            <SelectValue placeholder="选择发射器形状" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="point">point</SelectItem>
-            <SelectItem value="line">line</SelectItem>
-            <SelectItem value="rectangle">rectangle</SelectItem>
+            <SelectItem value="point">点</SelectItem>
+            <SelectItem value="line">线</SelectItem>
+            <SelectItem value="rectangle">矩形</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div className="space-y-1">
-        <Label>Mode</Label>
+        <Label>模式</Label>
         <Select
           value={((selected as any)?.emitterMode ?? 'volume') as any}
           onValueChange={(v) => {
@@ -188,12 +188,12 @@ export function EmitterTab({
           }}
         >
           <SelectTrigger className="h-8 text-xs w-full">
-            <SelectValue placeholder="Select emitter mode" />
+            <SelectValue placeholder="选择发射器模式" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="volume">volume</SelectItem>
-            <SelectItem value="outline">outline</SelectItem>
-            <SelectItem value="surface">surface</SelectItem>
+            <SelectItem value="volume">体积</SelectItem>
+            <SelectItem value="outline">轮廓</SelectItem>
+            <SelectItem value="surface">表面</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -221,7 +221,7 @@ export function EmitterTab({
       />
       <div className="col-span-2">
         <div className="flex items-center justify-between">
-          <Label>Cells</Label>
+          <Label>粒子单元</Label>
           <Button
             type="button"
             variant="secondary"
@@ -231,7 +231,7 @@ export function EmitterTab({
               fileInputRef.current?.click();
             }}
           >
-            + Add Cell
+            添加粒子单元
           </Button>
         </div>
         <Accordion
@@ -246,7 +246,7 @@ export function EmitterTab({
                     cellSrc={cell.src}
                     size={20}
                   />
-                  Cell {i + 1}
+                  粒子单元 {i + 1}
                 </div>
               </AccordionTrigger>
               <AccordionContent>
@@ -280,10 +280,10 @@ export function EmitterTab({
                     disabled={inState}
                     onClick={() => handleChangeImageClick(i)}
                   >
-                    Change Image
+                    更换图像
                   </Button>
                   <div className="col-span-3 space-y-1">
-                    <Label>Birth Rate</Label>
+                    <Label>生成速率</Label>
                     <Input
                       type="number"
                       step="1"
@@ -312,7 +312,7 @@ export function EmitterTab({
                     />
                   </div>
                   <div className="col-span-3 space-y-1">
-                    <Label>Lifetime</Label>
+                    <Label>存活时间</Label>
                     <Input
                       type="number"
                       step="1"
@@ -341,7 +341,7 @@ export function EmitterTab({
                     />
                   </div>
                   <div className="col-span-6 space-y-1">
-                    <Label>Velocity</Label>
+                    <Label>速度</Label>
                     <Input
                       type="number"
                       step="1"
@@ -370,7 +370,7 @@ export function EmitterTab({
                     />
                   </div>
                   <div className="col-span-3 space-y-1 grid grid-cols-2">
-                    <Label className="col-span-2">Emission</Label>
+                    <Label className="col-span-2">发射</Label>
                     <div className="space-y-1">
                       <div className="flex justify-center py-1">
                         <RotationKnob
@@ -413,7 +413,7 @@ export function EmitterTab({
                     </div>
                   </div>
                   <div className="col-span-3 space-y-1 grid grid-cols-2">
-                    <Label className="col-span-2">Spin</Label>
+                    <Label className="col-span-2">旋转</Label>
                     <div className="space-y-1">
                       <div className="flex justify-center py-1">
                         <RotationKnob
@@ -587,7 +587,7 @@ export function EmitterTab({
                     }}
                   />
                   <div className="col-span-3 space-y-1">
-                    <Label>X Acceleration</Label>
+                    <Label>X 轴加速度</Label>
                     <Input
                       type="number"
                       step="1"
@@ -616,7 +616,7 @@ export function EmitterTab({
                     />
                   </div>
                   <div className="col-span-3 space-y-1">
-                    <Label>Y Acceleration</Label>
+                    <Label>Y 轴加速度</Label>
                     <Input
                       type="number"
                       step="1"
@@ -648,11 +648,11 @@ export function EmitterTab({
                     <Accordion type="single" collapsible>
                       <AccordionItem value="advanced-color">
                         <AccordionTrigger className="text-sm text-muted-foreground hover:text-foreground">
-                          Advanced Color Controls
+                          高级颜色控制
                         </AccordionTrigger>
                         <AccordionContent className="grid grid-cols-6 gap-3">
                           <div className="col-span-6 space-y-1">
-                            <Label>Color</Label>
+                            <Label>颜色</Label>
                             <Input
                               type="color"
                               value={cell.color}
@@ -819,7 +819,7 @@ export function EmitterTab({
                     onClick={() => removeEmitterCell(selected.id, i)}
                     className="col-span-6 justify-self-center"
                   >
-                    Remove
+                    移除
                   </Button>
                 </div>
               </AccordionContent>

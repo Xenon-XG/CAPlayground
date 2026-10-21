@@ -67,7 +67,7 @@ export default function AccountPage() {
   const [linkingProvider, setLinkingProvider] = useState<string | null>(null)
 
   useEffect(() => {
-    document.title = "CAPlayground - Account";
+    document.title = "CAPlayground - 账户";
   }, []);
 
   useEffect(() => {
@@ -249,7 +249,7 @@ export default function AccountPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
-        <p className="text-sm text-muted-foreground">Loading account…</p>
+        <p className="text-sm text-muted-foreground">正在加载账户…</p>
       </div>
     )
   }
@@ -260,15 +260,15 @@ export default function AccountPage() {
       <div className="absolute left-4 top-6">
         <Link href="/dashboard">
           <Button variant="ghost" size="sm" className="h-8 px-2">
-            <ArrowLeft className="h-4 w-4 mr-1" /> Back
+            <ArrowLeft className="h-4 w-4 mr-1" /> 返回
           </Button>
         </Link>
       </div>
 
       <div className="w-full max-w-2xl space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl md:text-4xl font-bold">Manage Account</h1>
-          <p className="text-muted-foreground">Update your account settings and linked providers</p>
+          <h1 className="text-3xl md:text-4xl font-bold">管理账户</h1>
+          <p className="text-muted-foreground">更新账户设置和关联的登录方式</p>
         </div>
 
         {message && <p className="text-sm text-green-600">{message}</p>}
@@ -279,17 +279,17 @@ export default function AccountPage() {
             <Card className="border-border/80 shadow-none">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle>Account Information</CardTitle>
-                  <Button variant="outline" onClick={signOut}>Sign out</Button>
+                  <CardTitle>账户信息</CardTitle>
+                  <Button variant="outline" onClick={signOut}>退出登录</Button>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label className="text-sm font-medium">Email</Label>
+                  <Label className="text-sm font-medium">邮箱</Label>
                   <p className="text-sm text-muted-foreground mt-1">{email || "(loading)"}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium">Username</Label>
+                  <Label className="text-sm font-medium">用户名</Label>
                   <p className="text-sm text-muted-foreground mt-1">{username || "Not set"}</p>
                 </div>
               </CardContent>
@@ -297,17 +297,17 @@ export default function AccountPage() {
 
             <Card className="border-border/80 shadow-none">
               <CardHeader>
-                <CardTitle>Linked Accounts</CardTitle>
+                <CardTitle>已关联账户</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground">
-                  Sign in with any of these providers to access your account.
+                  可使用以下任一方式登录账户。
                 </p>
                 
                 <div className="space-y-3">
-                  <h3 className="text-sm font-medium">Currently Linked</h3>
+                  <h3 className="text-sm font-medium">当前已关联</h3>
                   {linkedIdentities.length === 0 ? (
-                    <p className="text-sm text-muted-foreground">No linked accounts found.</p>
+                    <p className="text-sm text-muted-foreground">没有已关联的账户。</p>
                   ) : (
                     <div className="space-y-2">
                       {linkedIdentities.map((identity) => (
@@ -339,7 +339,7 @@ export default function AccountPage() {
                               onClick={() => unlinkProvider(identity)}
                             >
                               <Unlink className="h-4 w-4 mr-1" />
-                              Unlink
+                              取消关联
                             </Button>
                           )}
                         </div>
@@ -351,7 +351,7 @@ export default function AccountPage() {
                 <Separator />
 
                 <div className="space-y-3">
-                  <h3 className="text-sm font-medium">Link New Provider</h3>
+                  <h3 className="text-sm font-medium">关联其他方式</h3>
                   <div className="grid gap-2">
                     {!linkedIdentities.some(i => i.provider === 'google') && (
                       <Button
@@ -390,7 +390,7 @@ export default function AccountPage() {
                   {linkedIdentities.some(i => i.provider === 'google') && 
                    linkedIdentities.some(i => i.provider === 'github') && 
                    linkedIdentities.some(i => i.provider === 'discord') && (
-                    <p className="text-sm text-muted-foreground">All available providers are linked.</p>
+                    <p className="text-sm text-muted-foreground">所有可用的登录方式均已关联。</p>
                   )}
                 </div>
               </CardContent>
@@ -398,27 +398,27 @@ export default function AccountPage() {
 
             <Card className="border-border/80 shadow-none">
               <CardHeader>
-                <CardTitle>Account Actions</CardTitle>
+                <CardTitle>账户操作</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-2">
                   {canChangeEmail ? (
                     <Button variant="outline" onClick={() => { setMode("email"); setMessage(null); setError(null); setNewEmail(""); }}>
-                      Update Email
+                      更新邮箱
                     </Button>
                   ) : (
-                    <Button variant="outline" disabled title="Email is managed by OAuth provider">
-                      Update Email (OAuth-managed)
+                    <Button variant="outline" disabled title="邮箱由第三方登录服务管理">
+                      更新邮箱（由第三方管理）
                     </Button>
                   )}
                   <Button variant="outline" onClick={() => { setMode("username"); setMessage(null); setError(null); }}>
-                    Change Username
+                    修改用户名
                   </Button>
                   <Button variant="outline" onClick={() => { setMode("password"); setMessage(null); setError(null); }}>
-                    Change Password
+                    修改密码
                   </Button>
                   <Button variant="destructive" onClick={deleteAccount}>
-                    Delete Account
+                    删除账户
                   </Button>
                 </div>
               </CardContent>
@@ -429,31 +429,31 @@ export default function AccountPage() {
         {mode === "email" && (
           <Card className="border-border/80 shadow-none">
             <CardHeader>
-              <CardTitle>Update Email</CardTitle>
+              <CardTitle>更新邮箱</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {!canChangeEmail ? (
                 <>
-                  <p className="text-sm text-muted-foreground">This account uses Google sign-in. You can't change your email.</p>
+                  <p className="text-sm text-muted-foreground">此账户使用 Google 登录，无法修改邮箱。</p>
                   <div className="flex gap-2">
-                    <Button variant="ghost" onClick={() => setMode("view")}>Back</Button>
+                    <Button variant="ghost" onClick={() => setMode("view")}>返回</Button>
                   </div>
                 </>
               ) : (
                 <>
                   <div>
-                    <Label>Current Email</Label>
+                    <Label>当前邮箱</Label>
                     <Input value={email} readOnly className="mt-1" />
                   </div>
                   <div>
-                    <Label htmlFor="new-email">New Email</Label>
+                    <Label htmlFor="new-email">新邮箱</Label>
                     <Input id="new-email" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} className="mt-1" placeholder="you@example.com" />
                   </div>
                   <div className="flex gap-2">
-                    <Button onClick={updateEmail}>Send Verification & Sign Out</Button>
-                    <Button variant="ghost" onClick={() => setMode("view")}>Back</Button>
+                    <Button onClick={updateEmail}>发送验证邮件并退出登录</Button>
+                    <Button variant="ghost" onClick={() => setMode("view")}>返回</Button>
                   </div>
-                  <p className="text-xs text-muted-foreground">We’ll email a verification link to your new address. After confirming, sign back in.</p>
+                  <p className="text-xs text-muted-foreground">我们会向新邮箱发送验证链接。完成验证后请重新登录。</p>
                 </>
               )}
             </CardContent>
@@ -463,16 +463,16 @@ export default function AccountPage() {
         {mode === "username" && (
           <Card className="border-border/80 shadow-none">
             <CardHeader>
-              <CardTitle>Change Username</CardTitle>
+              <CardTitle>修改用户名</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" placeholder="Pick a username" value={username} onChange={(e) => setUsername(e.target.value)} className="mt-1" />
+                <Label htmlFor="username">用户名</Label>
+                <Input id="username" placeholder="设置用户名" value={username} onChange={(e) => setUsername(e.target.value)} className="mt-1" />
               </div>
               <div className="flex gap-2">
-                <Button onClick={saveUsername}>Save Username</Button>
-                <Button variant="ghost" onClick={() => setMode("view")}>Back</Button>
+                <Button onClick={saveUsername}>保存用户名</Button>
+                <Button variant="ghost" onClick={() => setMode("view")}>返回</Button>
               </div>
             </CardContent>
           </Card>
@@ -481,13 +481,13 @@ export default function AccountPage() {
         {mode === "password" && (
           <Card className="border-border/80 shadow-none">
             <CardHeader>
-              <CardTitle>Change Password</CardTitle>
+              <CardTitle>修改密码</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">For security, password changes are done via email. We’ll send a reset link to your current address.</p>
+              <p className="text-sm text-muted-foreground">为保障安全，修改密码需通过邮件完成。重置链接将发送到当前邮箱。</p>
               <div className="flex gap-2">
-                <Button onClick={sendResetEmail}>Send Reset Email</Button>
-                <Button variant="ghost" onClick={() => setMode("view")}>Back</Button>
+                <Button onClick={sendResetEmail}>发送重置邮件</Button>
+                <Button variant="ghost" onClick={() => setMode("view")}>返回</Button>
               </div>
             </CardContent>
           </Card>

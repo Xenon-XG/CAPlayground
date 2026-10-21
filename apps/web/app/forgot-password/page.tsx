@@ -43,7 +43,7 @@ export default function ForgotPasswordPage() {
         <Button
           variant="ghost"
           size="icon"
-          aria-label="Toggle theme"
+          aria-label="切换主题"
           className="rounded-full h-9 w-9 p-0"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
@@ -54,17 +54,17 @@ export default function ForgotPasswordPage() {
       <div className="w-full max-w-md">
         <Card className="border-border/80 shadow-none">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl md:text-4xl font-bold">Reset your password</CardTitle>
+            <CardTitle className="text-3xl md:text-4xl font-bold">重置密码</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-5">
               {!AUTH_ENABLED && (
                 <p className="text-sm text-muted-foreground">
-                  Password reset is disabled because authentication is not configured for this environment.
+                  此环境未配置身份验证，无法重置密码。
                 </p>
               )}
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">邮箱</Label>
                 <div className="relative">
                   <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input id="email" type="email" placeholder="you@example.com" className="pl-9" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -78,9 +78,9 @@ export default function ForgotPasswordPage() {
               </Button>
 
               <p className="text-center text-sm text-muted-foreground">
-                Remembered your password?{" "}
+                想起密码了？{" "}
                 <Link href="/signin" className="text-accent hover:underline font-medium">
-                  Back to sign in
+                  返回登录
                 </Link>
               </p>
             </div>

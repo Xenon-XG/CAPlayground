@@ -29,7 +29,7 @@ export default function TimelineControls() {
           variant="outline"
           onClick={() => setTime(0)}
         >
-          Restart
+          重新开始
         </Button>
         <Tooltip>
           <TooltipTrigger>

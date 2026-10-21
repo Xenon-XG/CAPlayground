@@ -32,7 +32,7 @@ export function GyroTab({
       layerName: transformLayerName || '',
       mapMaxTo: 50,
       mapMinTo: -50,
-      title: 'New Gyro Effect',
+      title: '新陀螺仪效果',
     };
     setDoc((prev: any) => {
       if (!prev) return prev;
@@ -98,24 +98,24 @@ export function GyroTab({
     <div className="space-y-4">
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <Label className="text-sm font-semibold">Gyro Dictionaries</Label>
+          <Label className="text-sm font-semibold">陀螺仪映射</Label>
           <Button
             size="sm"
             variant="outline"
             onClick={addDictionary}
             disabled={layerDicts.length >= 10}
           >
-            + Add Dictionary
+            添加映射
           </Button>
         </div>
         <p className="text-xs text-muted-foreground">
-          Configure how this layer responds to device tilt. You can add up to 10 dictionaries (2 axes × 5 keyPaths) for this layer. ({layerDicts.length}/10)
+          配置图层对设备倾斜的响应。每个图层最多可添加 10 个映射（2 个轴 × 5 条属性路径）。（{layerDicts.length}/10)
         </p>
       </div>
 
       {layerDicts.length === 0 ? (
         <div className="border rounded-lg p-4 text-center text-sm text-muted-foreground">
-          No gyro dictionaries yet. Click "+ Add Dictionary" to create one.
+          还没有陀螺仪映射。点击“添加映射”创建。
         </div>
       ) : (
         layerDicts.map((dict, index) => (
@@ -131,40 +131,40 @@ export function GyroTab({
 
             <div className="grid grid-cols-2 gap-2">
               <div className="col-span-2 space-y-1.5">
-                <Label htmlFor={`gyro-title-${index}`}>Title</Label>
+                <Label htmlFor={`gyro-title-${index}`}>标题</Label>
                 <Input
                   id={`gyro-title-${index}`}
                   type="text"
-                  placeholder="e.g., Tilt Effect"
+                  placeholder="例如：倾斜效果"
                   value={dict.title}
                   onChange={(e) => updateDictionary(index, { title: e.target.value })}
                 />
               </div>
 
               <div className="space-y-1.5">
-                <Label htmlFor={`gyro-axis-${index}`}>Axis</Label>
+                <Label htmlFor={`gyro-axis-${index}`}>轴向</Label>
                 <Select
                   value={dict.axis}
                   onValueChange={(v) => updateDictionary(index, { axis: v as 'x' | 'y' })}
                 >
                   <SelectTrigger className="w-full" id={`gyro-axis-${index}`}>
-                    <SelectValue placeholder="Select axis" />
+                    <SelectValue placeholder="选择轴向" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="x">X (Left/Right)</SelectItem>
-                    <SelectItem value="y">Y (Up/Down)</SelectItem>
+                    <SelectItem value="x">X（左/右）</SelectItem>
+                    <SelectItem value="y">Y（上/下）</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-1.5">
-                <Label htmlFor={`gyro-keypath-${index}`}>Key Path</Label>
+                <Label htmlFor={`gyro-keypath-${index}`}>属性路径</Label>
                 <Select
                   value={dict.keyPath}
                   onValueChange={(v) => updateDictionary(index, { keyPath: v as any })}
                 >
                   <SelectTrigger className="w-full" id={`gyro-keypath-${index}`}>
-                    <SelectValue placeholder="Select property" />
+                    <SelectValue placeholder="选择属性" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="position.x">position.x</SelectItem>
@@ -181,7 +181,7 @@ export function GyroTab({
               </div>
 
               <div className="space-y-1.5">
-                <Label htmlFor={`gyro-min-${index}`}>Map Min To</Label>
+                <Label htmlFor={`gyro-min-${index}`}>最小值映射到</Label>
                 <Input
                   id={`gyro-min-${index}`}
                   type="number"
@@ -191,12 +191,12 @@ export function GyroTab({
                   onChange={(e) => updateDictionary(index, { mapMinTo: Number(e.target.value) })}
                 />
                 <p className="text-xs text-muted-foreground">
-                  Min value (radians for rotation, px for position)
+                  最小值（旋转用弧度，位置用像素）
                 </p>
               </div>
 
               <div className="space-y-1.5">
-                <Label htmlFor={`gyro-max-${index}`}>Map Max To</Label>
+                <Label htmlFor={`gyro-max-${index}`}>最大值映射到</Label>
                 <Input
                   id={`gyro-max-${index}`}
                   type="number"
@@ -206,7 +206,7 @@ export function GyroTab({
                   onChange={(e) => updateDictionary(index, { mapMaxTo: Number(e.target.value) })}
                 />
                 <p className="text-xs text-muted-foreground">
-                  Max value (radians for rotation, px for position)
+                  最大值（旋转用弧度，位置用像素）
                 </p>
               </div>
             </div>

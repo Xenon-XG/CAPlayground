@@ -1,3 +1,5 @@
+[简体中文](README.zh-CN.md) · English
+
 <table width="100%">
   <tr>
     <td align="right" width="120">

@@ -374,9 +374,9 @@ export default function TendiesChecker() {
   const capStatus = useMemo(() => {
     if (!result) return null
     const { hasCapRootLayer, hasCapBanner } = result
-    if (hasCapRootLayer && hasCapBanner) return { label: "Yes", color: "text-emerald-600" }
+    if (hasCapRootLayer && hasCapBanner) return { label: "是", color: "text-emerald-600" }
     if (!hasCapRootLayer && !hasCapBanner) return { label: "No", color: "text-red-600" }
-    return { label: "Maybe", color: "text-amber-600" }
+    return { label: "可能", color: "text-amber-600" }
   }, [result])
 
   const isVideoWallpaper = useMemo(() => {
@@ -418,7 +418,7 @@ export default function TendiesChecker() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <FileText className="h-5 w-5" />
-          Tendies File Analysis
+          Tendies 文件分析
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -435,15 +435,15 @@ export default function TendiesChecker() {
           }}
         >
           <Upload className="h-8 w-8 mb-3 text-muted-foreground" />
-          <p className="text-sm font-medium mb-1">Drop a .tendies file here, or click to choose one</p>
-          <p className="text-xs text-muted-foreground">This tool will show CAPlayground info and per file breakdowns.</p>
+          <p className="text-sm font-medium mb-1">将 .tendies 文件拖到这里，或点击选择文件</p>
+          <p className="text-xs text-muted-foreground">此工具会显示 CAPlayground 信息及逐文件分析结果。</p>
           {fileName && !isAnalysing && (
-            <p className="mt-3 text-xs text-muted-foreground">Selected file: {fileName}</p>
+            <p className="mt-3 text-xs text-muted-foreground">已选文件： {fileName}</p>
           )}
           {isAnalysing && (
             <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
               <Loader2 className="h-4 w-4 animate-spin" />
-              Analysing tendies...
+              正在分析 tendies 文件…
             </div>
           )}
         </div>
@@ -458,7 +458,7 @@ export default function TendiesChecker() {
 
         {error && (
           <Alert variant="destructive">
-            <AlertTitle>Error</AlertTitle>
+            <AlertTitle>错误</AlertTitle>
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
@@ -467,12 +467,12 @@ export default function TendiesChecker() {
           <div className="text-xs text-muted-foreground flex items-center gap-3 flex-wrap">
             <span className="inline-flex items-center gap-1">
               <Info className="h-3 w-3" />
-              Project size: {projectSize.width} × {projectSize.height}
+              项目大小： {projectSize.width} × {projectSize.height}
             </span>
             {isVideoWallpaper && (
               <span className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400">
                 <Info className="h-3 w-3" />
-                Video wallpaper detected (CAPlayground video layer with frame sequence)
+                检测到视频壁纸（包含逐帧序列的 CAPlayground 视频图层）
               </span>
             )}
           </div>
@@ -482,10 +482,10 @@ export default function TendiesChecker() {
           <div className="space-y-6">
             {/* CAPlayground Info */}
             <div className="space-y-3">
-              <div className="text-sm font-semibold">CAPlayground Info</div>
+              <div className="text-sm font-semibold">CAPlayground 信息</div>
               <div className="grid gap-3 md:grid-cols-2 text-sm">
                 <div className="space-y-1">
-                  <div className="text-xs font-semibold uppercase text-muted-foreground">Made in CAPlayground?</div>
+                  <div className="text-xs font-semibold uppercase text-muted-foreground">由 CAPlayground 制作？</div>
                   <div className="flex items-center gap-2">
                     {capStatus && (
                       <span
@@ -500,7 +500,7 @@ export default function TendiesChecker() {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-xs font-semibold uppercase text-muted-foreground">Was the wallpaper remixed?</div>
+                  <div className="text-xs font-semibold uppercase text-muted-foreground">壁纸是否为二次创作？</div>
                   <div className="flex items-center gap-2">
                     <span
                       className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${
@@ -517,7 +517,7 @@ export default function TendiesChecker() {
 
             {/* Per file breakdown */}
             <div className="space-y-3 text-sm">
-              <div className="text-sm font-semibold">Per file breakdown</div>
+              <div className="text-sm font-semibold">逐文件分析</div>
               <div className="space-y-4">
                 {(["floating", "background", "wallpaper"] as const).map((kind) => {
                   const doc = result.docs.find((d) => d.docType === kind)
@@ -545,23 +545,23 @@ export default function TendiesChecker() {
                       </div>
                       <div className="grid gap-3 md:grid-cols-3">
                         <div className="space-y-1 text-xs">
-                          <div className="font-semibold uppercase text-muted-foreground">Counts</div>
-                          <div>Layers: {doc.layerCount}</div>
-                          <div>States: {doc.stateCount}</div>
-                          <div>State transitions: {doc.transitionCount}</div>
-                          <div>Animations: {doc.animationCount}</div>
+                          <div className="font-semibold uppercase text-muted-foreground">统计</div>
+                          <div>图层： {doc.layerCount}</div>
+                          <div>状态： {doc.stateCount}</div>
+                          <div>状态切换： {doc.transitionCount}</div>
+                          <div>动画： {doc.animationCount}</div>
                         </div>
                         <div className="space-y-1 text-xs">
-                          <div className="font-semibold uppercase text-muted-foreground">Layer types</div>
-                          {Object.keys(layerTypes).length === 0 && <div className="text-muted-foreground">None</div>}
+                          <div className="font-semibold uppercase text-muted-foreground">图层类型</div>
+                          {Object.keys(layerTypes).length === 0 && <div className="text-muted-foreground">无</div>}
                           {Object.entries(layerTypes).map(([t, c]) => (
                             <div key={t}>{t}: {c}</div>
                           ))}
                         </div>
                         <div className="space-y-1 text-xs">
-                          <div className="font-semibold uppercase text-muted-foreground">Structure</div>
+                          <div className="font-semibold uppercase text-muted-foreground">结构</div>
                           {treeLines.length === 0 ? (
-                            <div className="text-muted-foreground">No layers parsed</div>
+                            <div className="text-muted-foreground">未解析到图层</div>
                           ) : (
                             <pre className="text-[10px] leading-snug bg-background/60 rounded border p-2 max-h-40 overflow-auto">
                               {treeLines.join("\n")}
@@ -570,9 +570,9 @@ export default function TendiesChecker() {
                         </div>
                       </div>
                       <div className="space-y-1 text-xs">
-                        <div className="font-semibold uppercase text-muted-foreground">Images</div>
+                        <div className="font-semibold uppercase text-muted-foreground">图像</div>
                         {imageInfos.length === 0 ? (
-                          <div className="text-muted-foreground">No images detected</div>
+                          <div className="text-muted-foreground">未检测到图像</div>
                         ) : (
                           <div className="flex gap-2 overflow-x-auto py-1">
                             {imageInfos.map((img, idx) => (
@@ -583,7 +583,7 @@ export default function TendiesChecker() {
                                 className="w-16 h-16 rounded border bg-background flex-shrink-0 overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring"
                               >
                                 {img.isImage ? (
-                                  <img src={img.url} alt="asset" className="w-full h-full object-cover" />
+                                  <img src={img.url} alt="资源" className="w-full h-full object-cover" />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center text-[10px] font-mono text-muted-foreground bg-muted/40">
                                     {img.filename.split(".").pop() || "file"}
@@ -612,7 +612,7 @@ export default function TendiesChecker() {
                   setBundle(null)
                 }}
               >
-                Clear
+                清除
               </Button>
             </div>
           </div>
@@ -633,7 +633,7 @@ export default function TendiesChecker() {
                   type="button"
                   onClick={showPrev}
                   className="p-2 rounded-full border bg-muted hover:bg-muted/80 flex items-center justify-center"
-                  aria-label="Previous asset"
+                  aria-label="上一个资源"
                 >
                   <ChevronLeft className="h-5 w-5" />
                 </button>
@@ -658,7 +658,7 @@ export default function TendiesChecker() {
                   type="button"
                   onClick={showNext}
                   className="p-2 rounded-full border bg-muted hover:bg-muted/80 flex items-center justify-center"
-                  aria-label="Next asset"
+                  aria-label="下一个资源"
                 >
                   <ChevronRight className="h-5 w-5" />
                 </button>
@@ -671,11 +671,11 @@ export default function TendiesChecker() {
               <div className="flex gap-2">
                 <Button asChild size="sm">
                   <a href={previewImages[previewIndex]?.url} download={previewImages[previewIndex]?.filename}>
-                    Download
+                    下载
                   </a>
                 </Button>
                 <Button variant="outline" size="sm" type="button" onClick={closePreview}>
-                  Close
+                  关闭
                 </Button>
               </div>
             </div>

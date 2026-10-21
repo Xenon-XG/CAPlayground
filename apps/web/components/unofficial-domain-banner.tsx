@@ -45,16 +45,16 @@ export function UnofficialDomainBanner() {
     <div className="sticky top-0 z-50">
       <Alert variant="destructive" className="rounded-none border-0 h-12 flex items-center">
         <TriangleAlert />
-        <AlertTitle className="mb-0 mr-2">Unofficial domain</AlertTitle>
+        <AlertTitle className="mb-0 mr-2">非官方域名</AlertTitle>
         <AlertDescription className="mt-0">
-          You are visiting this site on an unofficial domain. For the official site, please use
+          你正在通过非官方域名访问此站。官方网站为
           {" "}
           <a className="underline font-medium" href="https://caplayground.vercel.app" target="_blank" rel="noreferrer">caplayground.vercel.app</a>
         </AlertDescription>
         <button
           type="button"
           className="absolute right-2 top-3 text-muted-foreground hover:text-foreground"
-          aria-label="Dismiss"
+          aria-label="关闭"
           onClick={() => {
             try { localStorage.setItem(key, "1"); } catch { }
             setShow(false);

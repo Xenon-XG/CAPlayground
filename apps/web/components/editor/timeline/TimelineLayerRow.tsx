@@ -263,7 +263,7 @@ function AnimationRow({
               )}
               {isAutoreverse && repeatIdx % 2 === 1 && (
                 <span className="absolute inset-0 flex items-center justify-center text-[10px] text-white font-medium select-none pointer-events-none overflow-hidden">
-                  <span className="truncate">← reverse</span>
+                  <span className="truncate">← 反向</span>
                 </span>
               )}
               {isFirst && (

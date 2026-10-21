@@ -211,15 +211,15 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
     navigator.clipboard.writeText(url).then(() => {
       setCopiedWallpaperId(item.id)
       toast({
-        title: "Link copied!",
-        description: "Wallpaper link has been copied to clipboard.",
+        title: "链接已复制！",
+        description: "壁纸链接已复制到剪贴板。",
       })
       setTimeout(() => setCopiedWallpaperId(null), 2000)
     }).catch((err) => {
       console.error('Failed to copy link:', err)
       toast({
-        title: "Failed to copy",
-        description: "Could not copy link to clipboard.",
+        title: "复制失败",
+        description: "无法复制链接到剪贴板。",
         variant: "destructive",
       })
     })
@@ -338,14 +338,14 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
         <div className="flex justify-center">
           <Button onClick={() => setIsSubmitDialogOpen(true)} className="gap-2">
             <Upload className="h-4 w-4" />
-            Submit Wallpaper
+            投稿壁纸
           </Button>
         </div>
         <div className="flex gap-3">
           <Input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search wallpapers by name, creator, or description..."
+            placeholder="按名称、作者或简介搜索壁纸…"
             className="flex-1"
           />
           <Select
@@ -353,13 +353,13 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
             onValueChange={(value: 'default' | 'newest' | 'downloads' | 'least-downloads') => setSortBy(value)}
           >
             <SelectTrigger className="w-[180px] bg-background border shadow-sm">
-              <SelectValue placeholder="Sort by" />
+              <SelectValue placeholder="排序方式" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="default">Oldest to Newest</SelectItem>
-              <SelectItem value="newest">Newest to Oldest</SelectItem>
-              <SelectItem value="downloads">Most Downloads</SelectItem>
-              <SelectItem value="least-downloads">Least Downloads</SelectItem>
+              <SelectItem value="default">从旧到新</SelectItem>
+              <SelectItem value="newest">从新到旧</SelectItem>
+              <SelectItem value="downloads">下载最多</SelectItem>
+              <SelectItem value="least-downloads">下载最少</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -401,7 +401,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
 
                 <h3 className="font-medium line-clamp-1 mb-1">{item.name}</h3>
                 <p className="text-xs text-muted-foreground line-clamp-2 mb-2">
-                  by {item.creator} (submitted on {item.from})
+                  作者： {item.creator} （提交于 {item.from}）
                 </p>
                 {downloadStats[String(item.id)] > 0 && (
                   <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3">
@@ -421,7 +421,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                     }}
                   >
                     <Download className="h-4 w-4 mr-2" />
-                    Download .tendies
+                    下载 .tendies
                   </Button>
                   {isIOS && (
                     <Button
@@ -434,7 +434,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                     >
                       <a href={`pocketposter://download?url=${encodeURIComponent(fileUrl)}`}>
                         <Download className="h-4 w-4 mr-2" />
-                        Open in Pocket Poster
+                        在 Pocket Poster 中打开
                       </a>
                     </Button>
                   )}
@@ -459,7 +459,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                     }}
                   >
                     <Youtube className="h-4 w-4 mr-2" />
-                    Watch Tutorial
+                    观看教程
                   </Button>
                 </div>
               </CardContent>
@@ -494,7 +494,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                 <DialogHeader>
                   <DialogTitle className="text-2xl">{expandedWallpaper.name}</DialogTitle>
                   <DialogDescription className="text-base">
-                    by {expandedWallpaper.creator} (submitted on {expandedWallpaper.from})
+                    作者： {expandedWallpaper.creator} （提交于 {expandedWallpaper.from}）
                   </DialogDescription>
                 </DialogHeader>
 
@@ -524,7 +524,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
 
                   {/* Description */}
                   <div>
-                    <h3 className="font-semibold mb-2">Description</h3>
+                    <h3 className="font-semibold mb-2">简介</h3>
                     <p className="text-sm text-muted-foreground">{expandedWallpaper.description}</p>
                   </div>
 
@@ -547,7 +547,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                       }}
                     >
                       <Download className="h-4 w-4 mr-2" />
-                      Download .tendies
+                      下载 .tendies
                     </Button>
                     {isIOS && (
                       <Button
@@ -559,7 +559,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                       >
                         <a href={`pocketposter://download?url=${encodeURIComponent(fileUrl)}`}>
                           <Download className="h-4 w-4 mr-2" />
-                          Open in Pocket Poster
+                          在 Pocket Poster 中打开
                         </a>
                       </Button>
                     )}
@@ -581,7 +581,7 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                       onClick={() => window.open('https://www.youtube.com/watch?v=nSBQIwAaAEc', '_blank')}
                     >
                       <Youtube className="h-4 w-4 mr-2" />
-                      Watch Tutorial
+                      观看教程
                     </Button>
                     <Button
                       variant="secondary"
@@ -591,12 +591,12 @@ export function WallpapersGrid({ data }: { data: WallpapersResponse }) {
                       {copiedWallpaperId === expandedWallpaper.id ? (
                         <>
                           <Check className="h-4 w-4 mr-2" />
-                          Copied
+                          已复制
                         </>
                       ) : (
                         <>
                           <Copy className="h-4 w-4 mr-2" />
-                          Copy Link
+                          复制链接
                         </>
                       )}
                     </Button>

@@ -139,10 +139,10 @@ export default function AuthSuccessPage() {
       <div className="min-h-screen flex items-center justify-center px-4">
         <Card className="border-border/80 shadow-none w-full max-w-md">
           <CardHeader>
-            <CardTitle>Completing sign-in…</CardTitle>
+            <CardTitle>正在完成登录…</CardTitle>
           </CardHeader>
           <CardContent className="flex items-center gap-2 text-muted-foreground">
-            <Loader2 className="h-4 w-4 animate-spin" /> Verifying session
+            <Loader2 className="h-4 w-4 animate-spin" /> 正在验证会话
           </CardContent>
         </Card>
       </div>
@@ -161,9 +161,9 @@ export default function AuthSuccessPage() {
           {status === "need_username" ? (
             <div className="space-y-4">
               <div>
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Pick a username" className="mt-1" />
-                <p className="text-xs text-muted-foreground mt-1">3–20 chars. Letters, numbers, and ! - _ . only.</p>
+                <Label htmlFor="username">用户名</Label>
+                <Input id="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="设置用户名" className="mt-1" />
+                <p className="text-xs text-muted-foreground mt-1">3–20 个字符，仅可使用字母、数字和 ! - _ .</p>
               </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
               <div className="flex gap-2 justify-center">
@@ -209,9 +209,9 @@ export default function AuthSuccessPage() {
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <Button className="w-full" onClick={() => (window.location.href = "/")}>Continue</Button>
-                <Button className="w-full" variant="outline" onClick={() => (window.location.href = "/projects")}>Create a Project</Button>
-                <Button className="w-full" variant="outline" onClick={() => (window.location.href = "/dashboard")}>Account Dashboard</Button>
+                <Button className="w-full" onClick={() => (window.location.href = "/")}>继续</Button>
+                <Button className="w-full" variant="outline" onClick={() => (window.location.href = "/projects")}>创建项目</Button>
+                <Button className="w-full" variant="outline" onClick={() => (window.location.href = "/dashboard")}>账户控制台</Button>
                 <Button
                   className="w-full"
                   variant="destructive"
@@ -224,14 +224,14 @@ export default function AuthSuccessPage() {
                     }
                   }}
                 >
-                  Sign out
+                  退出登录
                 </Button>
               </div>
             </div>
           ) : (
             <div className="text-center space-y-4">
-              <p className="text-sm text-muted-foreground">Please try again.</p>
-              <Button variant="outline" onClick={() => (window.location.href = "/signin")}>Back to sign in</Button>
+              <p className="text-sm text-muted-foreground">请重试。</p>
+              <Button variant="outline" onClick={() => (window.location.href = "/signin")}>返回登录</Button>
             </div>
           )}
         </CardContent>

@@ -122,20 +122,20 @@ export function BulkAnimationInput({ keyPath, currentValues, onValuesChange, dis
           className="gap-1 h-7 px-2 text-xs"
         >
           <Zap className="w-3 h-3" />
-          Bulk
+          批量
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Zap className="w-5 h-5" />
-            Bulk Animation Values - {keyPath}
+            批量动画数值 - {keyPath}
           </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label>Animation Values</Label>
+            <Label>动画数值</Label>
             <div className="text-xs text-muted-foreground whitespace-pre-line">
               {formatDescription}
             </div>
@@ -153,7 +153,7 @@ export function BulkAnimationInput({ keyPath, currentValues, onValuesChange, dis
             )}
           </div>
           <div className="space-y-2">
-            <Label>Import from File</Label>
+            <Label>从文件导入</Label>
             <div className="flex items-center gap-3">
               <input
                 ref={fileInputRef}
@@ -182,7 +182,7 @@ export function BulkAnimationInput({ keyPath, currentValues, onValuesChange, dis
                 variant="outline"
                 onClick={() => fileInputRef.current?.click()}
               >
-                Choose file
+                选择文件
               </Button>
               <span className="text-xs text-muted-foreground truncate">
                 {fileName || "No file chosen"}
@@ -192,17 +192,17 @@ export function BulkAnimationInput({ keyPath, currentValues, onValuesChange, dis
 
           <div className="flex justify-between">
             <Badge variant="secondary">
-              {bulkText.trim().split('\n').filter(l => l.trim()).length} values
+              {bulkText.trim().split('\n').filter(l => l.trim()).length} 个数值
             </Badge>
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setIsOpen(false)}>
-                Cancel
+                取消
               </Button>
               <Button 
                 onClick={applyBulkValues} 
                 disabled={!!parseError || !bulkText.trim()}
               >
-                Apply Values
+                应用数值
               </Button>
             </div>
           </div>

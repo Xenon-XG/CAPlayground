@@ -318,9 +318,9 @@ export default function VideoLayerDialog({
     <Dialog open={open} onOpenChange={setVideoLayerIsOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Video Layer</DialogTitle>
+          <DialogTitle>视频图层</DialogTitle>
           <DialogDescription>
-            Upload a video or GIF to create a video layer. The video will be converted to individual frames.
+            上传视频或 GIF 创建视频图层；视频将转换为逐帧图像。
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-[1fr_auto] gap-2">
@@ -342,7 +342,7 @@ export default function VideoLayerDialog({
           </Button>
           <Select value={isGif ? "15" : fps} disabled={isGif} onValueChange={(value) => setFps(value)}>
             <SelectTrigger className="w-24">
-              <SelectValue placeholder="Select frames per second" />
+              <SelectValue placeholder="选择每秒帧数" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="15">15 fps</SelectItem>
@@ -354,12 +354,12 @@ export default function VideoLayerDialog({
         {videoFile && !isGif &&
           <div className="flex items-center gap-2">
             <Checkbox id="resize-video" checked={resizeVideo} onCheckedChange={(checked: boolean) => setResizeVideo(checked)} />
-            <Label htmlFor="resize-video">Resize to fit canvas</Label>
+            <Label htmlFor="resize-video">缩放至适合画布</Label>
           </div>
         }
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <Label>Frame Quality</Label>
+            <Label>帧画质</Label>
             <span className="text-sm text-muted-foreground">{Math.round(quality * 100)}%</span>
           </div>
           <Slider
@@ -370,19 +370,19 @@ export default function VideoLayerDialog({
             onValueChange={([val]) => setQuality(val / 100)}
           />
           <p className="text-xs text-muted-foreground">
-            Lower quality = smaller file size.
+            画质越低，文件越小。
           </p>
         </div>
-        <Label>Dimensions: {width}x{height}px</Label>
-        <Label>Duration: {duration.toFixed(2)}s </Label>
+        <Label>尺寸： {width}x{height}px</Label>
+        <Label>时长： {duration.toFixed(2)}s </Label>
         <div className="space-y-2">
           <Label>
-            Layer Size: {isLoading ? `Generating frames... (${currentFrame}/${frameCount})` : frameAssetsSize > 0 ? formatBytes(frameAssetsSize) : '0 Bytes'}
+            图层大小： {isLoading ? `Generating frames... (${currentFrame}/${frameCount})` : frameAssetsSize > 0 ? formatBytes(frameAssetsSize) : '0 Bytes'}
           </Label>
           {!isLoading && frameAssetsSize > 30 * 1024 * 1024 && (
             <Alert variant="destructive">
               <AlertDescription>
-                Warning: Layer size exceeds 30MB. This may impact performance and memory usage.
+                警告：图层超过 30 MB，可能影响性能和内存占用。
               </AlertDescription>
             </Alert>
           )}
@@ -398,10 +398,10 @@ export default function VideoLayerDialog({
         </Alert>
         <DialogFooter className="gap-2">
           <Button variant="outline" onClick={() => setVideoLayerIsOpen(false)}>
-            Cancel
+            取消
           </Button>
           <Button onClick={handleCreateVideoLayer} disabled={!videoFile || isLoading}>
-            Create Video Layer
+            创建视频图层
           </Button>
         </DialogFooter>
       </DialogContent>

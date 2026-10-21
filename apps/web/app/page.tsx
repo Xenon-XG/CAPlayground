@@ -124,14 +124,14 @@ export default async function HomePage() {
             <div className="relative w-full max-w-6xl aspect-[16/10]">
               <Image
                 src="/app-light.png"
-                alt="App Light"
+                alt="浅色界面"
                 fill
                 className="object-contain dark:hidden"
                 priority
               />
               <Image
                 src="/app-dark.png"
-                alt="App Dark"
+                alt="深色界面"
                 fill
                 className="object-contain hidden dark:block"
                 priority
@@ -149,23 +149,23 @@ export default async function HomePage() {
                   <Link href="/projects" className="inline-block">
                     <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-accent/10 backdrop-blur-md border border-accent/20 text-accent text-sm font-medium hover:bg-accent/20 transition-colors shadow-sm">
                       <NotificationIcon className="h-4 w-4 mr-2" />
-                      <span>Blending Modes and Filters are out!</span>
+                      <span>混合模式和滤镜现已推出！</span>
                     </div>
                   </Link>
 
                   <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold leading-tight tracking-tight drop-shadow-2xl">
-                    The Open Source <br />
-                    <span className="text-accent">CA Wallpaper Editor.</span>
+                    开源的 <br />
+                    <span className="text-accent">CA 动态壁纸编辑器。</span>
                   </h1>
 
                   <p className="text-xl md:text-2xl text-muted-foreground max-w-xl font-medium drop-shadow-md">
-                    Create beautiful animated wallpapers for iOS and iPadOS on any desktop computer with CAPlayground.
+                    用 CAPlayground 在电脑上制作精美的 iOS 和 iPadOS 动态壁纸。
                   </p>
 
                   <div className="pt-2">
                     <Link href="/projects" className="block w-full md:w-auto">
                       <Button size="lg" className="w-full md:w-auto h-14 px-8 text-lg min-w-[200px] bg-accent hover:bg-accent/90 text-white font-semibold shadow-lg shadow-accent/20">
-                        Get Started <Send className="ml-2 h-5 w-5" />
+                        开始使用 <Send className="ml-2 h-5 w-5" />
                       </Button>
                     </Link>
                   </div>
@@ -176,7 +176,7 @@ export default async function HomePage() {
                   <Link href="https://github.com/CAPlayground/CAPlayground" target="_blank" rel="noopener noreferrer" className="block w-full md:w-auto">
                     <Button size="lg" variant="outline" className="w-full md:w-auto h-14 md:h-12 px-8 text-base min-w-[200px] backdrop-blur-md bg-background/50 hover:bg-background/80 border-zinc-200 dark:border-zinc-700 shadow-lg">
                       <Github className="mr-2 h-5 w-5" />
-                      <span>View GitHub{stars !== null ? ` ${new Intl.NumberFormat().format(stars)}` : ""}</span>
+                      <span>查看 GitHub{stars !== null ? ` ${new Intl.NumberFormat().format(stars)}` : ""}</span>
                       {stars !== null && <Star className="ml-1 h-4 w-4 fill-current opacity-50" />}
                     </Button>
                   </Link>
@@ -195,7 +195,7 @@ export default async function HomePage() {
           <div className="container mx-auto px-4 md:px-6">
             <div className="text-center mb-20">
               <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-                CAPlayground is growing!
+                CAPlayground 不断成长！
               </h2>
             </div>
 
@@ -207,7 +207,7 @@ export default async function HomePage() {
                   </span>
                 </div>
                 <p className="mt-4 text-xl md:text-2xl text-muted-foreground font-medium max-w-[250px]">
-                  users in the first 4 months
+                  上线前四个月的用户数
                 </p>
               </div>
 
@@ -218,7 +218,7 @@ export default async function HomePage() {
                   </span>
                 </div>
                 <p className="mt-4 text-xl md:text-2xl text-muted-foreground font-medium max-w-[250px]">
-                  Discord server members
+                  Discord 社区成员
                 </p>
               </div>
 
@@ -229,7 +229,7 @@ export default async function HomePage() {
                   </span>
                 </div>
                 <p className="mt-4 text-xl md:text-2xl text-muted-foreground font-medium max-w-[250px]">
-                  GitHub Commits
+                  GitHub 提交数
                 </p>
               </div>
             </div>
@@ -274,7 +274,7 @@ export default async function HomePage() {
                         {mostDownloaded.wallpaper.name}
                       </h3>
                       <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
-                        by {mostDownloaded.wallpaper.creator} (submitted on {mostDownloaded.wallpaper.from})
+                        作者： {mostDownloaded.wallpaper.creator} （提交于 {mostDownloaded.wallpaper.from}）
                       </p>
                       {mostDownloaded.downloads > 0 && (
                         <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3">
@@ -291,7 +291,7 @@ export default async function HomePage() {
                 </div>
                 <div className="space-y-4 text-center lg:text-left">
                   <h2 className="font-heading text-3xl md:text-4xl font-bold">
-                    Explore the most downloaded wallpaper
+                    探索下载量最高的壁纸
                   </h2>
                   <p className="text-muted-foreground text-lg max-w-xl mx-auto lg:mx-0">
                     See what the community loves most, then dive into the full gallery to discover more animated
@@ -300,12 +300,12 @@ export default async function HomePage() {
                   <div className="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
                     <Link href={`/wallpapers?id=${mostDownloaded.wallpaper.id}`}>
                       <Button size="lg" className="px-6 bg-accent hover:bg-accent/90 text-white font-semibold">
-                        View this wallpaper
+                        查看这张壁纸
                       </Button>
                     </Link>
                     <Link href="/wallpapers">
                       <Button size="lg" variant="outline" className="px-6">
-                        View wallpaper gallery
+                        浏览壁纸库
                       </Button>
                     </Link>
                   </div>
