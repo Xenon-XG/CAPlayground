@@ -198,8 +198,8 @@ export function ExportDialog() {
     } catch (e) {
       console.error("Export failed", e);
       toast({
-        title: "Export failed",
-        description: "Failed to export .ca file. Please try again.",
+        title: "导出失败",
+        description: "导出 .ca 文件失败，请重试。",
         variant: "destructive",
       });
       return false;
@@ -338,15 +338,15 @@ export function ExportDialog() {
       URL.revokeObjectURL(url);
 
       toast({
-        title: "Export successful",
+        title: "导出成功",
         description: `Tendies file "${nameSafe}.tendies" has been downloaded.`,
       });
       return true;
     } catch (e) {
       console.error("Tendies export failed", e);
       toast({
-        title: "Export failed",
-        description: "Failed to export tendies file. Please try again.",
+        title: "导出失败",
+        description: "导出 tendies 文件失败，请重试。",
         variant: "destructive",
       });
       return false;
@@ -366,7 +366,7 @@ export function ExportDialog() {
         }}
         className="px-3 sm:px-4 no-compact"
       >
-        Export
+        导出
       </Button>
       <Dialog
         open={exportOpen}
@@ -388,13 +388,13 @@ export function ExportDialog() {
                 className="h-8 w-auto px-2 gap-1 self-start"
                 onClick={() => setExportView("select")}
               >
-                <ArrowLeft className="h-4 w-4" /> Back
+                <ArrowLeft className="h-4 w-4" /> 返回
               </Button>
             ) : (
               <>
-                <DialogTitle>Export</DialogTitle>
+                <DialogTitle>导出</DialogTitle>
                 <DialogDescription>
-                  Choose a filename, format, and license, then export your project.
+                  选择文件名、格式和许可协议，然后导出项目。
                 </DialogDescription>
               </>
             )}
@@ -413,7 +413,7 @@ export function ExportDialog() {
               >
                 <div className="space-y-4">
                   <div className="space-y-1">
-                    <Label htmlFor="export-filename">File name</Label>
+                    <Label htmlFor="export-filename">文件名</Label>
                     <Input
                       id="export-filename"
                       value={exportFilename}
@@ -422,7 +422,7 @@ export function ExportDialog() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <Label htmlFor="export-format">Format</Label>
+                    <Label htmlFor="export-format">格式</Label>
                     <ToggleGroup
                       type="single"
                       value={exportFormat}
@@ -431,18 +431,18 @@ export function ExportDialog() {
                         setExportFormat(value as "ca" | "tendies");
                       }}
                       className="w-full"
-                      aria-label="Choose export format"
+                      aria-label="选择导出格式"
                     >
                       <ToggleGroupItem
                         value="ca"
-                        aria-label="Export CA bundle"
+                        aria-label="导出 CA 包"
                         className="flex-1 text-xs sm:text-sm"
                       >
-                        .ca bundle
+                        .ca 包
                       </ToggleGroupItem>
                       <ToggleGroupItem
                         value="tendies"
-                        aria-label="Export tendies file"
+                        aria-label="导出 tendies 文件"
                         className="flex-1 text-xs sm:text-sm"
                       >
                         Tendies
@@ -455,7 +455,7 @@ export function ExportDialog() {
                     </p>
                   </div>
                   <div className="space-y-1">
-                    <Label htmlFor="export-license">License</Label>
+                    <Label htmlFor="export-license">许可协议</Label>
                     <Select
                       value={exportLicense}
                       onValueChange={(value) =>
@@ -463,10 +463,10 @@ export function ExportDialog() {
                       }
                     >
                       <SelectTrigger className="w-full" id="export-license">
-                        <SelectValue placeholder="Choose a license" />
+                        <SelectValue placeholder="选择许可协议" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="none">No license</SelectItem>
+                        <SelectItem value="none">不选择许可协议</SelectItem>
                         <SelectItem value="cc-by-4.0">CC BY 4.0</SelectItem>
                         <SelectItem value="cc-by-sa-4.0">CC BY-SA 4.0</SelectItem>
                         <SelectItem value="cc-by-nc-4.0">CC BY-NC 4.0</SelectItem>
@@ -498,12 +498,12 @@ export function ExportDialog() {
                           htmlFor="export-confirmation"
                           className="text-xs text-muted-foreground leading-snug cursor-pointer select-none"
                         >
-                          I confirm that I created or have permission to use all content in this wallpaper and that I grant the selected license to the exported file.
+                          我确认自己创作了此壁纸中的所有内容，或已获得使用许可，并同意以所选协议授权导出的文件。
                         </label>
                       </div>
                     ) : (
                       <p className="text-xs text-muted-foreground leading-snug">
-                        By exporting, you confirm that you created or have permission to use all content in this wallpaper.
+                        导出即表示你确认自己创作了此壁纸中的所有内容，或已获得使用许可。
                       </p>
                     )}
                     <Button
@@ -542,17 +542,17 @@ export function ExportDialog() {
               >
                 <div className="pt-0 pb-4 flex flex-col items-center text-center gap-2.5">
                   <div className="text-2xl font-semibold">
-                    Thank you for using CAPlayground!
+                    感谢使用 CAPlayground！
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    What should I do next?
+                    接下来可以做什么？
                   </div>
                   <div className="w-full max-w-md text-left space-y-3 text-sm sm:text-base">
                     <div className="flex gap-3 border rounded-md px-4 py-3">
                       <div className="font-medium">1.</div>
                       <div className="space-y-1">
-                        <div className="font-medium">Watch video</div>
-                        <div>Watch the video on how to use Pocket Poster or Nugget.</div>
+                        <div className="font-medium">观看视频</div>
+                        <div>观看如何使用 Pocket Poster 或 Nugget 的视频。</div>
                         <a
                           href="https://www.youtube.com/watch?v=nSBQIwAaAEc"
                           target="_blank"
@@ -560,28 +560,28 @@ export function ExportDialog() {
                           className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-xs hover:bg-muted"
                         >
                           <Youtube className="h-4 w-4" />
-                          Watch the video
+                          观看视频
                         </a>
                       </div>
                     </div>
                     <div className="flex gap-3 border rounded-md px-4 py-3">
                       <div className="font-medium">2.</div>
                       <div className="space-y-1">
-                        <div className="font-medium">Test your wallpaper</div>
-                        <div>Apply the wallpaper to your device and test it.</div>
+                        <div className="font-medium">测试壁纸</div>
+                        <div>将壁纸应用到设备并测试。</div>
                       </div>
                     </div>
                     <div className="flex gap-3 border rounded-md px-4 py-3">
                       <div className="font-medium">3.</div>
                       <div className="space-y-1">
-                        <div className="font-medium">Showcase your work (Optional)</div>
-                        <div>Submit the wallpaper if you want to showcase your work.</div>
+                        <div className="font-medium">展示作品（可选）</div>
+                        <div>如果想展示作品，可以投稿壁纸。</div>
                         <button
                           type="button"
                           onClick={() => setIsSubmitDialogOpen(true)}
                           className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-xs hover:bg-muted"
                         >
-                          Submit wallpaper
+                          投稿壁纸
                         </button>
                       </div>
                     </div>
@@ -594,14 +594,14 @@ export function ExportDialog() {
                       className="inline-flex items-center justify-center gap-2 rounded-md border px-3 py-2 text-sm hover:bg-muted"
                     >
                       <Star className="h-4 w-4" />
-                      Star the repo
+                      为仓库点 Star
                     </a>
                     <Button
                       variant="default"
                       className="text-sm"
                       onClick={() => setExportOpen(false)}
                     >
-                      Done
+                      完成
                     </Button>
                   </div>
                 </div>

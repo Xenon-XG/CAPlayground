@@ -175,7 +175,7 @@ const ProjectThumb = React.memo(function ProjectThumb({
       const startY = (grad.startPoint?.y ?? 0) * 100;
       const endX = (grad.endPoint?.x ?? 1) * 100;
       const endY = (grad.endPoint?.y ?? 1) * 100;
-      
+
       const colors = (grad.colors || []).map((c: any) => {
         const opacity = c.opacity ?? 1;
         const hex = c.color || '#000000';
@@ -184,10 +184,10 @@ const ProjectThumb = React.memo(function ProjectThumb({
         const b = parseInt(hex.slice(5, 7), 16);
         return `rgba(${r}, ${g}, ${b}, ${opacity})`;
       }).join(', ');
-      
+
       let background = '';
       const isSamePoint = Math.abs(startX - endX) < 0.01 && Math.abs(startY - endY) < 0.01;
-      
+
       if (isSamePoint) {
         const firstColor = (grad.colors || [])[0];
         if (firstColor) {
@@ -211,7 +211,7 @@ const ProjectThumb = React.memo(function ProjectThumb({
         const angle = Math.atan2(dy, dx) + Math.PI / 2;
         background = `conic-gradient(from ${angle}rad at ${startX}% ${100 - startY}%, ${colors})`;
       }
-      
+
       return <div key={`${l.id}-${layerPath}`} style={{ ...common, background }}>
         {renderChildren(l, l.size.h, useYUp, layerPath)}
       </div>;
@@ -276,7 +276,7 @@ function ProjectsContent() {
   const [storageFallback, setStorageFallback] = useState<boolean>(false);
 
   useEffect(() => {
-    document.title = "CAPlayground - Projects";
+    document.title = "CAPlayground - 项目";
   }, []);
   const [newProjectName, setNewProjectName] = useState("");
   const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
@@ -361,7 +361,7 @@ function ProjectsContent() {
       const { getSupabaseBrowserClient } = await import("@/lib/supabase");
       const supabase = getSupabaseBrowserClient();
       const { data: { session } } = await supabase.auth.getSession();
-      
+
       if (!session) {
         setCloudProjects([]);
         return;
@@ -377,15 +377,15 @@ function ProjectsContent() {
         const data = await response.json();
 
         const syncData = JSON.parse(localStorage.getItem('caplayground-sync') || '{}');
-        
+
         const cloudProjs = (data.files || []).map((file: any) => {
           const projectEntry = Object.entries(syncData).find(
             ([_, meta]: [string, any]) => meta.driveFileId === file.id
           );
-          
+
           const projectId = projectEntry ? projectEntry[0] : null;
           const projectName = file.name.replace('.ca.zip', '');
-          
+
           return {
             id: projectId || file.id,
             name: projectName,
@@ -395,7 +395,7 @@ function ProjectsContent() {
             isCloudOnly: !projectId
           };
         });
-        
+
         setCloudProjects(cloudProjs);
         setCloudFetched(true);
       }
@@ -413,17 +413,17 @@ function ProjectsContent() {
     projectsArray.forEach(localProj => {
       const cloudProj = cloudProjects.find(cp => cp.id === localProj.id);
       const sync = syncStatus[localProj.id];
-      
+
       let storageLocation = 'Device';
       let needsSync = false;
-      
+
       if (cloudProj) {
         storageLocation = 'Device and Cloud';
         if (sync && sync.lastModifiedAt && sync.lastSyncedAt) {
           needsSync = new Date(sync.lastModifiedAt) > new Date(sync.lastSyncedAt);
         }
       }
-      
+
       merged.push({
         ...localProj,
         storageLocation,
@@ -619,9 +619,9 @@ function ProjectsContent() {
     })();
   }, []);
 
-  
 
-  
+
+
 
   const filteredProjects = useMemo(() => {
     const now = new Date();
@@ -804,7 +804,7 @@ function ProjectsContent() {
   const createProjectFromDialog = async () => {
     const name = newProjectName.trim();
     if (!name) return;
-    
+
     let w: number, h: number;
     if (useDeviceSelector) {
       if (!devicesRef.current) {
@@ -854,7 +854,7 @@ function ProjectsContent() {
       const idbList = await listProjects();
       setProjects(idbList.map(p => ({ id: p.id, name: p.name, createdAt: p.createdAt, width: p.width, height: p.height })));
     }
-    
+
     setEditingProjectId(null);
     setEditingName("");
     setIsRenameOpen(false);
@@ -864,7 +864,7 @@ function ProjectsContent() {
     await deleteProject(id);
     const idbList = await listProjects();
     setProjects(idbList.map(p => ({ id: p.id, name: p.name, createdAt: p.createdAt, width: p.width, height: p.height })));
-    
+
     setPreviews(prev => {
       const next = { ...prev };
       delete next[id];
@@ -879,10 +879,10 @@ function ProjectsContent() {
   };
 
   const confirmDelete = (projectOrId: any) => {
-    const project = typeof projectOrId === 'string' 
+    const project = typeof projectOrId === 'string'
       ? mergedProjects.find(p => p.id === projectOrId)
       : projectOrId;
-    
+
     if (!project) return;
 
     if (project.storageLocation === 'Device and Cloud') {
@@ -898,19 +898,19 @@ function ProjectsContent() {
 
   const performDeleteWithOptions = async () => {
     if (!projectToDelete) return;
-    
+
     try {
       if (deleteFromDevice) {
         await deleteProject(projectToDelete.id);
         const idbList = await listProjects();
         setProjects(idbList.map(p => ({ id: p.id, name: p.name, createdAt: p.createdAt, width: p.width, height: p.height })));
       }
-      
+
       if (deleteFromCloud && projectToDelete.driveFileId) {
         const { getSupabaseBrowserClient } = await import("@/lib/supabase");
         const supabase = getSupabaseBrowserClient();
         const { data: { session } } = await supabase.auth.getSession();
-        
+
         if (session) {
           try {
             const response = await fetch('/api/drive/delete', {
@@ -921,12 +921,12 @@ function ProjectsContent() {
               },
               body: JSON.stringify({ fileId: projectToDelete.driveFileId })
             });
-            
+
             if (response.ok) {
               const syncData = JSON.parse(localStorage.getItem('caplayground-sync') || '{}');
               delete syncData[projectToDelete.id];
               localStorage.setItem('caplayground-sync', JSON.stringify(syncData));
-              
+
               setCloudFetched(false);
               fetchCloudProjects();
             }
@@ -935,7 +935,7 @@ function ProjectsContent() {
           }
         }
       }
-      
+
       setDeleteOptionsOpen(false);
       setProjectToDelete(null);
       setDeleteFromDevice(true);
@@ -961,7 +961,7 @@ function ProjectsContent() {
 
   const syncProjects = async (projectIds: string[]) => {
     if (projectIds.length === 0) return;
-    
+
     try {
       setIsSyncing(true);
       setSyncProgress({ current: 0, total: projectIds.length, projectName: '' });
@@ -969,7 +969,7 @@ function ProjectsContent() {
       const { getSupabaseBrowserClient } = await import("@/lib/supabase");
       const supabase = getSupabaseBrowserClient();
       const { data: { session } } = await supabase.auth.getSession();
-      
+
       if (!session) {
         setSyncResultMessage('Please sign in to sync to Google Drive');
         setSyncResultOpen(true);
@@ -990,9 +990,9 @@ function ProjectsContent() {
 
           const folderName = `${project.name}.ca`;
           const files = await listFiles(projectId, folderName);
-          
+
           const zip = new JSZip();
-          
+
           zip.file('metadata.json', JSON.stringify({
             id: project.id,
             name: project.name,
@@ -1012,7 +1012,7 @@ function ProjectsContent() {
           }
 
           const zipBase64 = await zip.generateAsync({ type: 'base64' });
-          
+
           projectsData.push({
             id: projectId,
             name: project.name,
@@ -1050,10 +1050,10 @@ function ProjectsContent() {
       if (data.results && Array.isArray(data.results)) {
         const syncData = JSON.parse(localStorage.getItem('caplayground-sync') || '{}');
         const now = new Date().toISOString();
-        
+
         let updatedCount = 0;
         let createdCount = 0;
-        
+
         for (const result of data.results) {
           if (result.success && result.projectId && result.fileId) {
             syncData[result.projectId] = {
@@ -1062,7 +1062,7 @@ function ProjectsContent() {
               lastModifiedAt: now,
               fileName: result.fileName
             };
-            
+
             if (result.updated) {
               updatedCount++;
             } else {
@@ -1071,7 +1071,7 @@ function ProjectsContent() {
           }
         }
         localStorage.setItem('caplayground-sync', JSON.stringify(syncData));
-        
+
         let message = '';
         if (updatedCount > 0 && createdCount > 0) {
           message = `Updated ${updatedCount} and uploaded ${createdCount} new project${createdCount > 1 ? 's' : ''} to Google Drive!`;
@@ -1082,14 +1082,14 @@ function ProjectsContent() {
         } else {
           message = `Successfully synced ${data.uploaded} of ${data.total} project${data.total > 1 ? 's' : ''} to Google Drive!`;
         }
-        
+
         setSyncResultMessage(message);
       } else {
         setSyncResultMessage(`Successfully synced ${data.uploaded} of ${data.total} project${data.total > 1 ? 's' : ''} to Google Drive!`);
       }
-      
+
       setSyncResultOpen(true);
-      
+
       setCloudFetched(false);
       fetchCloudProjects();
 
@@ -1119,16 +1119,16 @@ function ProjectsContent() {
         const { getSupabaseBrowserClient } = await import("@/lib/supabase");
         const supabase = getSupabaseBrowserClient();
         const { data: { session } } = await supabase.auth.getSession();
-        
+
         if (!session) {
           setSyncResultMessage('Please sign in to access cloud projects');
           setSyncResultOpen(true);
           return;
         }
-        
+
         setIsSyncing(true);
         setSyncProgress({ current: 0, total: 1, projectName: 'Downloading...' });
-        
+
         const response = await fetch('/api/drive/download', {
           method: 'POST',
           headers: {
@@ -1137,21 +1137,21 @@ function ProjectsContent() {
           },
           body: JSON.stringify({ fileId: project.driveFileId })
         });
-        
+
         const data = await response.json();
         if (!response.ok) throw new Error(data.error);
-        
+
         const JSZip = (await import('jszip')).default;
         const { createProject, putTextFile, putBlobFile } = await import('@/lib/storage');
-        
+
         const zipBuffer = Uint8Array.from(atob(data.zipData), c => c.charCodeAt(0));
         const zip = await JSZip.loadAsync(zipBuffer);
         const metadataFile = zip.file('metadata.json');
         if (!metadataFile) throw new Error('Invalid project file');
-        
+
         const metadataText = await metadataFile.async('text');
         const metadata = JSON.parse(metadataText);
-        
+
         await createProject({
           id: metadata.id,
           name: metadata.name,
@@ -1159,7 +1159,7 @@ function ProjectsContent() {
           height: metadata.height,
           createdAt: metadata.createdAt
         });
-        
+
         const folderName = `${metadata.name}.ca`;
         await Promise.all(
           Object.keys(zip.files).map(async (relativePath) => {
@@ -1176,7 +1176,7 @@ function ProjectsContent() {
             }
           })
         );
-        
+
         const syncData = JSON.parse(localStorage.getItem('caplayground-sync') || '{}');
         syncData[metadata.id] = {
           driveFileId: project.driveFileId,
@@ -1184,7 +1184,7 @@ function ProjectsContent() {
           lastModifiedAt: new Date().toISOString()
         };
         localStorage.setItem('caplayground-sync', JSON.stringify(syncData));
-        
+
         setIsSyncing(false);
         router.push(`/editor/${metadata.id}`);
       } catch (error: any) {
@@ -1369,7 +1369,7 @@ function ProjectsContent() {
       const root = dual ? dual.floating.root : bundle.root;
       const gyroEnabled = root?.children?.some((child: AnyLayer) => ['BACKGROUND', 'FLOATING'].includes(child.name)) ?? false;
       await createProject({ id,name, createdAt: new Date().toISOString(), width, height, gyroEnabled });
-       
+
       const mkCaml = async (layers: AnyLayer[]) => {
         const { serializeCAML } = await import('@/lib/ca/serialize/serializeCAML');
         const group = {
@@ -1479,10 +1479,10 @@ function ProjectsContent() {
     try {
       const file = e.target.files?.[0];
       if (!file) return;
-      
+
       const { unpackTendies } = await import('@/lib/ca/ca-file');
       const tendies = await unpackTendies(file);
-      
+
       const id = Date.now().toString();
       const fileName = file.name.replace(/\.(ca|tendies)$/i, '');
       const name = await ensureUniqueProjectName(fileName);
@@ -1492,9 +1492,9 @@ function ProjectsContent() {
       const folder = `${name}.ca`;
       const indexXml = `<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0">\n<dict>\n  <key>rootDocument</key>\n  <string>main.caml</string>\n</dict>\n</plist>`;
       const assetManifest = `<?xml version="1.0" encoding="UTF-8"?>\n\n<caml xmlns="http://www.apple.com/CoreAnimation/1.0">\n  <MicaAssetManifest>\n    <modules type="NSArray"/>\n  </MicaAssetManifest>\n</caml>`;
-      
+
       const { serializeCAML } = await import('@/lib/ca/serialize/serializeCAML');
-      
+
       const mkCaml = async (doc: { root: AnyLayer; assets?: Record<string, CAAsset>; states?: string[]; stateOverrides?: any; stateTransitions?: any; wallpaperParallaxGroups?: any }, docName: string) => {
         const root = doc.root as any;
         const layers = Array.isArray(root.children) ? root.children : (root ? [root] : []);
@@ -1517,7 +1517,7 @@ function ProjectsContent() {
           doc.wallpaperParallaxGroups as any
         );
       };
-      
+
       if (tendies.wallpaper) {
         const camlWallpaper = await mkCaml(tendies.wallpaper, 'Wallpaper');
         await putTextFile(id, `${folder}/Wallpaper.ca/main.caml`, camlWallpaper);
@@ -1538,7 +1538,7 @@ function ProjectsContent() {
           await putTextFile(id, `${folder}/Floating.ca/main.caml`, camlFloating);
           await putTextFile(id, `${folder}/Floating.ca/index.xml`, indexXml);
           await putTextFile(id, `${folder}/Floating.ca/assetManifest.caml`, assetManifest);
-  
+
           const flAssets = (floatingDoc.assets || {}) as Record<string, CAAsset>;
           for (const [filename, asset] of Object.entries(flAssets)) {
             try {
@@ -1552,13 +1552,13 @@ function ProjectsContent() {
           await putTextFile(id, `${folder}/Floating.ca/index.xml`, indexXml);
           await putTextFile(id, `${folder}/Floating.ca/assetManifest.caml`, assetManifest);
         }
-        
+
         if (tendies.background) {
           const camlBackground = await mkCaml(tendies.background, 'Background');
           await putTextFile(id, `${folder}/Background.ca/main.caml`, camlBackground);
           await putTextFile(id, `${folder}/Background.ca/index.xml`, indexXml);
           await putTextFile(id, `${folder}/Background.ca/assetManifest.caml`, assetManifest);
-          
+
           const bgAssets = (tendies.background.assets || {}) as Record<string, CAAsset>;
           for (const [filename, asset] of Object.entries(bgAssets)) {
             try {
@@ -1573,16 +1573,16 @@ function ProjectsContent() {
           await putTextFile(id, `${folder}/Background.ca/assetManifest.caml`, assetManifest);
         }
       }
-      
+
       const idbList = await listProjects();
       setProjects(idbList.map(p => ({ id: p.id, name: p.name, createdAt: p.createdAt, width: p.width, height: p.height })));
       recordProjectCreated();
-      
+
       router.push(`/editor/${id}`);
     } catch (err) {
       console.error('Tendies import failed', err);
       const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-      
+
       if (errorMessage.includes('MERCURY_POSTER_NOT_SUPPORTED')) {
         setMessageDialogTitle('Mercury Poster Not Supported'); // mercury wallpapers are stored in system files, so they can't be imported into CAP
         setMessageDialogContent('Mercury Poster wallpapers cannot be imported into CAPlayground. These wallpapers store their assets in system files that cannot be modified or extracted.');
@@ -1601,25 +1601,25 @@ function ProjectsContent() {
     setDeleteFromCloud(false);
     setIsBulkDeleteOpen(true);
   };
-  
+
   const performBulkDelete = async () => {
     if (selectedIds.length === 0) return;
     if (!deleteFromDevice && !deleteFromCloud) return;
-    
+
     try {
       const selectedProjects = mergedProjects.filter(p => selectedIds.includes(p.id));
-      
+
       for (const project of selectedProjects) {
         if (deleteFromDevice) {
           await deleteProject(project.id);
         }
-        
+
         if (deleteFromCloud && project.driveFileId) {
           const { getSupabaseBrowserClient } = await import("@/lib/supabase");
           const supabase = getSupabaseBrowserClient();
           const { data: { session } } = await supabase.auth.getSession();
           if (!session) continue;
-          
+
           try {
             const response = await fetch('/api/drive/delete', {
               method: 'POST',
@@ -1629,7 +1629,7 @@ function ProjectsContent() {
               },
               body: JSON.stringify({ fileId: project.driveFileId })
             });
-            
+
             if (response.ok) {
               const syncData = JSON.parse(localStorage.getItem('caplayground-sync') || '{}');
               delete syncData[project.id];
@@ -1640,12 +1640,12 @@ function ProjectsContent() {
           }
         }
       }
-      
+
       if (deleteFromDevice) {
         const idbList = await listProjects();
         setProjects(idbList.map(p => ({ id: p.id, name: p.name, createdAt: p.createdAt, width: p.width, height: p.height })));
       }
-      
+
       if (deleteFromCloud) {
         await fetchCloudProjects();
       }
@@ -1679,31 +1679,31 @@ function ProjectsContent() {
             <div className="mb-2">
               <Link href="/">
                 <Button variant="ghost" size="sm" className="h-8 px-2">
-                  <ArrowLeft className="h-4 w-4 mr-1" /> Back
+                  <ArrowLeft className="h-4 w-4 mr-1" /> 返回
                 </Button>
               </Link>
             </div>
             <div className="flex items-center gap-2">
-              <h1 className="font-sfpro text-3xl md:text-4xl font-bold">Your Projects</h1>
+              <h1 className="font-sfpro text-3xl md:text-4xl font-bold">你的项目</h1>
               {loadingCloud && (
                 <span className="text-xs px-2 py-1 rounded bg-blue-100 text-blue-800 border border-blue-200 flex items-center gap-1">
                   <span className="inline-block h-3 w-3 border-2 border-t-transparent border-blue-800 rounded-full animate-spin" />
-                  Loading cloud...
+                  正在加载云端项目…
                 </span>
               )}
               {storageFallback && (
                 <span className="text-[10px] md:text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200">
-                  Storage: IndexedDB fallback
+                  存储方式：IndexedDB 备用方案
                 </span>
               )}
             </div>
-            <p className="text-muted-foreground">Create and manage your CoreAnimation projects stored locally on your device.</p>
+            <p className="text-muted-foreground">创建和管理保存在本机的 Core Animation 项目。</p>
             {/* Search & filters */}
             <div className="mt-4 flex gap-2 items-center">
               <Input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search projects by name..."
+                placeholder="按名称搜索项目…"
                 className="max-w-md"
               />
               <div className="border rounded-md p-0.5 flex">
@@ -1712,7 +1712,7 @@ function ProjectsContent() {
                   size="icon"
                   className="h-8 w-8"
                   onClick={() => setViewMode("grid")}
-                  title="Grid view"
+                  title="网格视图"
                 >
                   <Grid3x3 className="h-4 w-4" />
                 </Button>
@@ -1721,7 +1721,7 @@ function ProjectsContent() {
                   size="icon"
                   className="h-8 w-8"
                   onClick={() => setViewMode("list")}
-                  title="List view"
+                  title="列表视图"
                 >
                   <List className="h-4 w-4" />
                 </Button>
@@ -1733,14 +1733,14 @@ function ProjectsContent() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuLabel>Time Period</DropdownMenuLabel>
+                  <DropdownMenuLabel>时间范围</DropdownMenuLabel>
                   <DropdownMenuItem
                     onClick={() => setDateFilter("all")}
                     className={dateFilter === "all" ? "bg-accent" : ""}
                   >
                     {dateFilter === "all" && <Check className="h-4 w-4 mr-2" />}
                     {dateFilter !== "all" && <span className="w-4 mr-2" />}
-                    All time
+                    所有时间
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => setDateFilter("7")}
@@ -1748,7 +1748,7 @@ function ProjectsContent() {
                   >
                     {dateFilter === "7" && <Check className="h-4 w-4 mr-2" />}
                     {dateFilter !== "7" && <span className="w-4 mr-2" />}
-                    Last 7 days
+                    最近 7 天
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => setDateFilter("30")}
@@ -1756,7 +1756,7 @@ function ProjectsContent() {
                   >
                     {dateFilter === "30" && <Check className="h-4 w-4 mr-2" />}
                     {dateFilter !== "30" && <span className="w-4 mr-2" />}
-                    Last 30 days
+                    最近 30 天
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => setDateFilter("year")}
@@ -1764,17 +1764,17 @@ function ProjectsContent() {
                   >
                     {dateFilter === "year" && <Check className="h-4 w-4 mr-2" />}
                     {dateFilter !== "year" && <span className="w-4 mr-2" />}
-                    This year
+                    今年
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuLabel>Storage Location</DropdownMenuLabel>
+                  <DropdownMenuLabel>存储位置</DropdownMenuLabel>
                   <DropdownMenuItem
                     onClick={() => setLocationFilter("all")}
                     className={locationFilter === "all" ? "bg-accent" : ""}
                   >
                     {locationFilter === "all" && <Check className="h-4 w-4 mr-2" />}
                     {locationFilter !== "all" && <span className="w-4 mr-2" />}
-                    All locations
+                    所有位置
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => setLocationFilter("device")}
@@ -1782,7 +1782,7 @@ function ProjectsContent() {
                   >
                     {locationFilter === "device" && <Check className="h-4 w-4 mr-2" />}
                     {locationFilter !== "device" && <span className="w-4 mr-2" />}
-                    Device only
+                    仅本机
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => setLocationFilter("cloud")}
@@ -1790,7 +1790,7 @@ function ProjectsContent() {
                   >
                     {locationFilter === "cloud" && <Check className="h-4 w-4 mr-2" />}
                     {locationFilter !== "cloud" && <span className="w-4 mr-2" />}
-                    Cloud only
+                    仅云端
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => setLocationFilter("both")}
@@ -1798,17 +1798,17 @@ function ProjectsContent() {
                   >
                     {locationFilter === "both" && <Check className="h-4 w-4 mr-2" />}
                     {locationFilter !== "both" && <span className="w-4 mr-2" />}
-                    Device and Cloud
+                    本机和云端
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuLabel>Sort By</DropdownMenuLabel>
+                  <DropdownMenuLabel>排序方式</DropdownMenuLabel>
                   <DropdownMenuItem
                     onClick={() => setSortBy("recent")}
                     className={sortBy === "recent" ? "bg-accent" : ""}
                   >
                     {sortBy === "recent" && <Check className="h-4 w-4 mr-2" />}
                     {sortBy !== "recent" && <span className="w-4 mr-2" />}
-                    Newest first
+                    最新优先
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => setSortBy("oldest")}
@@ -1816,7 +1816,7 @@ function ProjectsContent() {
                   >
                     {sortBy === "oldest" && <Check className="h-4 w-4 mr-2" />}
                     {sortBy !== "oldest" && <span className="w-4 mr-2" />}
-                    Oldest first
+                    最早优先
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => setSortBy("name-asc")}
@@ -1824,7 +1824,7 @@ function ProjectsContent() {
                   >
                     {sortBy === "name-asc" && <Check className="h-4 w-4 mr-2" />}
                     {sortBy !== "name-asc" && <span className="w-4 mr-2" />}
-                    Name A → Z
+                    名称 A → Z
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => setSortBy("name-desc")}
@@ -1832,7 +1832,7 @@ function ProjectsContent() {
                   >
                     {sortBy === "name-desc" && <Check className="h-4 w-4 mr-2" />}
                     {sortBy !== "name-desc" && <span className="w-4 mr-2" />}
-                    Name Z → A
+                    名称 Z → A
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -1859,10 +1859,10 @@ function ProjectsContent() {
             {!isSelectMode && (
               <>
                 <Button variant="outline" onClick={handleImportClick}>
-                  <Upload className="h-4 w-4 mr-2" /> Import
+                  <Upload className="h-4 w-4 mr-2" /> 导入
                 </Button>
                 <Button onClick={() => setIsCreateOpen(true)}>
-                  <Plus className="h-4 w-4 mr-2" /> New Project
+                  <Plus className="h-4 w-4 mr-2" /> 新建项目
                 </Button>
               </>
             )}
@@ -1873,14 +1873,14 @@ function ProjectsContent() {
                   onClick={openBulkDelete}
                   disabled={selectedIds.length === 0}
                 >
-                  <Trash2 className="h-4 w-4 mr-2" /> Delete ({selectedIds.length})
+                  <Trash2 className="h-4 w-4 mr-2" /> 删除（{selectedIds.length}）
                 </Button>
                 <Button
                   onClick={handleUploadToDrive}
                   disabled={selectedIds.length === 0}
                   variant="outline"
                 >
-                  <Cloud className="h-4 w-4 mr-2" /> Sync to Cloud ({selectedIds.length})
+                  <Cloud className="h-4 w-4 mr-2" /> 同步到云端（{selectedIds.length}）
                 </Button>
               </>
             )}
@@ -1891,49 +1891,49 @@ function ProjectsContent() {
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Create New Project</DialogTitle>
+              <DialogTitle>创建新项目</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium" htmlFor="project-name">Project name</label>
+                <label className="text-sm font-medium" htmlFor="project-name">项目名称</label>
                 <Input
                   id="project-name"
                   value={newProjectName}
                   onChange={(e) => setNewProjectName(e.target.value)}
                   onKeyDown={handleKeyPress}
-                  placeholder="New Wallpaper"
+                  placeholder="新壁纸"
                   autoFocus
                 />
               </div>
-              
+
               <div className="flex items-center space-x-2">
-                <Checkbox 
-                  id="device-selector" 
-                  checked={useDeviceSelector} 
+                <Checkbox
+                  id="device-selector"
+                  checked={useDeviceSelector}
                   onCheckedChange={(checked) => setUseDeviceSelector(!!checked)}
                 />
                 <Label htmlFor="device-selector" className="text-sm font-medium cursor-pointer">
-                  Set bounds by device
+                  按设备设置尺寸
                 </Label>
               </div>
-              
+
               <div className="flex items-center space-x-2">
-                <Checkbox 
-                  id="gyro-enabled" 
-                  checked={gyroEnabled} 
+                <Checkbox
+                  id="gyro-enabled"
+                  checked={gyroEnabled}
                   onCheckedChange={(checked) => setGyroEnabled(!!checked)}
                 />
                 <Label htmlFor="gyro-enabled" className="text-sm font-medium cursor-pointer">
-                  [BETA] Enable Gyro (Parallax Effect)
+                  [测试版] 启用陀螺仪（视差效果）
                 </Label>
               </div>
-              
+
               {useDeviceSelector ? (
                 <div className="space-y-2">
-                  <label className="text-sm font-medium" htmlFor="device-select">Device</label>
+                  <label className="text-sm font-medium" htmlFor="device-select">设备</label>
                   <Select value={selectedDevice} onValueChange={setSelectedDevice}>
                     <SelectTrigger id="device-select">
-                      <SelectValue placeholder="Select a device" />
+                      <SelectValue placeholder="选择设备" />
                     </SelectTrigger>
                     <SelectContent className="max-h-[300px]">
                       <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">iPhone</div>
@@ -1956,12 +1956,12 @@ function ProjectsContent() {
                       ))}
                     </SelectContent>
                   </Select>
-                  <p className="text-xs text-muted-foreground">390 × 844 is the most compatible and default for iPhones.</p>
+                  <p className="text-xs text-muted-foreground">390 × 844 是 iPhone 兼容性最佳的默认尺寸。</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium" htmlFor="root-width">Width (px)</label>
+                    <label className="text-sm font-medium" htmlFor="root-width">宽度（像素）</label>
                     <Input
                       id="root-width"
                       type="number"
@@ -1972,7 +1972,7 @@ function ProjectsContent() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium" htmlFor="root-height">Height (px)</label>
+                    <label className="text-sm font-medium" htmlFor="root-height">高度（像素）</label>
                     <Input
                       id="root-height"
                       type="number"
@@ -1986,12 +1986,12 @@ function ProjectsContent() {
               )}
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsCreateOpen(false)}>Cancel</Button>
+              <Button variant="outline" onClick={() => setIsCreateOpen(false)}>取消</Button>
               <Button
                 onClick={createProjectFromDialog}
                 disabled={!newProjectName.trim() || (!useDeviceSelector && (!Number.isFinite(rootWidth) || !Number.isFinite(rootHeight) || rootWidth <= 0 || rootHeight <= 0))}
               >
-                Create
+                创建
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -2001,23 +2001,23 @@ function ProjectsContent() {
         }
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">
-            Your Projects ({filteredProjects.length}
-            {query || dateFilter !== "all" ? ` of ${projectsArray.length}` : ""})
+            你的项目（{filteredProjects.length}
+            {query || dateFilter !== "all" ? ` / ${projectsArray.length}` : ""}）
           </h2>
-          
+
           {projectsArray.length === 0 ? (
             <div className="text-center py-12">
               <Folder className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">No projects yet. Create your first project to get started!</p>
+              <p className="text-muted-foreground">还没有项目，创建第一个项目吧！</p>
             </div>
           ) : filteredProjects.length === 0 ? (
             <div className="text-center py-12">
               <Folder className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">No projects match your search/filter.</p>
+              <p className="text-muted-foreground">没有符合搜索或筛选条件的项目。</p>
               {(query || dateFilter !== "all") && (
                 <div className="mt-4 flex justify-center gap-2">
-                  <Button variant="outline" size="sm" onClick={() => setQuery("")}>Clear search</Button>
-                  <Button variant="outline" size="sm" onClick={() => setDateFilter("all")}>Reset date</Button>
+                  <Button variant="outline" size="sm" onClick={() => setQuery("")}>清除搜索</Button>
+                  <Button variant="outline" size="sm" onClick={() => setDateFilter("all")}>重置日期</Button>
                 </div>
               )}
             </div>
@@ -2028,8 +2028,8 @@ function ProjectsContent() {
                 const pv = previews[project.id];
                 const doc = thumbDocs[project.id] ?? { meta: { width: pv?.width || project.width || 390, height: pv?.height || project.height || 844, background: pv?.bg || '#e5e7eb' }, layers: [] } as any;
                 return (
-                  <Card 
-                    key={project.id} 
+                  <Card
+                    key={project.id}
                     className={`relative p-0 ${isSelectMode && isSelected ? 'border-accent ring-2 ring-accent/30' : ''}`}
                     onClick={() => {
                       if (isSelectMode) {
@@ -2059,7 +2059,7 @@ function ProjectsContent() {
                         </AspectRatio>
                       </div>
                       <div className="flex items-start justify-between">
-                        <div 
+                        <div
                           className="flex-1 min-w-0 cursor-pointer select-none"
                           onClick={(e) => {
                             e.stopPropagation();
@@ -2074,7 +2074,7 @@ function ProjectsContent() {
                             {renderHighlighted(project.name, query)}
                           </h3>
                           <p className="text-xs text-muted-foreground mt-1">
-                            Created: {new Date(project.createdAt).toLocaleDateString()}
+                            创建时间： {new Date(project.createdAt).toLocaleDateString("zh-CN")}
                           </p>
                           <div className="flex items-center gap-1 mt-1">
                             {project.storageLocation === 'Device and Cloud' ? (
@@ -2090,12 +2090,12 @@ function ProjectsContent() {
                             ) : project.storageLocation === 'Cloud' ? (
                               <>
                                 <Cloud className="h-3 w-3 text-muted-foreground" />
-                                <span className="text-xs text-muted-foreground">Saved to Cloud</span>
+                                <span className="text-xs text-muted-foreground">已保存到云端</span>
                               </>
                             ) : (
                               <>
                                 <HardDrive className="h-3 w-3 text-muted-foreground" />
-                                <span className="text-xs text-muted-foreground">Saved to Device</span>
+                                <span className="text-xs text-muted-foreground">已保存到本机</span>
                               </>
                             )}
                           </div>
@@ -2117,7 +2117,7 @@ function ProjectsContent() {
                             <DropdownMenuContent align="end">
                               <DropdownMenuItem onClick={(e) => { e.stopPropagation(); startEditing(project); }}>
                                 <Edit3 className="h-4 w-4 mr-2" />
-                                Rename
+                                重命名
                               </DropdownMenuItem>
                               {project.storageLocation !== 'Cloud' && (
                                 <DropdownMenuItem onClick={async (e) => {
@@ -2125,15 +2125,15 @@ function ProjectsContent() {
                                   await syncSingleProject(project.id);
                                 }}>
                                   <Cloud className="h-4 w-4 mr-2" />
-                                  Sync to Cloud
+                                  同步到云端
                                 </DropdownMenuItem>
                               )}
-                              <DropdownMenuItem 
+                              <DropdownMenuItem
                                 className="text-destructive focus:text-destructive"
                                 onClick={(e) => { e.stopPropagation(); confirmDelete(project); }}
                               >
                                 <Trash2 className="h-4 w-4 mr-2" />
-                                Delete
+                                删除
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
@@ -2146,7 +2146,7 @@ function ProjectsContent() {
                           disabled={isSelectMode}
                           onClick={(e) => { e.stopPropagation(); openProject(project); }}
                         >
-                          Open Project <ArrowRight className="h-4 w-4 ml-2" />
+                          打开项目 <ArrowRight className="h-4 w-4 ml-2" />
                         </Button>
                       </div>
                     </CardContent>
@@ -2156,7 +2156,7 @@ function ProjectsContent() {
               {visibleCount < filteredProjects.length && (
                 <>
                   <div className="col-span-full flex items-center justify-center text-xs text-muted-foreground py-3">
-                    Loading more...
+                    加载更多…
                   </div>
                   <div ref={sentinelRef} className="col-span-full h-1" />
                 </>
@@ -2169,8 +2169,8 @@ function ProjectsContent() {
                 const pv = previews[project.id];
                 const doc = thumbDocs[project.id] ?? { meta: { width: pv?.width || project.width || 390, height: pv?.height || project.height || 844, background: pv?.bg || '#e5e7eb' }, layers: [] } as any;
                 return (
-                  <Card 
-                    key={project.id} 
+                  <Card
+                    key={project.id}
                     className={`relative p-0 ${isSelectMode && isSelected ? 'border-accent ring-2 ring-accent/30' : ''}`}
                     onClick={() => {
                       if (isSelectMode) {
@@ -2202,7 +2202,7 @@ function ProjectsContent() {
                               {renderHighlighted(project.name, query)}
                             </h3>
                             <p className="text-xs text-muted-foreground mt-1">
-                              Created: {new Date(project.createdAt).toLocaleDateString()}
+                              创建时间： {new Date(project.createdAt).toLocaleDateString("zh-CN")}
                             </p>
                             <div className="flex items-center gap-1 mt-1">
                               {project.storageLocation === 'Device and Cloud' ? (
@@ -2218,12 +2218,12 @@ function ProjectsContent() {
                               ) : project.storageLocation === 'Cloud' ? (
                                 <>
                                   <Cloud className="h-3 w-3 text-muted-foreground" />
-                                  <span className="text-xs text-muted-foreground">Saved to Cloud</span>
+                                  <span className="text-xs text-muted-foreground">已保存到云端</span>
                                 </>
                               ) : (
                                 <>
                                   <HardDrive className="h-3 w-3 text-muted-foreground" />
-                                  <span className="text-xs text-muted-foreground">Saved to Device</span>
+                                  <span className="text-xs text-muted-foreground">已保存到本机</span>
                                 </>
                               )}
                             </div>
@@ -2244,7 +2244,7 @@ function ProjectsContent() {
                               <DropdownMenuContent align="end">
                                 <DropdownMenuItem onClick={(e) => { e.stopPropagation(); startEditing(project); }}>
                                   <Edit3 className="h-4 w-4 mr-2" />
-                                  Rename
+                                  重命名
                                 </DropdownMenuItem>
                                 {project.storageLocation !== 'Cloud' && (
                                   <DropdownMenuItem onClick={async (e) => {
@@ -2252,15 +2252,15 @@ function ProjectsContent() {
                                     await syncSingleProject(project.id);
                                   }}>
                                     <Cloud className="h-4 w-4 mr-2" />
-                                    Sync to Cloud
+                                    同步到云端
                                   </DropdownMenuItem>
                                 )}
-                                <DropdownMenuItem 
+                                <DropdownMenuItem
                                   className="text-destructive focus:text-destructive"
                                   onClick={(e) => { e.stopPropagation(); confirmDelete(project); }}
                                 >
                                   <Trash2 className="h-4 w-4 mr-2" />
-                                  Delete
+                                  删除
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
@@ -2273,7 +2273,7 @@ function ProjectsContent() {
                             disabled={isSelectMode}
                             onClick={(e) => { e.stopPropagation(); openProject(project); }}
                           >
-                            Open <ArrowRight className="h-4 w-4 ml-1" />
+                            打开 <ArrowRight className="h-4 w-4 ml-1" />
                           </Button>
                         </div>
                       </div>
@@ -2284,7 +2284,7 @@ function ProjectsContent() {
               {visibleCount < filteredProjects.length && (
                 <>
                   <div className="flex items-center justify-center text-xs text-muted-foreground py-3">
-                    Loading more projects…
+                    正在加载更多项目…
                   </div>
                   <div ref={sentinelRef} className="h-8" />
                 </>
@@ -2297,7 +2297,7 @@ function ProjectsContent() {
         <Dialog open={isRenameOpen} onOpenChange={(open) => { setIsRenameOpen(open); if (!open) { setEditingProjectId(null); setEditingName(""); } }}>
           <DialogContent className="sm:max-w-sm">
             <DialogHeader>
-              <DialogTitle>Rename Project</DialogTitle>
+              <DialogTitle>重命名项目</DialogTitle>
             </DialogHeader>
             <Input
               value={editingName}
@@ -2309,8 +2309,8 @@ function ProjectsContent() {
               autoFocus
             />
             <DialogFooter>
-              <Button variant="outline" onClick={() => { setIsRenameOpen(false); setEditingProjectId(null); setEditingName(""); }}>Cancel</Button>
-              <Button onClick={saveEdit} disabled={!editingName.trim()}>Save</Button>
+              <Button variant="outline" onClick={() => { setIsRenameOpen(false); setEditingProjectId(null); setEditingName(""); }}>取消</Button>
+              <Button onClick={saveEdit} disabled={!editingName.trim()}>保存</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -2319,11 +2319,11 @@ function ProjectsContent() {
         <Dialog open={isImportDialogOpen} onOpenChange={setIsImportDialogOpen}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle>Import Project</DialogTitle>
+              <DialogTitle>导入项目</DialogTitle>
             </DialogHeader>
             <div className="space-y-3">
               <p className="text-sm text-muted-foreground">
-                Choose the type of file you want to import:
+                选择要导入的文件类型：
               </p>
               <div className="grid gap-3">
                 <Button
@@ -2332,9 +2332,9 @@ function ProjectsContent() {
                   className="w-full justify-start text-left py-8"
                 >
                   <div className="flex flex-col items-start gap-1">
-                    <span className="font-medium">Import .ca file</span>
+                    <span className="font-medium">导入 .ca 文件</span>
                     <span className="text-xs text-muted-foreground">
-                      Import a CoreAnimation package or zip file
+                      导入 Core Animation 包或 zip 文件
                     </span>
                   </div>
                 </Button>
@@ -2344,9 +2344,9 @@ function ProjectsContent() {
                   className="w-full justify-start text-left py-8"
                 >
                   <div className="flex flex-col items-start gap-1">
-                    <span className="font-medium">Import .tendies file</span>
+                    <span className="font-medium">导入 .tendies 文件</span>
                     <span className="text-xs text-muted-foreground">
-                      Import a tendies wallpaper file
+                      导入 tendies 壁纸文件
                     </span>
                   </div>
                 </Button>
@@ -2356,16 +2356,16 @@ function ProjectsContent() {
                   className="w-full justify-start text-left py-8"
                 >
                   <div className="flex flex-col items-start gap-1">
-                    <span className="font-medium">Import from link</span>
+                    <span className="font-medium">从链接导入</span>
                     <span className="text-xs text-muted-foreground">
-                      Paste a direct .tendies download URL
+                      粘贴 .tendies 文件的直接下载链接
                     </span>
                   </div>
                 </Button>
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsImportDialogOpen(false)}>Cancel</Button>
+              <Button variant="outline" onClick={() => setIsImportDialogOpen(false)}>取消</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -2373,11 +2373,11 @@ function ProjectsContent() {
         <Dialog open={isImportLinkDialogOpen} onOpenChange={setIsImportLinkDialogOpen}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle>Import from Link</DialogTitle>
+              <DialogTitle>从链接导入</DialogTitle>
             </DialogHeader>
             <div className="space-y-3">
               <div className="space-y-2">
-                <Label htmlFor="import-link-url">.tendies URL</Label>
+                <Label htmlFor="import-link-url">.tendies 链接</Label>
                 <Input
                   id="import-link-url"
                   value={importLinkUrl}
@@ -2389,21 +2389,21 @@ function ProjectsContent() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="import-link-name">Name</Label>
+                <Label htmlFor="import-link-name">名称</Label>
                 <Input
                   id="import-link-name"
                   value={importLinkName}
                   onChange={(e) => setImportLinkName(e.target.value)}
-                  placeholder="Imported Wallpaper"
+                  placeholder="导入的壁纸"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="import-link-creator">Creator</Label>
+                <Label htmlFor="import-link-creator">作者</Label>
                 <Input
                   id="import-link-creator"
                   value={importLinkCreator}
                   onChange={(e) => setImportLinkCreator(e.target.value)}
-                  placeholder="Unknown"
+                  placeholder="未知"
                 />
               </div>
             </div>
@@ -2413,7 +2413,7 @@ function ProjectsContent() {
                 onClick={() => setIsImportLinkDialogOpen(false)}
                 disabled={importLinkBusy}
               >
-                Cancel
+                取消
               </Button>
               <Button
                 onClick={async () => {
@@ -2431,7 +2431,7 @@ function ProjectsContent() {
                 }}
                 disabled={importLinkBusy || !importLinkUrl.trim()}
               >
-                Import
+                导入
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -2441,13 +2441,13 @@ function ProjectsContent() {
         <AlertDialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Delete project?</AlertDialogTitle>
+              <AlertDialogTitle>删除项目？</AlertDialogTitle>
               <AlertDialogDescription>
                 {(() => {
                   const p = projectsArray.find(p => p.id === pendingDeleteId);
                   return (
                     <span>
-                      This action cannot be undone. This will permanently delete
+                      此操作无法撤销，将永久删除
                       {" "}
                       <span className="font-medium">{p?.name ?? "this project"}</span>.
                     </span>
@@ -2456,7 +2456,7 @@ function ProjectsContent() {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => setPendingDeleteId(null)}>Cancel</AlertDialogCancel>
+              <AlertDialogCancel onClick={() => setPendingDeleteId(null)}>取消</AlertDialogCancel>
               <AlertDialogAction
                 className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                 onClick={() => {
@@ -2467,7 +2467,7 @@ function ProjectsContent() {
                   setIsDeleteOpen(false);
                 }}
               >
-                Delete
+                删除
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -2477,50 +2477,50 @@ function ProjectsContent() {
         <Dialog open={isBulkDeleteOpen} onOpenChange={setIsBulkDeleteOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Delete {selectedIds.length} Selected Projects</DialogTitle>
+              <DialogTitle>删除 {selectedIds.length} 已选项目</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                Choose where to delete the selected projects from:
+                选择要从哪里删除所选项目：
               </p>
               <div className="space-y-3">
                 <div className="flex items-center space-x-2">
-                  <Checkbox 
-                    id="bulk-delete-device" 
+                  <Checkbox
+                    id="bulk-delete-device"
                     checked={deleteFromDevice}
                     onCheckedChange={(checked) => setDeleteFromDevice(!!checked)}
                   />
                   <Label htmlFor="bulk-delete-device" className="text-sm font-medium cursor-pointer flex items-center gap-2">
                     <Smartphone className="h-4 w-4" />
-                    Delete from Device
+                    从本机删除
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Checkbox 
-                    id="bulk-delete-cloud" 
+                  <Checkbox
+                    id="bulk-delete-cloud"
                     checked={deleteFromCloud}
                     onCheckedChange={(checked) => setDeleteFromCloud(!!checked)}
                   />
                   <Label htmlFor="bulk-delete-cloud" className="text-sm font-medium cursor-pointer flex items-center gap-2">
                     <Cloud className="h-4 w-4" />
-                    Delete from Cloud
+                    从云端删除
                   </Label>
                 </div>
               </div>
               {!deleteFromDevice && !deleteFromCloud && (
                 <p className="text-sm text-amber-600">
-                  Please select at least one location to delete from.
+                  请至少选择一个删除位置。
                 </p>
               )}
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsBulkDeleteOpen(false)}>Cancel</Button>
-              <Button 
-                variant="destructive" 
+              <Button variant="outline" onClick={() => setIsBulkDeleteOpen(false)}>取消</Button>
+              <Button
+                variant="destructive"
                 onClick={performBulkDelete}
                 disabled={!deleteFromDevice && !deleteFromCloud}
               >
-                Delete
+                删除
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -2530,20 +2530,20 @@ function ProjectsContent() {
         <Dialog open={isSyncing} onOpenChange={() => {}}>
           <DialogContent className="sm:max-w-md" onPointerDownOutside={(e) => e.preventDefault()}>
             <DialogHeader>
-              <DialogTitle>Syncing to Cloud</DialogTitle>
+              <DialogTitle>正在同步到云端</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">
-                    {syncProgress.current} of {syncProgress.total} projects
+                    {syncProgress.current} / {syncProgress.total} 个项目
                   </span>
                   <span className="font-medium">
                     {Math.round((syncProgress.current / syncProgress.total) * 100)}%
                   </span>
                 </div>
                 <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                  <div 
+                  <div
                     className="h-full bg-primary transition-all duration-300"
                     style={{ width: `${(syncProgress.current / syncProgress.total) * 100}%` }}
                   />
@@ -2556,7 +2556,7 @@ function ProjectsContent() {
               )}
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <div className="h-4 w-4 border-2 border-t-transparent border-primary rounded-full animate-spin" />
-                <span>Please wait...</span>
+                <span>请稍候…</span>
               </div>
             </div>
           </DialogContent>
@@ -2566,52 +2566,52 @@ function ProjectsContent() {
         <Dialog open={deleteOptionsOpen} onOpenChange={setDeleteOptionsOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Delete "{projectToDelete?.name}"</DialogTitle>
+              <DialogTitle>删除“{projectToDelete?.name}”</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <p className="text-sm text-muted-foreground">
-                This project is stored on both your device and Google Drive. Choose where to delete it from:
+                此项目同时保存在本机和 Google Drive。请选择删除位置：
               </p>
               <div className="space-y-3">
                 <div className="flex items-center space-x-2">
-                  <Checkbox 
-                    id="delete-device" 
+                  <Checkbox
+                    id="delete-device"
                     checked={deleteFromDevice}
                     onCheckedChange={(checked) => setDeleteFromDevice(!!checked)}
                   />
                   <Label htmlFor="delete-device" className="text-sm font-medium cursor-pointer flex items-center gap-2">
                     <HardDrive className="h-4 w-4" />
-                    Delete from Device
+                    从本机删除
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Checkbox 
-                    id="delete-cloud" 
+                  <Checkbox
+                    id="delete-cloud"
                     checked={deleteFromCloud}
                     onCheckedChange={(checked) => setDeleteFromCloud(!!checked)}
                   />
                   <Label htmlFor="delete-cloud" className="text-sm font-medium cursor-pointer flex items-center gap-2">
                     <Cloud className="h-4 w-4" />
-                    Delete from Google Drive
+                    从 Google Drive 删除
                   </Label>
                 </div>
               </div>
               {!deleteFromDevice && !deleteFromCloud && (
                 <p className="text-sm text-amber-600">
-                  Please select at least one location to delete from.
+                  请至少选择一个删除位置。
                 </p>
               )}
             </div>
             <DialogFooter>
               <Button variant="outline" onClick={() => setDeleteOptionsOpen(false)}>
-                Cancel
+                取消
               </Button>
-              <Button 
-                variant="destructive" 
+              <Button
+                variant="destructive"
                 onClick={performDeleteWithOptions}
                 disabled={!deleteFromDevice && !deleteFromCloud}
               >
-                Delete
+                删除
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -2621,14 +2621,14 @@ function ProjectsContent() {
         <AlertDialog open={syncResultOpen} onOpenChange={setSyncResultOpen}>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Sync Complete</AlertDialogTitle>
+              <AlertDialogTitle>同步完成</AlertDialogTitle>
               <AlertDialogDescription>
                 {syncResultMessage}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogAction onClick={() => setSyncResultOpen(false)}>
-                OK
+                确定
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -2638,15 +2638,15 @@ function ProjectsContent() {
         <AlertDialog open={isTosOpen && !isSignedIn}>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Agree to Terms of Service</AlertDialogTitle>
+              <AlertDialogTitle>同意服务条款</AlertDialogTitle>
               <AlertDialogDescription>
-                Please review and accept our
+                请阅读并接受我们的
                 {" "}
                 <Link href="/tos" className="underline" target="_blank" rel="noopener noreferrer">
-                  Terms of Service
+                  服务条款
                 </Link>
                 {" "}
-                to use Projects while signed out. Your projects are stored locally on your device.
+                ，即可在未登录时使用项目功能。项目会保存在本机。
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
@@ -2656,7 +2656,7 @@ function ProjectsContent() {
                   router.push("/")
                 }}
               >
-                Back
+                返回
               </AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => {
@@ -2664,7 +2664,7 @@ function ProjectsContent() {
                   setIsTosOpen(false)
                 }}
               >
-                I Agree              
+                我同意
                 </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -2683,7 +2683,7 @@ function ProjectsContent() {
             </div>
             <DialogFooter>
               <Button onClick={() => setMessageDialogOpen(false)}>
-                OK
+                确定
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -2699,7 +2699,7 @@ export default function ProjectsPage() {
       <div className="container mx-auto px-2 sm:px-4 py-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-8 flex flex-col gap-4 pt-6">
-            <h1 className="font-sfpro text-3xl md:text-4xl font-bold">Loading...</h1>
+            <h1 className="font-sfpro text-3xl md:text-4xl font-bold">加载中…</h1>
           </div>
         </div>
       </div>

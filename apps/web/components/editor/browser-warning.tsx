@@ -38,20 +38,20 @@ export function BrowserWarning() {
       <Alert variant="destructive" className="shadow-lg border-2">
         <AlertTriangle className="h-5 w-5" />
         <AlertTitle className="flex items-center justify-between pr-8">
-          Browser Partially Supported
+          浏览器仅部分受支持
         </AlertTitle>
         <AlertDescription>
           <p className="mb-2">
-            Your browser does not support the Origin Private File System (OPFS), so projects are being saved to IndexedDB as a fallback. This may have performance implications.
+            此浏览器不支持源私有文件系统（OPFS），项目将使用 IndexedDB 保存，性能可能受到影响。
           </p>
           <p className="mt-2 text-xs">
-            For the best experience, we recommend using a browser that supports OPFS, such as the latest version of Chrome, Edge, or Safari (not in private browsing mode).
+            建议使用支持 OPFS 的最新版 Chrome、Edge 或 Safari，并退出无痕浏览模式。
           </p>
         </AlertDescription>
         <button
           onClick={handleDismiss}
           className="absolute top-3 right-3 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-          aria-label="Dismiss warning"
+          aria-label="关闭警告"
         >
           <X className="h-4 w-4" />
         </button>

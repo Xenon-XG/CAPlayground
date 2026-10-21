@@ -8,9 +8,9 @@ import { ArrowLeft, Sun, Moon } from "lucide-react"
 
 export default function TermsPage() {
   const { theme, setTheme } = useTheme()
-  
+
   useEffect(() => {
-    document.title = "CAPlayground - Terms of Service";
+    document.title = "CAPlayground - 服务条款";
   }, []);
 
   return (
@@ -19,7 +19,7 @@ export default function TermsPage() {
       <div className="absolute left-4 top-4">
         <Link href="/">
           <Button variant="ghost" size="sm" className="h-8 px-2">
-            <ArrowLeft className="h-4 w-4 mr-1" /> Back
+            <ArrowLeft className="h-4 w-4 mr-1" /> 返回
           </Button>
         </Link>
       </div>
@@ -29,7 +29,7 @@ export default function TermsPage() {
         <Button
           variant="ghost"
           size="icon"
-          aria-label="Toggle theme"
+          aria-label="切换主题"
           className="rounded-full h-9 w-9 p-0"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
@@ -38,7 +38,7 @@ export default function TermsPage() {
       </div>
       <div className="mx-auto max-w-3xl">
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Terms of Service</h1>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">服务条款</h1>
           <p className="mt-2 text-sm text-muted-foreground">Last Updated: 9th December 2025</p>
         </div>
         {/* Paper container */}
@@ -52,8 +52,8 @@ export default function TermsPage() {
           <ul className="mt-4 list-disc pl-6 space-y-2">
           <li><strong>Service</strong>: The CAPlayground application and website.</li>
           <li><strong>Local Projects</strong>: Projects created and stored locally in your browser/device.</li>
-          <li><strong>Cloud Projects</strong>: Projects created and stored in your Google account's Google Drive.</li>
-          <li><strong>Account</strong>: A Supabase-backed account enabling authentication and account features.</li>
+          <li><strong>云端项目</strong>: Projects created and stored in your Google account's Google Drive.</li>
+          <li><strong>账户</strong>: A Supabase-backed account enabling authentication and account features.</li>
           <li><strong>User Content</strong>: Content you create or upload while using the Service.</li>
           </ul>
 
@@ -79,12 +79,12 @@ export default function TermsPage() {
             <strong>Prohibited Conduct</strong>: You may not use content created with CAPlayground to: (a) deceive or defraud users, (b) promote scams or misleading instructions, (c) falsely claim creation of the Service or its features, or (d) engage in any activity that damages CAPlayground's reputation or misleads the public about the Service.
           </li>
           <li>
-            <strong>Projects</strong>: By default, projects are stored locally on your device (using browser IndexedDB or OPFS). We do not receive your Local Projects.  
-            You can optionally use Cloud Projects, which require signing in to your CAPlayground account and then connecting your Google Drive. This enables secure cloud storage and syncing of your projects across devices.  
+            <strong>项目</strong>: By default, projects are stored locally on your device (using browser IndexedDB or OPFS). We do not receive your Local Projects.
+            You can optionally use Cloud Projects, which require signing in to your CAPlayground account and then connecting your Google Drive. This enables secure cloud storage and syncing of your projects across devices.
             CAPlayground does not receive or store your Cloud Projects; access and storage are managed according to Google Drive's policies.
           </li>
           <li>
-            <strong>Cloud Projects</strong>: Cloud storage via Google Drive allows you to sync your projects across devices. We provide no guarantees of data availability or reliability for Cloud Projects. You are responsible for maintaining backups of important projects. You must comply with Google's Terms of Service when using Cloud Projects.
+            <strong>云端项目</strong>: Cloud storage via Google Drive allows you to sync your projects across devices. We provide no guarantees of data availability or reliability for Cloud Projects. You are responsible for maintaining backups of important projects. You must comply with Google's Terms of Service when using Cloud Projects.
           </li>
           <li>
             <strong>Google Drive Integration</strong>: When you sign in to Google Drive, you authorize CAPlayground to access files created by CAPlayground in your Drive. We use browser cookies to maintain your Drive session. You can revoke this access at any time through your Google account settings or by signing out from Google Drive in the dashboard.
@@ -109,7 +109,7 @@ export default function TermsPage() {
             consent in your country.
           </li>
           <li>
-            <strong>Account Information</strong>: Accounts are provided via Supabase. We may collect and process your email,
+            <strong>账户信息</strong>: Accounts are provided via Supabase. We may collect and process your email,
             username (if set), and sign-in activity for security and account operation.
           </li>
           <li>
@@ -178,7 +178,7 @@ export default function TermsPage() {
 
           <p className="mt-10 text-sm text-muted-foreground">
             Also see our {" "}
-            <Link href="/privacy" className="underline">Privacy Policy</Link>.
+            <Link href="/privacy" className="underline">隐私政策</Link>.
           </p>
         </div>
       </div>

@@ -57,35 +57,35 @@ export function VideoTab({
   return (
     <div className="grid grid-cols-2 gap-x-1.5 gap-y-3">
       <div className="space-y-1 col-span-2">
-        <Label>Video Properties</Label>
+        <Label>视频属性</Label>
         <div className="text-sm text-muted-foreground space-y-1">
-          <div>Frames: {selected.frameCount || 0}</div>
-          <div>FPS: {selected.fps || 30}</div>
-          <div>Duration: {((selected.duration || 0).toFixed(2))}s</div>
+          <div>帧数： {selected.frameCount || 0}</div>
+          <div>帧率： {selected.fps || 30}</div>
+          <div>时长： {((selected.duration || 0).toFixed(2))}s</div>
         </div>
       </div>
       <div className="space-y-1 col-span-2">
-        <Label htmlFor="video-calculation-mode">Calculation Mode</Label>
+        <Label htmlFor="video-calculation-mode">计算模式</Label>
         <Select
           value={selected.calculationMode || 'linear'}
           onValueChange={(v) => updateLayer(selected.id, { calculationMode: (v as 'linear' | 'discrete') } as any)}
           disabled={isSyncWithState}
         >
           <SelectTrigger id="video-calculation-mode" className="w-full">
-            <SelectValue placeholder="Select mode" />
+            <SelectValue placeholder="选择模式" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="linear">Linear</SelectItem>
-            <SelectItem value="discrete">Discrete</SelectItem>
+            <SelectItem value="linear">线性</SelectItem>
+            <SelectItem value="discrete">离散</SelectItem>
           </SelectContent>
         </Select>
         <p className="text-xs text-muted-foreground">
-          Linear blends frame values smoothly. Discrete jumps from one frame to the next with no interpolation.
+          线性模式会平滑过渡帧数值；离散模式会直接跳到下一帧，不进行插值。
         </p>
       </div>
       <div className="space-y-1 col-span-2">
         <div className="flex items-center justify-between">
-          <Label>Auto Reverses</Label>
+          <Label>自动反向播放</Label>
           <Switch
             checked={!!selected.autoReverses}
             onCheckedChange={(checked) => updateLayer(selected.id, { autoReverses: checked } as any)}
@@ -93,13 +93,13 @@ export function VideoTab({
           />
         </div>
         <p className="text-xs text-muted-foreground">
-          When enabled, the video will play forward then backward in a loop.
+          开启后视频会正向播放，再反向播放，不断循环。
         </p>
       </div>
 
       <div className="space-y-1 col-span-2">
         <div className="flex items-center justify-between">
-          <Label>Sync with state transition</Label>
+          <Label>与状态切换同步</Label>
           <Switch
             checked={!!selected.syncWWithState}
             onCheckedChange={(checked) => {
@@ -142,7 +142,7 @@ export function VideoTab({
           />
         </div>
         <p className="text-xs text-muted-foreground">
-          When enabled, the video will sync with state transitions.
+          开启后视频会与状态切换同步。
         </p>
         {isSyncWithState && (
           <div className="mt-2 space-y-2">
@@ -168,8 +168,8 @@ export function VideoTab({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value={BEGINNING}>Beginning</SelectItem>
-                    <SelectItem value={END}>End</SelectItem>
+                    <SelectItem value={BEGINNING}>开头</SelectItem>
+                    <SelectItem value={END}>结尾</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

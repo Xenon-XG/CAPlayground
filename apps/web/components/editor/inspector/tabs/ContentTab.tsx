@@ -33,7 +33,7 @@ export function ContentTab({
         <>
           <div className="space-y-1 col-span-2">
             <Label htmlFor="backgroundColor">
-              Background colour
+              背景颜色
               {inState && (
                 <span className="ml-1 text-[10px] text-muted-foreground font-normal">
                   ({activeState})
@@ -49,7 +49,7 @@ export function ContentTab({
             />
           </div>
           <div className="space-y-1 col-span-2">
-            <Label htmlFor="backgroundOpacity">Background opacity</Label>
+            <Label htmlFor="backgroundOpacity">背景不透明度</Label>
             <Tooltip>
               <TooltipTrigger asChild>
                 <div className={inState ? 'opacity-50 pointer-events-none' : ''}>
@@ -97,7 +97,7 @@ export function ContentTab({
                   </div>
                 </div>
               </TooltipTrigger>
-              {inState && <TooltipContent sideOffset={6}>Not supported for state transitions</TooltipContent>}
+              {inState && <TooltipContent sideOffset={6}>不支持状态切换</TooltipContent>}
             </Tooltip>
             <div className="col-span-2 -mt-1">
               <p className="text-[11px] text-muted-foreground">
@@ -109,7 +109,7 @@ export function ContentTab({
                   className="underline underline-offset-2 hover:text-foreground"
                   onClick={() => setActiveTab('compositing')}
                 >
-                  Compositing → Opacity
+                  合成 → 不透明度
                 </button>.
               </p>
             </div>
@@ -117,7 +117,7 @@ export function ContentTab({
         </>
       )}
       <div className="space-y-1">
-        <Label htmlFor="borderColor">Border colour</Label>
+        <Label htmlFor="borderColor">边框颜色</Label>
         <Tooltip>
           <TooltipTrigger asChild>
             <div>
@@ -130,11 +130,11 @@ export function ContentTab({
               />
             </div>
           </TooltipTrigger>
-          {inState && <TooltipContent sideOffset={6}>Not supported for state transitions</TooltipContent>}
+          {inState && <TooltipContent sideOffset={6}>不支持状态切换</TooltipContent>}
         </Tooltip>
       </div>
       <div className="space-y-1">
-        <Label htmlFor="borderWidth">Border width</Label>
+        <Label htmlFor="borderWidth">边框宽度</Label>
         <Tooltip>
           <TooltipTrigger asChild>
             <div>
@@ -161,7 +161,7 @@ export function ContentTab({
               />
             </div>
           </TooltipTrigger>
-          {inState && <TooltipContent sideOffset={6}>Not supported for state transitions</TooltipContent>}
+          {inState && <TooltipContent sideOffset={6}>不支持状态切换</TooltipContent>}
         </Tooltip>
       </div>
     </div>

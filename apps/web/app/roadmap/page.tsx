@@ -11,7 +11,7 @@ export default function RoadmapPage() {
   const [selectedMonth, setSelectedMonth] = useState<1 | 2 | 3>(3);
 
   useEffect(() => {
-    document.title = "CAPlayground - Roadmap";
+    document.title = "CAPlayground - 路线图";
   }, []);
 
   return (
@@ -20,26 +20,26 @@ export default function RoadmapPage() {
       <main className="flex-1">
         <section className="container mx-auto px-3 min-[600px]:px-4 lg:px-6 py-16 md:py-24">
         <header className="mb-10 space-y-2">
-          <h1 className="font-heading text-4xl md:text-5xl font-bold">Project Roadmap</h1>
-          <p className="text-muted-foreground">What's cooking in CAPlayground? (Last Updated: 17th November, 2025)</p>
+          <h1 className="font-heading text-4xl md:text-5xl font-bold">项目路线图</h1>
+          <p className="text-muted-foreground">CAPlayground 的开发进展（最后更新：2025 年 11 月 17 日）</p>
           <div className="flex gap-2 pt-4">
             <Button
               variant={selectedMonth === 1 ? "default" : "outline"}
               onClick={() => setSelectedMonth(1)}
             >
-              Month 1
+              第 1 个月
             </Button>
             <Button
               variant={selectedMonth === 2 ? "default" : "outline"}
               onClick={() => setSelectedMonth(2)}
             >
-              Month 2
+              第 2 个月
             </Button>
             <Button
               variant={selectedMonth === 3 ? "default" : "outline"}
               onClick={() => setSelectedMonth(3)}
             >
-              Month 3
+              第 3 个月
             </Button>
           </div>
         </header>
@@ -52,64 +52,64 @@ export default function RoadmapPage() {
 
         {selectedMonth === 1 && (
           <div className="space-y-6">
-            <RoadmapItem index={1} title="The Start" status={<Badge>Done: 24th August, 2025</Badge>}>
-              Starting the project on 24th August, 2025 because Lemin said it's time for a second wallpaper competition. Creating the project.
+            <RoadmapItem index={1} title="项目启动" status={<Badge>完成：2025 年 8 月 24 日</Badge>}>
+              2025 年 8 月 24 日，Lemin 提议举办第二届壁纸比赛，项目由此启动。
             </RoadmapItem>
-            <RoadmapItem index={2} title="Projects and Base Editor" status={<Badge>Done: 24th August, 2025</Badge>}>
-              Projects page, base editor, and create .ca files.
+            <RoadmapItem index={2} title="项目管理与基础编辑器" status={<Badge>完成：2025 年 8 月 24 日</Badge>}>
+              创建项目页面、基础编辑器以及 .ca 文件导出功能。
             </RoadmapItem>
-            <RoadmapItem index={3} title="Viewing and Editing Layers" status={<Badge>Done: 5th September, 2025</Badge>}>
-              Viewing and Editing layers of a Core Animation file. Exporting the .ca file.
+            <RoadmapItem index={3} title="查看与编辑图层" status={<Badge>完成：2025 年 9 月 5 日</Badge>}>
+              查看和编辑 Core Animation 文件中的图层，并导出 .ca 文件。
             </RoadmapItem>
-            <RoadmapItem index={4} title="Core Animation Layer Properties" status={<Badge>Done: 5th September, 2025</Badge>}>
-              Adjusting position, bounds, opacity, rotation, and more of layers.
+            <RoadmapItem index={4} title="Core Animation 图层属性" status={<Badge>完成：2025 年 9 月 5 日</Badge>}>
+              调整图层的位置、边界、不透明度、旋转等属性。
             </RoadmapItem>
-            <RoadmapItem index={5} title="Creating Animations, Viewing and Editing States" status={<Badge>Done: 22nd September, 2025</Badge>}>
-              Creating state transitions and keyframe animations.
+            <RoadmapItem index={5} title="动画和状态编辑" status={<Badge>完成：2025 年 9 月 22 日</Badge>}>
+              创建状态切换和关键帧动画。
             </RoadmapItem>
-            <RoadmapItem index={6} title="CAPlayground App" status={<Badge variant="secondary" className="align-middle mx-1">Skipped</Badge>}>
-              CAPlayground app to work inside an app.
+            <RoadmapItem index={6} title="CAPlayground 应用" status={<Badge variant="secondary" className="align-middle mx-1">已跳过</Badge>}>
+              开发独立的 CAPlayground 应用。
             </RoadmapItem>
           </div>
         )}
         {selectedMonth === 2 && (
           <div className="space-y-6">
-            <RoadmapItem index={1} title="Mobile Editor" status={<Badge>Done: 4th October, 2025</Badge>}>
-              Edit wallpapers on mobile, such as your iPhone or iPad.
+            <RoadmapItem index={1} title="移动端编辑器" status={<Badge>完成：2025 年 10 月 4 日</Badge>}>
+              在 iPhone 或 iPad 等移动设备上编辑壁纸。
             </RoadmapItem>
-            <RoadmapItem index={2} title="Wallpaper Gallery" status={<Badge>Done: 5th October, 2025</Badge>}>
-              Wallpaper Gallery to showcase your wallpapers and browse the CAPlayground community's wallpapers.
+            <RoadmapItem index={2} title="壁纸库" status={<Badge>完成：2025 年 10 月 5 日</Badge>}>
+              在壁纸库展示作品并浏览社区壁纸。
             </RoadmapItem>
-            <RoadmapItem index={3} title="Gradient Layers" status={<Badge>Done: 7th October, 2025</Badge>}>
-              Create gradients with the modes radial, axial, and conic.
+            <RoadmapItem index={3} title="渐变图层" status={<Badge>完成：2025 年 10 月 7 日</Badge>}>
+              创建径向、轴向和圆锥渐变。
             </RoadmapItem>
-            <RoadmapItem index={4} title="Cloud Projects" status={<Badge>Done: 18th October, 2025</Badge>}>
-              Sync your projects to Google Drive to access projects on multiple devices.
+            <RoadmapItem index={4} title="云端项目" status={<Badge>完成：2025 年 10 月 18 日</Badge>}>
+              将项目同步至 Google Drive，方便跨设备访问。
             </RoadmapItem>
-            <RoadmapItem index={5} title="Emitters Support" status={<Badge>Done: 24th October, 2025</Badge>}>
-              Create emitters layers and cells to emit particles.
+            <RoadmapItem index={5} title="发射器支持" status={<Badge>完成：2025 年 10 月 24 日</Badge>}>
+              创建发射器图层和粒子单元。
             </RoadmapItem>
-            <RoadmapItem index={6} title="Parallax Effect (Beta)" status={<Badge>Done: 28th October, 2025</Badge>}>
-              Create wallpapers with Parallax Effect (Gyroscope) for iOS 26. Will need to make sublayers support because of this.
+            <RoadmapItem index={6} title="视差效果（测试版）" status={<Badge>完成：2025 年 10 月 28 日</Badge>}>
+              制作支持 iOS 26 的陀螺仪视差壁纸，并完善子图层支持。
             </RoadmapItem>
           </div>
         )}
         {selectedMonth === 3 && (
           <div className="space-y-6">
-            <RoadmapItem index={1} title="Replicator Layers" status={<Badge>Done: 3rd November, 2025</Badge>}>
-              Create replicator layers to duplicate and arrange layers in patterns.
+            <RoadmapItem index={1} title="复制器图层" status={<Badge>完成：2025 年 11 月 3 日</Badge>}>
+              创建复制器图层，按指定图案复制和排列图层。
             </RoadmapItem>
-            <RoadmapItem index={2} title="Blending Modes" status={<Badge>Done: 12th November, 2025</Badge>}>
-              Create a blending effect between 2+ layers such as darken, lighten and more.
+            <RoadmapItem index={2} title="混合模式" status={<Badge>完成：2025 年 11 月 12 日</Badge>}>
+              在多个图层之间实现变暗、变亮等混合效果。
             </RoadmapItem>
-            <RoadmapItem index={3} title="Filters" status={<Badge>Done: 12th November, 2025</Badge>}>
-              Add filters to layers for effects, such as guassin blur, contrast, and more.
+            <RoadmapItem index={3} title="滤镜" status={<Badge>完成：2025 年 11 月 12 日</Badge>}>
+              为图层添加高斯模糊、对比度等滤镜效果。
             </RoadmapItem>
-            <RoadmapItem index={4} title="Sync Video with State" status={<Badge>Done: 17th November, 2025</Badge>}>
-              Sync video with state transitions to have a video start on a state and end on another.
+            <RoadmapItem index={4} title="视频与状态同步" status={<Badge>完成：2025 年 11 月 17 日</Badge>}>
+              视频随状态切换播放，从一种状态开始，到另一种状态结束。
             </RoadmapItem>
-            <RoadmapItem index={5} title="Performance Improvements" status={<Badge variant="secondary" className="align-middle mx-1">In Progress</Badge>}>
-              Fix bugs, improve performance, reducing crashes and lagging on devices with optimisation settings.
+            <RoadmapItem index={5} title="性能优化" status={<Badge variant="secondary" className="align-middle mx-1">进行中</Badge>}>
+              修复问题、提升性能，通过优化设置减少设备上的崩溃和卡顿。
             </RoadmapItem>
           </div>
         )}

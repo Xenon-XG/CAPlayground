@@ -53,28 +53,28 @@ export default function ResetPasswordPage() {
       <div className="w-full max-w-md">
         <Card className="border-border/80 shadow-none">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl md:text-4xl font-bold">Set a new password</CardTitle>
+            <CardTitle className="text-3xl md:text-4xl font-bold">设置新密码</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-5">
               {!AUTH_ENABLED ? (
-                <p className="text-sm text-muted-foreground">Password reset is disabled because authentication is not configured for this environment.</p>
+                <p className="text-sm text-muted-foreground">此环境未配置身份验证，无法重置密码。</p>
               ) : !ready ? (
                 <p className="text-sm text-muted-foreground">
-                  Verifying your reset link...
+                  正在验证重置链接…
                 </p>
               ) : null}
 
               {AUTH_ENABLED && ready && (
                 <>
                   <div className="space-y-2">
-                    <Label htmlFor="new-password">New Password</Label>
+                    <Label htmlFor="new-password">新密码</Label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="new-password"
                         type="password"
-                        placeholder="Create a new password"
+                        placeholder="设置新密码"
                         className="pl-9"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -83,13 +83,13 @@ export default function ResetPasswordPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="confirm-password">Confirm Password</Label>
+                    <Label htmlFor="confirm-password">确认密码</Label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="confirm-password"
                         type="password"
-                        placeholder="Re-enter your password"
+                        placeholder="再次输入密码"
                         className="pl-9"
                         value={confirm}
                         onChange={(e) => setConfirm(e.target.value)}
@@ -105,7 +105,7 @@ export default function ResetPasswordPage() {
                   </Button>
 
                   <p className="text-center text-sm text-muted-foreground">
-                    <Link href="/signin" className="text-accent hover:underline font-medium">Back to sign in</Link>
+                    <Link href="/signin" className="text-accent hover:underline font-medium">返回登录</Link>
                   </p>
                 </>
               )}

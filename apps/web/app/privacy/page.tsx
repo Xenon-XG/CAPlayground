@@ -10,7 +10,7 @@ export default function PrivacyPage() {
   const { theme, setTheme } = useTheme()
   
   useEffect(() => {
-    document.title = "CAPlayground - Privacy Policy";
+    document.title = "CAPlayground - 隐私政策";
   }, []);
 
   return (
@@ -19,7 +19,7 @@ export default function PrivacyPage() {
       <div className="absolute left-4 top-4">
         <Link href="/">
           <Button variant="ghost" size="sm" className="h-8 px-2">
-            <ArrowLeft className="h-4 w-4 mr-1" /> Back
+            <ArrowLeft className="h-4 w-4 mr-1" /> 返回
           </Button>
         </Link>
       </div>
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
         <Button
           variant="ghost"
           size="icon"
-          aria-label="Toggle theme"
+          aria-label="切换主题"
           className="rounded-full h-9 w-9 p-0"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
 
       <div className="mx-auto max-w-3xl">
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Privacy Policy</h1>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">隐私政策</h1>
           <p className="mt-2 text-sm text-muted-foreground">Last Updated: 20th October 2025</p>
         </div>
 
@@ -59,7 +59,7 @@ export default function PrivacyPage() {
               <strong>Cloud Projects (Optional)</strong>: You can optionally use Cloud Projects by signing in to Google Drive. When you do this, your project files are stored in YOUR Google Drive account, not on CAPlayground servers. We do not receive, store, or have access to your Cloud Projects. All data is transmitted directly between your browser and Google Drive.
             </li>
             <li>
-              <strong>Account Information</strong>: If you create an account via Supabase using email/password or Google OAuth,
+              <strong>账户信息</strong>: If you create an account via Supabase using email/password or Google OAuth,
               we process your email, necessary authentication identifiers (e.g., provider and user ID), and optional profile
               information required to operate the Service.
             </li>
@@ -156,7 +156,7 @@ export default function PrivacyPage() {
 
           <p className="mt-10 text-sm text-muted-foreground">
             Also see our {" "}
-            <Link href="/tos" className="underline">Terms of Service</Link>.
+            <Link href="/tos" className="underline">服务条款</Link>.
           </p>
         </div>
       </div>

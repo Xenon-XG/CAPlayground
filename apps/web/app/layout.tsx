@@ -16,14 +16,14 @@ const sourceSans = Source_Sans_3({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
-  title: "CAPlayground - CA Wallpaper Editor",
-  description: "Create beautiful animated wallpapers for iOS and iPadOS on any desktop computer",
+  title: "CAPlayground - CA 动态壁纸编辑器",
+  description: "在电脑上制作精美的 iOS 和 iPadOS 动态壁纸",
   verification: {
     google: "5CfgPBQMN4wnoC3Va9OnlfALRYaoLEekJkqMkGKLXOc",
   },
   openGraph: {
-    title: "CAPlayground - CA Wallpaper Editor",
-    description: "Create beautiful animated wallpapers for iOS and iPadOS on any desktop computer",
+    title: "CAPlayground - CA 动态壁纸编辑器",
+    description: "在电脑上制作精美的 iOS 和 iPadOS 动态壁纸",
     type: "website",
     images: [
       { url: "/icon-light.png", alt: "CAPlayground icon (light)" },
@@ -52,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${sourceSans.variable}`} suppressHydrationWarning>
+    <html lang="zh-CN" className={`${sourceSans.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased min-h-screen bg-background text-foreground">
         <PostHogProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>

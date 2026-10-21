@@ -106,7 +106,7 @@ export function Navigation() {
               {/* light icon */}
               <Image
                 src="/icon-light.png"
-                alt="CAPlayground icon"
+                alt="CAPlayground 图标"
                 width={32}
                 height={32}
                 className="rounded-lg block dark:hidden"
@@ -115,7 +115,7 @@ export function Navigation() {
               {/* dark icon */}
               <Image
                 src="/icon-dark.png"
-                alt="CAPlayground icon"
+                alt="CAPlayground 图标"
                 width={32}
                 height={32}
                 className="rounded-lg hidden dark:block"
@@ -132,16 +132,16 @@ export function Navigation() {
             {/* Desktop Navigation */}
             <div className="hidden min-[1045px]:flex items-center justify-center gap-6 justify-self-center">
               <Link href="/docs" className="text-foreground hover:text-accent transition-colors">
-                Docs
+                文档
               </Link>
               <Link href="/contributors" className="text-foreground hover:text-accent transition-colors">
-                Contributors
+                贡献者
               </Link>
               <Link href="/roadmap" className="text-foreground hover:text-accent transition-colors">
-                Roadmap
+                路线图
               </Link>
               <Link href="/wallpapers" className="text-foreground hover:text-accent transition-colors">
-                Wallpapers
+                壁纸
               </Link>
             </div>
 
@@ -153,7 +153,7 @@ export function Navigation() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      aria-label="Account"
+                      aria-label="账户"
                       className="rounded-full h-9 w-9 p-0"
                     >
                       <User className="h-5 w-5" />
@@ -161,7 +161,7 @@ export function Navigation() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-40">
                     <DropdownMenuItem onClick={() => (window.location.href = "/dashboard")}>
-                      <LayoutDashboard className="mr-2 h-4 w-4" /> Dashboard
+                      <LayoutDashboard className="mr-2 h-4 w-4" /> 控制台
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={async () => {
@@ -171,27 +171,27 @@ export function Navigation() {
                         window.location.href = "/"
                       }}
                     >
-                      <LogOut className="mr-2 h-4 w-4" /> Sign out
+                      <LogOut className="mr-2 h-4 w-4" /> 退出登录
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
                 <Link href="/signin">
                   <Button variant="outline" className="font-semibold">
-                    Sign In
+                    登录
                   </Button>
                 </Link>
               )}
               <Link href="/projects">
                 <Button variant="default" className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
-                  Projects <ArrowRight className="h-4 w-4 ml-2" />
+                  项目 <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
               </Link>
 
               <Button
                 variant="ghost"
                 size="icon"
-                aria-label="Toggle theme"
+                aria-label="切换主题"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="rounded-full h-9 w-9 p-0"
               >
@@ -208,7 +208,7 @@ export function Navigation() {
               id="mobile-menu-button"
               className="min-[1045px]:hidden p-2 rounded-lg hover:bg-muted transition-colors justify-self-end"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
+              aria-label="切换菜单"
               aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -233,28 +233,28 @@ export function Navigation() {
                   className="text-foreground hover:text-accent hover:bg-muted/50 transition-all duration-200 py-3 px-6 rounded-lg mx-2 text-4xl"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Docs
+                  文档
                 </Link>
                 <Link
                   href="/roadmap"
                   className="text-foreground hover:text-accent hover:bg-muted/50 transition-all duration-200 py-3 px-6 rounded-lg mx-2 text-4xl"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Roadmap
+                  路线图
                 </Link>
                 <Link
                   href="/wallpapers"
                   className="text-foreground hover:text-accent hover:bg-muted/50 transition-all duration-200 py-3 px-6 rounded-lg mx-2 text-4xl"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Wallpapers
+                  壁纸
                 </Link>
                 <Link
                   href="/contributors"
                   className="text-foreground hover:text-accent hover:bg-muted/50 transition-all duration-200 py-3 px-6 rounded-lg mx-2 text-4xl"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Contributors
+                  贡献者
                 </Link>
                 {/* bottom primary actions */}
                 <div className="px-2 pt-2 pb-3 my-2">
@@ -264,15 +264,15 @@ export function Navigation() {
                         <Button
                           variant="outline"
                           className="w-full text-lg h-10"
-                          aria-label="Account"
+                          aria-label="账户"
                         >
-                          Account
+                          账户
                         </Button>
                       </Link>
                     ) : (
                       <Link href="/signin" onClick={() => setIsMenuOpen(false)} className="flex-1">
                         <Button variant="outline" className="w-full text-lg h-10">
-                          Sign In
+                          登录
                         </Button>
                       </Link>
                     )}
@@ -281,7 +281,7 @@ export function Navigation() {
                         variant="default"
                         className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold w-full text-lg h-10"
                       >
-                        Projects <ArrowRight className="h-4 w-4 ml-2" />
+                        项目 <ArrowRight className="h-4 w-4 ml-2" />
                       </Button>
                     </Link>
                   </div>
@@ -297,11 +297,11 @@ export function Navigation() {
                   >
                     {mounted && theme === "dark" ? (
                       <>
-                        <Sun className="h-5 w-5 mr-2" /> Light Mode
+                        <Sun className="h-5 w-5 mr-2" /> 浅色模式
                       </>
                     ) : (
                       <>
-                        <Moon className="h-5 w-5 mr-2" /> Dark Mode
+                        <Moon className="h-5 w-5 mr-2" /> 深色模式
                       </>
                     )}
                   </Button>
